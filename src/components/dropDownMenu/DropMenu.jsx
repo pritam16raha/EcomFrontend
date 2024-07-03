@@ -26,8 +26,11 @@ const DropMenu = () => {
 export default DropMenu;
 
 const DropDown = styled.div`
-    display: flex;
-    flex-direction: column;
+    /* display: flex;
+    flex-direction: column; */
+    position: absolute;
+    justify-content: center;
+    align-items: center;
 
 `
 

@@ -17,6 +17,11 @@ import { AuthProvider } from "./store/Auth";
 import { LogOutScreen } from "./components/screens/auth/LogOutScreen";
 import UserInfoPage from "./components/screens/auth/UserInfoPage";
 import AddProduct from "./Admin/AddProduct";
+import AdminRegistration from "./Admin/AdminRegistration";
+import AdminLayout from "./components/layout/AdminLayout";
+import AllUser from "./Admin/AllUser";
+import AllProduct from "./Admin/AllProduct";
+import UpdateUser from "./Admin/UpdateUser";
 
 function App() {
   return (
@@ -34,12 +39,7 @@ function App() {
               <Route path="/singleproduct" element={<ProductDetailsScreen />} />
               <Route path="/cart" element={<Cart />} />
               <Route path="/emptycart" element={<EmptyCart />} />
-
-              <Route path="/userinfo" element= {<UserInfoPage/>}/>
-
-
-              //Admin
-              <Route path="/addproduct" element={<AddProduct/>}/>
+              <Route path="/userinfo" element={<UserInfoPage />} />
             </Route>
 
             {/* Auth Screen */}
@@ -47,7 +47,23 @@ function App() {
               <Route path="signin" element={<SignInScreen />} />
               <Route path="signup" element={<SignUpScreen />} />
               <Route path="login" element={<LoginScreen />} />
-              <Route path="signout" element={<LogOutScreen/>}/>
+              <Route path="signout" element={<LogOutScreen />} />
+            </Route>
+
+            {/* Admin Route */}
+            {/* <Route path="/admin" element={<AuthLayout />}>
+              <Route path="registration" element={<AdminRegistration />} />
+              <Route path="alluser" element={<AllUser />} />
+              <Route path="allproduct" element={<AllProduct />} />
+              <Route path="addproduct" element={<AddProduct />} />
+            </Route> */}
+
+            <Route path="/admin" element={<AdminLayout />}>
+              <Route path="registration" element={<AdminRegistration />} />
+              <Route path="alluser" element={<AllUser />} />
+              <Route path="updateuser/:id" element={<UpdateUser/>}/>
+              <Route path="allproduct" element={<AllProduct />} />
+              <Route path="addproduct" element={<AddProduct />} />
             </Route>
 
             <Route path="*" element={<NoScreenFoundScreen />} />

@@ -30,6 +30,29 @@ const navMenuData = [
   },
 ];
 
+const adminPages = [
+  {
+    id: "nav-menu-1",
+    menuLink: "/admin/registration",
+    menuText: "Registration",
+  },
+  {
+    id: "nav-menu-2",
+    menuLink: "/admin/addproduct",
+    menuText: "Add Product",
+  },
+  {
+    id: "nav-menu-3",
+    menuLink: "/admin/alluser",
+    menuText: "Users",
+  },
+  {
+    id: "nav-menu-4",
+    menuLink: "/admin/allproduct",
+    menuText: "All Product",
+  },
+]
+
 const sideMenuData = [
   {
     id: "side-menu-1",
@@ -864,4 +887,5 @@ export {
   recentViewedData,
   cardsData,
   socialLinksData,
+  adminPages
 }

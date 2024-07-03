@@ -8,6 +8,8 @@ export const AuthProvider = ({ children }) => {
   const [access_Token, setAccessToken] = useState(localStorage.getItem("access_Token"))
   const [currentUser, setCurrentUser] = useState("");
 
+  const authToken = `Bearer ${access_Token}`;
+
   const storeTokenInLocal = (serverToken) => {
     return localStorage.setItem("access_Token", serverToken);
   };
@@ -23,7 +25,7 @@ export const AuthProvider = ({ children }) => {
           const userRespondedData = await fetch(SummaryApi.userInfo.url, {
             method: SummaryApi.userInfo.method,
             headers: {
-              Authorization: `Bearer ${access_Token}`
+              Authorization: authToken
             }
           });
 
@@ -42,7 +44,7 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   return (
-    <AuthContext.Provider value={{ storeTokenInLocal, LogoutUser, currentUser }}>
+    <AuthContext.Provider value={{ storeTokenInLocal, LogoutUser, currentUser, authToken }}>
       {children}
     </AuthContext.Provider>
   );

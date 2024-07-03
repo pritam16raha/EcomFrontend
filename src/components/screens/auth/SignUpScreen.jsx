@@ -14,7 +14,6 @@ import { BaseButtonBlack } from "../../../styles/button";
 import { defaultTheme } from "../../../styles/themes/default";
 import { useEffect, useState } from "react";
 import SummaryApi from "../../../common/SummaryApi";
-import axios from "axios";
 import { toast } from "react-toastify";
 import { useMyAuth } from "../../../store/Auth";
 
@@ -66,7 +65,7 @@ const SignUpScreen = () => {
 
       const formData = await respondedData.json();
 
-      if(respondedData.status === 200){
+      if(respondedData.status === 200 || respondedData.ok){
 
         storeTokenInLocal(formData.access_Token)
 

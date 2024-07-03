@@ -65,6 +65,16 @@ const SummaryApi = {
     userInfo: {
         url: `${BackendDomain}/ecom/getUser`,
         method: "get"
+    },
+
+    getAllUser: {
+        url: `${BackendDomain}/ecom/getalluser`,
+        method: "get"
+    },
+
+    deleteUser: {
+        url: `${BackendDomain}/ecom/deleteuser/`,
+        method: "delete"
     }
 }
 

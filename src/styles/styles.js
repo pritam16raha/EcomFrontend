@@ -10,6 +10,16 @@ export const Container = styled.div`
     padding: 0 16px !important;
     margin: 0 auto;
     width: 100%;
+
+    /* .switch{
+        margin: none;
+        padding: none;
+        background-color: #fff;
+    } */
+
+     th{
+        
+     }
 `;
 
 export const Section = styled.section`

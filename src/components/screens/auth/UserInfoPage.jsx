@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useMyAuth } from "../../../store/Auth";
 
 const UserInfoPage = () => {
+  
+  const { currentUser } = useMyAuth();
+
   const [formData, setFormData] = useState({
     name: "",
     username: "",
@@ -10,21 +13,26 @@ const UserInfoPage = () => {
     role: "",
   });
 
-  const { currentUser } = useMyAuth();
 
   const [submittedData, setSubmittedData] = useState(null);
 
   const [currentUserData, setCurrentUserData] = useState(true);
 
-  if (currentUserData && currentUser) {
-    setFormData({
-      name: currentUser.name,
-      username: currentUser.username,
-      email: currentUser.email,
-      role: currentUser.role,
-    });
-    setCurrentUserData(false);
-  }
+
+  useEffect(() => {
+
+    if ( currentUser) {
+      setFormData({
+        name: currentUser.name,
+        username: currentUser.username,
+        email: currentUser.email,
+        role: currentUser.role,
+      });
+      setCurrentUserData(false);
+    }
+
+  },[currentUser])
+  
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -34,6 +42,8 @@ const UserInfoPage = () => {
     e.preventDefault();
     setSubmittedData(formData);
   };
+
+
 
   return (
     <Container>
