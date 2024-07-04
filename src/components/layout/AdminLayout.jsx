@@ -10,9 +10,9 @@ const AdminLayout = () => {
   const { currentUser } = useMyAuth();
   console.log("user data i got:-",currentUser);
 
-  if(currentUser.role != "admin"){
-    return <Navigate to="/" />
-  }
+  // if(currentUser.role != "admin"){
+  //   return <Navigate to="/" />
+  // }
   
   return (
     <PageWrapper>

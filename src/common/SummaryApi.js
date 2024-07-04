@@ -12,7 +12,7 @@ const SummaryApi = {
     },
 
     addNewProduct: {
-        url: `${BackendDomain}/ecom/product/add`,
+        url: `${BackendDomain}/ecom/product/upload`,
         method: "post"
     },
 
