@@ -22,6 +22,7 @@ import AdminLayout from "./components/layout/AdminLayout";
 import AllUser from "./Admin/AllUser";
 import AllProduct from "./Admin/AllProduct";
 import UpdateUser from "./Admin/UpdateUser";
+import UpdateProduct from "./Admin/UpdateProduct";
 
 function App() {
   return (
@@ -36,7 +37,8 @@ function App() {
             <Route path="/" element={<BaseLayout />}>
               <Route index element={<HomeScreen />} />
               <Route path="/product" element={<ProductListScreen />} />
-              <Route path="/singleproduct" element={<ProductDetailsScreen />} />
+              <Route path="/singleproduct/:id" element={<ProductDetailsScreen />} />
+
               <Route path="/cart" element={<Cart />} />
               <Route path="/emptycart" element={<EmptyCart />} />
               <Route path="/userinfo" element={<UserInfoPage />} />
@@ -64,6 +66,7 @@ function App() {
               <Route path="updateuser/:id" element={<UpdateUser/>}/>
               <Route path="allproduct" element={<AllProduct />} />
               <Route path="addproduct" element={<AddProduct />} />
+              <Route path="updateproduct/:id" element={<UpdateProduct/>} />
             </Route>
 
             <Route path="*" element={<NoScreenFoundScreen />} />

@@ -16,7 +16,7 @@ const AddProduct = () => {
     price: "",
     category: "",
     description: "",
-    image: ""
+    image: []
   });
 
   const handleOnChange = (e) => {
@@ -71,7 +71,7 @@ const AddProduct = () => {
     setFormData((preve) => {
       return{
         ...preve,
-        image: [ preve.image, imageOfCoundinary.url ]
+        image: [ ...preve.image, imageOfCoundinary.url ]
       }
     })
 

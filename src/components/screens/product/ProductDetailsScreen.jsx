@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { Container } from '../../../styles/styles';
 import BreadCrumb from '../../Common/BreadCrumb';
@@ -8,15 +8,49 @@ import starFill from "../../../assets/myImage/extra/fillstar.png";
 import halfStar from "../../../assets/myImage/extra/star-half-icon.png";
 import emptyStar from "../../../assets/myImage/extra/star-empty-icon.png";
 import chat from "../../../assets/myImage/extra/chat.png"
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import rightArrow from "../../../assets/myImage/extra/right_arrow.png"
 import { BaseLinkGreen } from '../../../styles/button';
 import { currencyFormat } from '../../../utils/helper';
 import cart from "../../../assets/myImage/cart/cart.png"
 import ProductDescriptionTab from '../../product/ProductDescriptionTab';
 import ProductServices from "../../../../src/components/product/ProductServices";
+import { useMyAuth } from '../../../store/Auth';
 
 const ProductDetailsScreen = () => {
+
+  //fetching product
+    
+  const [ curProduct, setCurProduct ] = useState();
+    //let productData;
+
+    const params = useParams();
+
+    const { authToken } = useMyAuth();
+
+    const getProductInfo = async (req, res, next) => {
+
+        try{
+            const responseIgot = await fetch(`http://localhost:5500/ecom/product/getOne/${params.id}`, {
+                method: "get",
+                headers: {
+                    Authorization: authToken,
+                }
+            });
+            const productData = await responseIgot.json();
+            setCurProduct(productData);
+            console.log("Current Product Is: ",productData)
+
+        }catch(err){
+            console.log("Error in fetching product data",err)
+        }
+    }
+
+    useEffect(() => {
+        getProductInfo()
+    },[])
+  
+    console.log("Current :",curProduct);
 
   const breadCrumbItems = [
     {label: "Shop", link: ""},
@@ -36,9 +70,13 @@ const ProductDetailsScreen = () => {
       <Container>
         <BreadCrumb items={breadCrumbItems}/>
         <DetailsContent>
-          <ProductPreview previewImages={product_one.previewImages}/>
+          {/* <ProductPreview previewImages={product_one.previewImages}/> */}
+          {
+            curProduct && <ProductPreview previewImages={curProduct?.image}/>
+          }
+          
           <ProductDetailsWrapper>
-            <h2 className="prod-title">{product_one.title}</h2>
+            <h2 className="prod-title">{curProduct?.name}</h2>
               <div className="flex items-center rating-and-comments flex-wrap">
                 <div className="prod-rating flex items-center">
                   {stars}

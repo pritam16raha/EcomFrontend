@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const HeaderMainWrapper = styled.header`
     min-height: 72px;
     box-shadow: rgba(17, 17, 26,0.05) 0 4px 16px, rgba(17, 17, 26,0.05) 0 8px 24px, rgba(17, 17, 26,0.05) 0 16px 56px;
-    
+    background-color: #d3d3d3;
     display: flex;
     align-items: center;
 
@@ -19,7 +19,6 @@ export const HeaderMainWrapper = styled.header`
         font-size: 26px;
         margin-right: 10px;
         margin-bottom: -1px;
-        
         display: none;
     }
 `;
@@ -29,7 +28,6 @@ export const SiteBrandWrapper = styled(Link)`
     column-gap: 10px;
 
     .brand-image-wrap{
-
         display: flex;
         align-items: center;
         justify-content: center;

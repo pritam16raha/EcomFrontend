@@ -9,7 +9,7 @@ const ProductDescriptionTab = () => {
   
     const[activeDescriptionTab , setDescriptionTab] = useState(productDescriptionTabHeads[0].tabHead);
 
-    const handleChange = (tabHead) => {
+      const handleChange = (tabHead) => {
       setDescriptionTab(tabHead);
     }
   

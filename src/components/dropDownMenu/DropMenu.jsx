@@ -16,8 +16,10 @@ const DropMenu = () => {
                   : ""
               }`}
             >Profile</Link>
+        <Link to="/admin/alluser">Admin</Link>
         <Link to="/signin">Signin</Link>
         <Link to="/signout">Signout</Link>
+
       </MenuList>
     </DropDown>
   );
