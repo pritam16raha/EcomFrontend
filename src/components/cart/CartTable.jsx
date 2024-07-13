@@ -3,34 +3,35 @@ import styled from 'styled-components';
 import { cartItems } from '../../data/data';
 import CartItem from './CartItem';
 
-const CartTable = () => {
-    const CART_TABLE_HEADS = [
-        "Product Details",
-        "Price",
-        "Quantity",
-        "Shipping",
-        "Subtotal",
-        "Action",
-    ]
+const CartTable = ( {cart} ) => {
+    // const CART_TABLE_HEADS = [
+    //     "Product Details",
+    //     "Price",
+    //     "Quantity",
+    //     "Shipping",
+    //     "Subtotal",
+    //     "Action",
+    // ]
+    console.log("cart table data",cart);
 
-
+console.log(cart)
 
   return (
     <ScrollBarWrapper>
         <CartTableWrapper>
             <thead>
                 <tr>
-                    {CART_TABLE_HEADS?.map((column, index) => (
+                    {cart?.map((column, index) => (
                         <th key={index} className={`bg-outerspace text-white font-semibold capitalize text-base ${
-                            index === CART_TABLE_HEADS.length - 1 ? " text-center" : ""}`}>
+                            index === cart?.length - 1 ? " text-center" : ""}`}>
                             {column}
                         </th>
                     ))}
                 </tr>
             </thead>
             <tbody>
-                {cartItems.map((cartItem) => {
-                    return <CartItem key={cartItem.id} cartItem={cartItem}/>
+                {cartItems.map((cart) => {
+                    return <CartItem key={cart.id} cartItem={cart}/>
                 })}
             </tbody>
         </CartTableWrapper>

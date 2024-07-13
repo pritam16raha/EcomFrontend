@@ -8,9 +8,13 @@ import { Input, InputGroupWrapper } from "../../styles/form";
 import { defaultTheme } from "../../styles/themes/default";
 import DropMenu from "../dropDownMenu/DropMenu";
 import { useState } from "react";
+import { useCart } from "../../store/Cart";
+import { Avatar, Badge, Space } from "antd";
 //import { useDispatch } from "react-redux";
 
 const Header = () => {
+  const {cart, setCart} = useCart();
+
   const location = useLocation();
   console.log(location.pathname);
 
@@ -89,7 +93,9 @@ const Header = () => {
                 location.pathname === "/cart" ? "active" : ""
               } inline-flex items-center justify-center`}
             >
-              <img src={staticImages.cart} alt="" />
+              <Badge count={cart?.length} showZero>
+                <Avatar shape="square" size="large" />
+              </Badge>
             </Link>
 
             <div className="flex items-center">

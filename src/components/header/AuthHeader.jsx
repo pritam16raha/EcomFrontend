@@ -5,6 +5,8 @@ import { staticImages } from "../../utils/myImageData";
 import { BaseLinkGreen, BaseLinkOutlineDark } from "../../styles/button";
 
 const AuthHeader = () => {
+
+  
   return (
     <HeaderMainWrapper>
       <Container>

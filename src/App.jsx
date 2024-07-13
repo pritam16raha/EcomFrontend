@@ -23,55 +23,61 @@ import AllUser from "./Admin/AllUser";
 import AllProduct from "./Admin/AllProduct";
 import UpdateUser from "./Admin/UpdateUser";
 import UpdateProduct from "./Admin/UpdateProduct";
+import { CartProvider } from "./store/Cart";
 
 function App() {
   return (
     <>
       <AuthProvider>
-        <Router>
-          <ToastContainer />
-          <GlobalStyles />
+        <CartProvider>
+          <Router>
+            <ToastContainer />
+            <GlobalStyles />
 
-          <Routes>
-            {/* Main Screen */}
-            <Route path="/" element={<BaseLayout />}>
-              <Route index element={<HomeScreen />} />
-              <Route path="/product" element={<ProductListScreen />} />
-              <Route path="/singleproduct/:id" element={<ProductDetailsScreen />} />
+            <Routes>
+              {/* Main Screen */}
+              <Route path="/" element={<BaseLayout />}>
+                <Route index element={<HomeScreen />} />
+                <Route path="/product" element={<ProductListScreen />} />
+                <Route
+                  path="/singleproduct/:id"
+                  element={<ProductDetailsScreen />}
+                />
 
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/emptycart" element={<EmptyCart />} />
-              <Route path="/userinfo" element={<UserInfoPage />} />
-            </Route>
+                <Route path="/cart" element={<Cart />} />
+                <Route path="/emptycart" element={<EmptyCart />} />
+                <Route path="/userinfo" element={<UserInfoPage />} />
+              </Route>
 
-            {/* Auth Screen */}
-            <Route path="/" element={<AuthLayout />}>
-              <Route path="signin" element={<SignInScreen />} />
-              <Route path="signup" element={<SignUpScreen />} />
-              <Route path="login" element={<LoginScreen />} />
-              <Route path="signout" element={<LogOutScreen />} />
-            </Route>
+              {/* Auth Screen */}
+              <Route path="/" element={<AuthLayout />}>
+                <Route path="signin" element={<SignInScreen />} />
+                <Route path="signup" element={<SignUpScreen />} />
+                <Route path="login" element={<LoginScreen />} />
+                <Route path="signout" element={<LogOutScreen />} />
+              </Route>
 
-            {/* Admin Route */}
-            {/* <Route path="/admin" element={<AuthLayout />}>
+              {/* Admin Route */}
+              {/* <Route path="/admin" element={<AuthLayout />}>
               <Route path="registration" element={<AdminRegistration />} />
               <Route path="alluser" element={<AllUser />} />
               <Route path="allproduct" element={<AllProduct />} />
               <Route path="addproduct" element={<AddProduct />} />
             </Route> */}
 
-            <Route path="/admin" element={<AdminLayout />}>
-              <Route path="registration" element={<AdminRegistration />} />
-              <Route path="alluser" element={<AllUser />} />
-              <Route path="updateuser/:id" element={<UpdateUser/>}/>
-              <Route path="allproduct" element={<AllProduct />} />
-              <Route path="addproduct" element={<AddProduct />} />
-              <Route path="updateproduct/:id" element={<UpdateProduct/>} />
-            </Route>
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route path="registration" element={<AdminRegistration />} />
+                <Route path="alluser" element={<AllUser />} />
+                <Route path="updateuser/:id" element={<UpdateUser />} />
+                <Route path="allproduct" element={<AllProduct />} />
+                <Route path="addproduct" element={<AddProduct />} />
+                <Route path="updateproduct/:id" element={<UpdateProduct />} />
+              </Route>
 
-            <Route path="*" element={<NoScreenFoundScreen />} />
-          </Routes>
-        </Router>
+              <Route path="*" element={<NoScreenFoundScreen />} />
+            </Routes>
+          </Router>
+        </CartProvider>
       </AuthProvider>
     </>
   );

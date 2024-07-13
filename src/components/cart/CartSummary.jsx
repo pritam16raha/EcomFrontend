@@ -25,7 +25,10 @@ const CartSummaryWrapper = styled.div`
   }
 `;
 
-const CartSummary = () => {
+const CartSummary = (product) => {
+
+  
+
   return (
     <CartSummaryWrapper>
       <ul className="summary-list">
