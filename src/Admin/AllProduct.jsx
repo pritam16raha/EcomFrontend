@@ -3,10 +3,12 @@ import styled from "styled-components";
 import { Container } from "../styles/styles";
 import { useMyAuth } from "../store/Auth";
 import SummaryApi from "../common/SummaryApi";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const AllProduct = () => {
   const { authToken } = useMyAuth();
+
+  const params = useParams();
 
   const [products, setProducts] = useState();
 
@@ -35,6 +37,27 @@ const AllProduct = () => {
   useEffect(() => {
     getAllProduct();
   }, []);
+
+  const handleDelete = async (id) => {
+    try{
+      const deleteRequest = await fetch(`http://localhost:5500/ecom/product/delete/${id}`,{
+        method: "DELETE",
+        headers: {
+          Authorization: authToken,
+        }
+      })
+
+      // if(!deleteRequest.ok){
+      //   throw new Error("Product not deleted")
+      // }
+
+      if(deleteRequest.status===200 || deleteRequest.ok){
+        alert("Delete successful")
+      }
+    }catch(err){
+      console.log("Error from delete product, catch block",err)
+    }
+  }
 
   return (
     <>
@@ -79,7 +102,7 @@ const AllProduct = () => {
                           Edit
                         </Link>
                       </button>
-                      <button onClick={() => ""} className="button">
+                      <button onClick={() => handleDelete(`${currentProduct._id}`)} className="button">
                         Delete
                       </button>
                     </TableCell>
