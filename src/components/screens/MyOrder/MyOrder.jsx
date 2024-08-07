@@ -11,7 +11,7 @@ const MyOrder = () => {
   try {
     const fetchedOrder = async () => {
       try {
-        const response = await fetch("http://localhost:5500/ecom/getallorder", {
+        const response = await fetch("https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/getallorder", {
           method: "GET",
           headers: {
             Authorization: authToken,

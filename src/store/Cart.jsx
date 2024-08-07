@@ -17,7 +17,7 @@ export const CartProvider = ({ children }) => {
 
   const getCurrentProduct = async() => {
     try{
-      const singleProduct = await fetch(`http://localhost:5500/ecom/product/getOne/${params?.id}`,{
+      const singleProduct = await fetch(`https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/getOne/${params?.id}`,{
         method: "get",
         headers: {
           Authorization: authToken,

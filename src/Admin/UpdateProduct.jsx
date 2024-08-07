@@ -19,7 +19,7 @@ const UpdateProduct = () => {
 
     const getCurrentProduct = async() => {
       try{
-        const singleProduct = await fetch(`http://localhost:5500/ecom/product/getOne/${params.id}`,{
+        const singleProduct = await fetch(`https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/getOne/${params.id}`,{
           method: "get",
           headers: {
             Authorization: authToken,
@@ -53,7 +53,7 @@ const UpdateProduct = () => {
       e.preventDefault();
 
       try{
-        const updateProductData = await fetch(`http://localhost:5500/ecom/product/edit/${params.id}`, {
+        const updateProductData = await fetch(`https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/edit/${params.id}`, {
           method: "put",
           headers: {
             Authorization: authToken,

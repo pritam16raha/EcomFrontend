@@ -13,7 +13,7 @@ const AllUser = () => {
   const deleteUser = async (id) => {
     try {
       const dropUser = await fetch(
-        `http://localhost:5500/ecom/deleteuser/${id}`,
+        `https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/deleteuser/${id}`,
         {
           method: SummaryApi.deleteUser.method,
           headers: {

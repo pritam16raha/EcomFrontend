@@ -123,7 +123,7 @@ const Cart = (product) => {
     try {
       const { _id } = currentUser;
       console.log("user id is", _id);
-      const data = await fetch("http://localhost:5500/ecom/orderplace", {
+      const data = await fetch("https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/orderplace", {
         method: "POST",
         headers: {
           Authorization: authToken,
@@ -138,7 +138,7 @@ const Cart = (product) => {
         window.location.href = response.session_url;
         localStorage.setItem(cart);
         // setCart("")
-        navigate('http://localhost:5173/order')
+        navigate('https://ecom-backend-pritam16rahas-projects.vercel.app/order')
       } else {
         console.error("Payment failed or was not successful");
       }

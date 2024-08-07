@@ -40,7 +40,7 @@ const AllProduct = () => {
 
   const handleDelete = async (id) => {
     try{
-      const deleteRequest = await fetch(`http://localhost:5500/ecom/product/delete/${id}`,{
+      const deleteRequest = await fetch(`https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/delete/${id}`,{
         method: "DELETE",
         headers: {
           Authorization: authToken,

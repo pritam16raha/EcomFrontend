@@ -35,7 +35,7 @@ const ProductDetailsScreen = () => {
   const getProductInfo = async (req, res, next) => {
     try {
       const responseIgot = await fetch(
-        `http://localhost:5500/ecom/product/getOne/${params.id}`,
+        `https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/getOne/${params.id}`,
         {
           method: "get",
           headers: {

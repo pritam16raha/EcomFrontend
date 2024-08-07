@@ -104,28 +104,28 @@ const AddProduct = () => {
 
     switch (category) {
       case "accessories":
-        apiUrl = "http://localhost:5500/ecom/product/add";
+        apiUrl = "https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/add";
         break;
       case "mods":
-        apiUrl = "http://localhost:5500/ecom/product/add";
+        apiUrl = "https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/add";
         break;
       case "newArrival":
-        apiUrl = "http://localhost:5500/ecom/product/add";
+        apiUrl = "https://ecom-backend-pritam16rahas-projects.vercel.app/product/add";
         break;
       case "essentials":
-        apiUrl = "http://localhost:5500/ecom/product/add";
+        apiUrl = "https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/add";
         break;
       case "normal":
-        apiUrl = "http://localhost:5500/ecom/product/add";
+        apiUrl = "https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/add";
         break;
       case "city":
-        apiUrl = "http://localhost:5500/ecom/product/add";
+        apiUrl = "https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/add";
         break;
       case "tourer":
-        apiUrl = "http://localhost:5500/ecom/product/add";
+        apiUrl = "https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/add";
         break;
       case "streetFighter":
-        apiUrl = "http://localhost:5500/ecom/product/add";
+        apiUrl = "https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/add";
         break;
     }
 

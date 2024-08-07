@@ -23,7 +23,7 @@ const UpdateUser = () => {
 
   const getCurrentUser = async () => {
     try{
-      const fetchedUser = await fetch(`http://localhost:5500/ecom/getuserinfo/${params.id}`, {
+      const fetchedUser = await fetch(`https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/getuserinfo/${params.id}`, {
         method: SummaryApi.getAllUser.method,
         headers: {
           Authorization: authToken,
@@ -59,7 +59,7 @@ const UpdateUser = () => {
     e.preventDefault();
 
     try{
-      const respondedData = await fetch(`http://localhost:5500/ecom/updateuser/${params.id}`, {
+      const respondedData = await fetch(`https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/updateuser/${params.id}`, {
         method: "put",
         headers: {
           Authorization: authToken,
