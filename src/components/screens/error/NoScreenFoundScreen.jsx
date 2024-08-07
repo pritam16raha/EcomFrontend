@@ -2,7 +2,7 @@
 import styled from 'styled-components';
 import { Container } from '../../../styles/styles';
 import { BaseLinkGreen } from '../../../styles/button';
-import { staticImages } from '../../../utils/myImageData';
+import { staticImages } from '../../../utils/myImageData.js';
 
 const NoScreenFoundScreen = () => {
   return (
