@@ -2,6 +2,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import styled from "styled-components";
+import { DropDown } from "../../styles/header";
 
 const DropMenu = () => {
   return (
@@ -27,14 +28,12 @@ const DropMenu = () => {
 
 export default DropMenu;
 
-const DropDown = styled.div`
-    /* display: flex;
-    flex-direction: column; */
-    position: absolute;
-    justify-content: center;
-    align-items: center;
-
-`
+// const DropDown = styled.div`
+//     /* display: flex;
+//     flex-direction: column; */
+//     position: absolute;
+//     margin-right: 10rem;
+// `
 
 const MenuList = styled.ul`
     display: flex;

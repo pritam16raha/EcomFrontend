@@ -24,6 +24,7 @@ import AllProduct from "./Admin/AllProduct";
 import UpdateUser from "./Admin/UpdateUser";
 import UpdateProduct from "./Admin/UpdateProduct";
 import { CartProvider } from "./store/Cart";
+import MyOrder from "./components/screens/MyOrder/MyOrder";
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
                 />
 
                 <Route path="/cart" element={<Cart />} />
+                <Route path='/order' element={<MyOrder/>} />
                 <Route path="/emptycart" element={<EmptyCart />} />
                 <Route path="/userinfo" element={<UserInfoPage />} />
               </Route>

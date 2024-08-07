@@ -43,7 +43,9 @@ const AdminHeader = () => {
         </NavigationMenuWrapper>
       </Container>
 
+      <Dropmenu>
       {openDropMenu && <DropMenu />}
+      </Dropmenu>
     </HeaderMainWrapper>
   );
 };
@@ -66,3 +68,8 @@ const NavigationMenuWrapper = styled.nav`
     }
   }
 `;
+
+const Dropmenu = styled.div`
+  
+`
+

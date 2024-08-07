@@ -106,8 +106,11 @@ const Header = () => {
           </IconLinksWrapper>
         </div>
       </Container>
-
+      
+      <div className="dropmenu">
       {openDropMenu && <DropMenu />}
+      </div>
+
     </HeaderMainWrapper>
   );
 };

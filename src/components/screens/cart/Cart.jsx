@@ -129,27 +129,25 @@ const Cart = (product) => {
           Authorization: authToken,
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ id: _id, cart, cartTotal }),
+        body: JSON.stringify({ id: _id, cart, cartTotal, currentUser }),
       });
 
       const response = await data.json();
       console.log("Response after payment", response);
       if (response.success) {
         window.location.href = response.session_url;
+        localStorage.setItem(cart);
+        // setCart("")
+        navigate('http://localhost:5173/order')
       } else {
         console.error("Payment failed or was not successful");
       }
-      // const result = response.redirectToCheckout({
-        
-      // });
 
       if (data.status === 200 || data.ok) {
+        // setCart("")
         toast.success(response.message);
       }
 
-      // if (result.error) {
-      //   console.log(result.error);
-      // }
     } catch (err) {
       console.log("Error from cart page -> handle payment catch block", err);
     }

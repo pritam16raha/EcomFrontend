@@ -1,66 +1,72 @@
-import React, { useState } from 'react';
-import styled from 'styled-components';
-import { useMyAuth } from '../store/Auth';
-import { useParams } from 'react-router-dom';
-import SummaryApi from '../common/SummaryApi';
-import uploadImage from '../components/helpers/uploadImage';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useMyAuth } from "../store/Auth";
+import { useParams } from "react-router-dom";
+import SummaryApi from "../common/SummaryApi";
+import uploadImage from "../components/helpers/uploadImage";
 
 const AddProduct = () => {
-
   const { authToken } = useMyAuth();
 
   const params = useParams();
 
-  const [ formData, setFormData ] = useState({
+  const [category, setCategory] = useState("category1");
+
+  const [formData, setFormData] = useState({
     name: "",
     price: "",
-    category: "",
+    category: "normal",
     description: "",
-    image: []
+    image: [],
   });
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
 
     setFormData((preve) => {
-      return{
+      return {
         ...preve,
-        [name]: value
-      }
-    })
-  }
+        [name]: value,
+      };
+    });
+  };
 
-  const handleSubmit = async(e) => {
+  const handleCategoryChange = (e) => {
+    const value = e.target.value;
+    setCategory(value);
+    setFormData((prev) => ({
+      ...prev,
+      category: value,
+    }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try{
-      console.log("Form data i get", formData)
+    try {
+      console.log("Form data i get", formData);
 
       const responseProduct = await fetch(SummaryApi.addNewProduct.url, {
         method: SummaryApi.addNewProduct.method,
         headers: {
           Authorization: authToken,
-          'Content-Type':'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData)
-      })
+        body: JSON.stringify(formData),
+      });
 
-      const responseProductData  = await responseProduct.json();
-      console.log("Product That I Have Uploaded", responseProductData)
+      const responseProductData = await responseProduct.json();
+      console.log("Product That I Have Uploaded", responseProductData);
 
-      if( responseProduct.status === 200 || responseProduct.ok ){
-        alert("Product Uploaded Successfully")
+      if (responseProduct.status === 200 || responseProduct.ok) {
+        alert("Product Uploaded Successfully");
       }
-
-    }catch(err){
+    } catch (err) {
       console.log("Error from update product", err);
     }
+  };
 
-  }
-
-
-
-  const handleImageChange = async(e) => {
+  const handleImageChange = async (e) => {
     const picture = e.target.files[0];
 
     // setUploadProductImage(picture.name);
@@ -69,29 +75,83 @@ const AddProduct = () => {
     const imageOfCoundinary = await uploadImage(picture);
 
     setFormData((preve) => {
-      return{
+      return {
         ...preve,
-        image: [ ...preve.image, imageOfCoundinary.url ]
-      }
-    })
+        image: [...preve.image, imageOfCoundinary.url],
+      };
+    });
 
-    console.log("Image i uploaded on CLoudinary", imageOfCoundinary)
+    console.log("Image i uploaded on CLoudinary", imageOfCoundinary);
   };
 
-  const handlePictureDelete = async(index) => {
-    console.log("Image index", index)
+  const handlePictureDelete = async (index) => {
+    console.log("Image index", index);
 
-    const newProductImage = [ ...formData.image ]
+    const newProductImage = [...formData.image];
 
-    newProductImage.splice(index, 1)
+    newProductImage.splice(index, 1);
 
     setFormData((preve) => {
       return {
         ...preve,
-        image: [...newProductImage]
+        image: [...newProductImage],
+      };
+    });
+  };
+
+  const fetchData = async (category) => {
+    let apiUrl = "";
+
+    switch (category) {
+      case "accessories":
+        apiUrl = "http://localhost:5500/ecom/product/add";
+        break;
+      case "mods":
+        apiUrl = "http://localhost:5500/ecom/product/add";
+        break;
+      case "newArrival":
+        apiUrl = "http://localhost:5500/ecom/product/add";
+        break;
+      case "essentials":
+        apiUrl = "http://localhost:5500/ecom/product/add";
+        break;
+      case "normal":
+        apiUrl = "http://localhost:5500/ecom/product/add";
+        break;
+      case "city":
+        apiUrl = "http://localhost:5500/ecom/product/add";
+        break;
+      case "tourer":
+        apiUrl = "http://localhost:5500/ecom/product/add";
+        break;
+      case "streetFighter":
+        apiUrl = "http://localhost:5500/ecom/product/add";
+        break;
+    }
+
+    try {
+      const response = await fetch(apiUrl, {
+        method: "POST",
+        headers: {
+          Authorization: authToken,
+          "Content-Type": "application/json",
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
       }
-    } )
-  }
+
+      const result = await response.json();
+      console.log("Fetched data:", result);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData(category);
+  }, [category]);
 
   return (
     <Container>
@@ -101,8 +161,8 @@ const AddProduct = () => {
           <Label>Product Name:</Label>
           <Input
             type="text"
-            name='name'
-            placeholder='Short and proper name is required'
+            name="name"
+            placeholder="Short and proper name is required"
             value={formData.name}
             onChange={handleOnChange}
             required
@@ -112,8 +172,8 @@ const AddProduct = () => {
           <Label>Product Price:</Label>
           <Input
             type="number"
-            name='price'
-            placeholder='price in INR'
+            name="price"
+            placeholder="price in INR"
             value={formData.price}
             onChange={handleOnChange}
             required
@@ -121,22 +181,24 @@ const AddProduct = () => {
         </FormGroup>
         <FormGroup>
           <Label>Product Category:</Label>
-          <Input
-            type="text"
-            name='category'
-            placeholder='Appropriate Category'
-            value={formData.category}
-            onChange={handleOnChange}
-            required
-          />
+          <select onChange={handleCategoryChange} value={formData.category}>
+            <option value="normal">Normal</option>
+            <option value="accessories">accessories</option>
+            <option value="mods">Mods</option>
+            <option value="newArrival">New Arrival</option>
+            <option value="essentials">Essentials</option>
+            <option value="city">City</option>
+            <option value="tourer">Tourer</option>
+            <option value="streetFighter">Street Fighter</option>
+          </select>
         </FormGroup>
 
         <FormGroup>
           <Label>Product Description:</Label>
           <Input
             type="text"
-            name='description'
-            placeholder='Only Provide Important Information'
+            name="description"
+            placeholder="Only Provide Important Information"
             value={formData.description}
             onChange={handleOnChange}
             required
@@ -145,33 +207,27 @@ const AddProduct = () => {
 
         <FormGroup>
           <Label>Product Image:</Label>
-          <Input
-            type="file"
-            onChange={handleImageChange}
-            required
-          />
+          <Input type="file" onChange={handleImageChange} required />
         </FormGroup>
 
         <div>
-          {
-            formData?.image[0] ? (
-              formData.image.map((el, index) => {
-                return(
-                  <div key={index}>
-                    <img src={el}  className='cloudImage'/>
-                    <button onClick={() => handlePictureDelete(index)}>Delete Picture</button>
-                  </div>
-                )
-              } )
-            ) : (
-              <p>*Please upload a product image</p>
-            )
-          }
-
+          {formData?.image[0] ? (
+            formData.image.map((el, index) => {
+              return (
+                <div key={index}>
+                  <img src={el} className="cloudImage" />
+                  <button onClick={() => handlePictureDelete(index)}>
+                    Delete Picture
+                  </button>
+                </div>
+              );
+            })
+          ) : (
+            <p>*Please upload a product image</p>
+          )}
         </div>
-          
 
-          <SubmitButton type="submit">Add Product</SubmitButton>
+        <SubmitButton type="submit">Add Product</SubmitButton>
       </Form>
     </Container>
   );
@@ -198,7 +254,7 @@ const Form = styled.form`
     margin-bottom: 15px;
   }
 
-  .cloudImage{
+  .cloudImage {
     width: 10rem;
   }
 `;
@@ -220,7 +276,6 @@ const Input = styled.input`
   border: 1px solid #ddd;
   border-radius: 4px;
   box-sizing: border-box;
-  
 
   &:focus {
     border-color: #a5d6a7;

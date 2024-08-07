@@ -7,6 +7,10 @@ export const HeaderMainWrapper = styled.header`
     background-color: #d3d3d3;
     display: flex;
     align-items: center;
+    position: absolute
+    /* margin: auto; */
+
+    
 
     .header-wrap{
         column-gap: 20px;
@@ -56,3 +60,8 @@ export const SiteBrandWrapper = styled(Link)`
 
     
 `;
+
+export const DropDown = styled.div`
+    position: absolute;
+    margin-right: 10rem;
+`
