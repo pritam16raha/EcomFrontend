@@ -20,7 +20,7 @@ const DropMenu = () => {
         <Link to="/admin/alluser">Admin</Link>
         <Link to="/signin">Signin</Link>
         <Link to="/signout">Signout</Link>
-
+        <Link to="/order">All Orders</Link>
       </MenuList>
     </DropDown>
   );
