@@ -115,8 +115,8 @@ import cart3 from "../assets/myImage/cart/cart3.png";
 import play_icon from "../assets/icons/play_icon.svg";
 
 // error
-import page_not_found from "../assets/images/page_not_found.png";
-import empty_cart_img from "../assets/images/empty_cart_img.svg";
+import page_not_found from "../assets/myImageData/page_not_found.png";
+import empty_cart_img from "../assets/myImageData/empty_cart_img.svg";
 
 // order
 import order1 from "../assets/myImage/order/order1.png";
