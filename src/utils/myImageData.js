@@ -15,7 +15,6 @@ import form_img3 from "../assets/myImage/formImage/pexels-pragyanbezbo-1715185.j
 import form_img4 from "../assets/myImage/formImage/pexels-punlob-173477-564098.jpg";
 import form_img5 from "../assets/myImage/formImage/pexels-ulltangfilms-529782.jpg";
 
-// icons images
 import google from "../assets/icons/google.svg";
 import twitter from "../assets/icons/twitter.svg";
 import google_play from "../assets/myImage/extra/google_play.jpg";
@@ -26,18 +25,18 @@ import cart from "../assets/icons/cart.svg";
 import eyeOff from "../assets/myImage/icons/visibility-off.svg";
 import eyeOn from "../assets/myImage/icons/visibility.svg";
 
-// some random images
+
 import img1 from "../assets/myImage/random/pexels-pixabay-62686.jpg";
 import img2 from "../assets/myImage/random/pexels-pok-rie-33563-140144.jpg";
 
-// hero banner images
+
 import hero_img1 from "../assets/myImage/Banner/b1.jpg";
 import hero_img2 from "../assets/myImage/Banner/b2.jpg";
 import hero_img3 from "../assets/myImage/Banner/b3.jpg";
 import hero_img4 from "../assets/myImage/Banner/b4.jpg";
 import hero_img5 from "../assets/myImage/Banner/b5.jpg";
 
-// product images
+
 import product1 from "../assets/myImage/Products/p1.jpg";
 import product2 from "../assets/myImage/Products/p2.jpg";
 import product3 from "../assets/myImage/Products/p3.jpg";
@@ -69,20 +68,20 @@ import bigzone3 from "../assets/myImage/bigzone/pexels-vishal-nagre-2112460-3759
 import bigzone4 from "../assets/myImage/bigzone/pexels-www-erzetich-com-2607330.jpg";
 import bigzone5 from "../assets/myImage/bigzone/pexels-www-erzetich-com-2607333.jpg";
 
-// brand images
+
 import brand1 from "../assets/myImage/brand/pngwing.com (10).png";
 import brand2 from "../assets/myImage/brand/pngwing.com (11).png";
 import brand3 from "../assets/myImage/brand/pngwing.com (12).png";
 import brand4 from "../assets/myImage/brand/pngwing.com (8).png";
 import brand5 from "../assets/myImage/brand/pngwing.com (9).png";
 
-// testimonials images
+
 import test1 from "../assets/myImage/test/test1.png";
 import test2 from "../assets/myImage/test/test2.png";
 import test3 from "../assets/myImage/test/test3.png";
 import test4 from "../assets/myImage/test/test4.png";
 
-// colors images
+
 import color1 from "../assets/myImage/colour/color1.svg";
 import color2 from "../assets/myImage/colour/color2.svg";
 import color3 from "../assets/myImage/colour/color3.svg";
@@ -96,40 +95,39 @@ import color10 from "../assets/myImage/colour/color10.svg";
 import color11 from "../assets/myImage/colour/color11.svg";
 import color12 from "../assets/myImage/colour/color1.svg";
 
-// product details preview images
+
 import preview1 from "../assets/myImage/preview/preview1.jpg";
 import preview2 from "../assets/myImage/preview/preview2.jpg";
 import preview3 from "../assets/myImage/preview/preview3.jpg";
 import preview_main from "../assets/myImage/preview/preview_main.jpg";
 
-// product services images
+
 import card_icon from "../assets/icons/card_icon.svg";
 import size_icon from "../assets/icons/size_icon.svg";
 import shipping_icon from "../assets/icons/shipping_icon.svg";
 import return_icon from "../assets/icons/return_icon.svg";
 
-// cart images
+
 import cart1 from "../assets/myImage/cart/cart1.png";
 import cart2 from "../assets/myImage/cart/cart2.png";
 import cart3 from "../assets/myImage/cart/cart3.png";
 import play_icon from "../assets/icons/play_icon.svg";
 
-// error
-import page_not_found from "../assets/myImageData/page_not_found.png";
-import empty_cart_img from "../assets/myImageData/empty_cart_img.svg";
 
-// order
+import page_not_found from "../assets/myImage/extra/page_not_found.png";
+import empty_cart_img from "../assets/myImage/extra/empty_cart_img.svg";
+
 import order1 from "../assets/myImage/order/order1.png";
 import order2 from "../assets/myImage/order/order2.png";
 
-// wishlist
+
 import wishitem1 from "../assets/myImage/wishitem/wishitem1.png";
 import wishitem2 from "../assets/myImage/wishitem/wishitem2.png";
 import wishitem3 from "../assets/myImage/wishitem/wishitem3.png";
 import wishitem4 from "../assets/myImage/wishitem/wishitem4.png";
 import green_heart from "../assets/icons/green_heart.svg";
 
-// card
+
 import googlePay from "../assets/myImage/payment/googlePay.png";
 import visa from "../assets/myImage/payment/visa.png";
 import paypal from "../assets/myImage/payment/paypal.png";
@@ -244,10 +242,4 @@ export const staticImages = {
   menuIcon
 };
 
-// src/utils/myImageData.js
-import pageNotFoundImage from '../assets/myImageData/page_not_found.png';
-
-export const images = {
-  pageNotFound: pageNotFoundImage,
-};
 
