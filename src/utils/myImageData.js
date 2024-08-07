@@ -245,7 +245,7 @@ export const staticImages = {
 };
 
 // src/utils/myImageData.js
-import pageNotFoundImage from '../assets/images/page_not_found.png';
+import pageNotFoundImage from '../assets/myImageData/page_not_found.png';
 
 export const images = {
   pageNotFound: pageNotFoundImage,
