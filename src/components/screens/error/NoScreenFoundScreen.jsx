@@ -10,7 +10,7 @@ const NoScreenFoundScreen = () => {
         <Container>
             <div className="body-section">
                 <div className="image-section">
-                    <img src={staticImages.page_not_found} alt='' className='image'/>
+                    <img src="https://internetdevels.com/sites/default/files/public/blog_preview/404_page_cover.jpg" alt='' className='image'/>
                 </div>
 
                 <div className="text-section">
