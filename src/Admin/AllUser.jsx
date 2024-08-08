@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SummaryApi from "../common/SummaryApi";
+import SummaryApi, { BackendDomain } from "../common/SummaryApi";
 import { useMyAuth } from "../store/Auth";
 import { Container, Section } from "../styles/styles";
 import styled from "styled-components";
@@ -13,7 +13,7 @@ const AllUser = () => {
   const deleteUser = async (id) => {
     try {
       const dropUser = await fetch(
-        `https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/deleteuser/${id}`,
+        `${BackendDomain}/ecom/deleteuser/${id}`,
         {
           method: SummaryApi.deleteUser.method,
           headers: {

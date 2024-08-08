@@ -16,6 +16,7 @@ import { Button } from "@mui/material";
 import { BaseButtonGreen } from "../../../styles/button";
 import DropIn from "braintree-web-drop-in-react";
 import { toast } from "react-toastify";
+import { BackendDomain } from "../../../common/SummaryApi";
 
 //const KEY = "pk_test_51OmBgjSCPxF1ZilcksoW7uqBBzSwsDNZxEtkadAGZPrvygPBXVQYYl9MdcBJ6JoPOqEnCmkj76oXOEOZIQPPTiXI00ZKVnOWwD"
 
@@ -123,7 +124,7 @@ const Cart = (product) => {
     try {
       const { _id } = currentUser;
       console.log("user id is", _id);
-      const data = await fetch("https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/orderplace", {
+      const data = await fetch(`${BackendDomain}/ecom/orderplace`, {
         method: "POST",
         headers: {
           Authorization: authToken,
@@ -138,7 +139,7 @@ const Cart = (product) => {
         window.location.href = response.session_url;
         localStorage.setItem(cart);
         // setCart("")
-        navigate('https://ecom-backend-pritam16rahas-projects.vercel.app/order')
+        navigate(`${BackendDomain}/order`)
       } else {
         console.error("Payment failed or was not successful");
       }

@@ -9,6 +9,7 @@ import Brands from "../../homePage/Brands";
 import FeedBack from "../../homePage/FeedBack";
 
 const HomeScreen = () => {
+  
   return (
     <HomeScreenWrapper>
       <Hero />

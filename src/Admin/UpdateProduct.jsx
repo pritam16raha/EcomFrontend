@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useMyAuth } from '../store/Auth';
 import { useParams } from 'react-router-dom';
+import { BackendDomain } from '../common/SummaryApi';
 
 const UpdateProduct = () => {
 
@@ -19,7 +20,7 @@ const UpdateProduct = () => {
 
     const getCurrentProduct = async() => {
       try{
-        const singleProduct = await fetch(`https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/getOne/${params.id}`,{
+        const singleProduct = await fetch(`${BackendDomain}/ecom/product/getOne/${params.id}`,{
           method: "get",
           headers: {
             Authorization: authToken,
@@ -53,7 +54,7 @@ const UpdateProduct = () => {
       e.preventDefault();
 
       try{
-        const updateProductData = await fetch(`https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/edit/${params.id}`, {
+        const updateProductData = await fetch(`${BackendDomain}/ecom/product/edit/${params.id}`, {
           method: "put",
           headers: {
             Authorization: authToken,

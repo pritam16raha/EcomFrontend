@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Container } from "../styles/styles";
 import { useMyAuth } from "../store/Auth";
-import SummaryApi from "../common/SummaryApi";
+import SummaryApi, { BackendDomain } from "../common/SummaryApi";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 const AllProduct = () => {
@@ -40,7 +40,7 @@ const AllProduct = () => {
 
   const handleDelete = async (id) => {
     try{
-      const deleteRequest = await fetch(`https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/delete/${id}`,{
+      const deleteRequest = await fetch(`${BackendDomain}/ecom/product/delete/${id}`,{
         method: "DELETE",
         headers: {
           Authorization: authToken,

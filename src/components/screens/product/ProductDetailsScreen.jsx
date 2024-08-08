@@ -19,6 +19,7 @@ import { useMyAuth } from "../../../store/Auth";
 import { useCart } from "../../../store/Cart";
 import { toast } from "react-toastify";
 import Cart from "../cart/Cart";
+import { BackendDomain } from "../../../common/SummaryApi";
 
 const ProductDetailsScreen = () => {
   const [cart, setCart] = useCart();
@@ -35,7 +36,7 @@ const ProductDetailsScreen = () => {
   const getProductInfo = async (req, res, next) => {
     try {
       const responseIgot = await fetch(
-        `https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/getOne/${params.id}`,
+        `${BackendDomain}/ecom/product/getOne/${params.id}`,
         {
           method: "get",
           headers: {

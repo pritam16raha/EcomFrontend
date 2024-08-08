@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useMyAuth } from '../store/Auth';
-import SummaryApi from '../common/SummaryApi';
+import SummaryApi, { BackendDomain } from '../common/SummaryApi';
 import styled from "styled-components";
 import { useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
@@ -23,7 +23,7 @@ const UpdateUser = () => {
 
   const getCurrentUser = async () => {
     try{
-      const fetchedUser = await fetch(`https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/getuserinfo/${params.id}`, {
+      const fetchedUser = await fetch(`${BackendDomain}/ecom/getuserinfo/${params.id}`, {
         method: SummaryApi.getAllUser.method,
         headers: {
           Authorization: authToken,
@@ -59,7 +59,7 @@ const UpdateUser = () => {
     e.preventDefault();
 
     try{
-      const respondedData = await fetch(`https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/updateuser/${params.id}`, {
+      const respondedData = await fetch(`${BackendDomain}/ecom/updateuser/${params.id}`, {
         method: "put",
         headers: {
           Authorization: authToken,

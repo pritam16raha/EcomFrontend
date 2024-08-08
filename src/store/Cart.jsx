@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import SummaryApi from "../common/SummaryApi";
+import SummaryApi, { BackendDomain } from "../common/SummaryApi";
 import { useParams } from "react-router-dom";
 import { useMyAuth } from "./Auth";
 
@@ -17,7 +17,7 @@ export const CartProvider = ({ children }) => {
 
   const getCurrentProduct = async() => {
     try{
-      const singleProduct = await fetch(`https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/getOne/${params?.id}`,{
+      const singleProduct = await fetch(`${BackendDomain}/ecom/product/getOne/${params?.id}`,{
         method: "get",
         headers: {
           Authorization: authToken,

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useMyAuth } from "../store/Auth";
 import { useParams } from "react-router-dom";
-import SummaryApi from "../common/SummaryApi";
+import SummaryApi, { BackendDomain } from "../common/SummaryApi";
 import uploadImage from "../components/helpers/uploadImage";
 
 const AddProduct = () => {
@@ -104,28 +104,31 @@ const AddProduct = () => {
 
     switch (category) {
       case "accessories":
-        apiUrl = "https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/add";
+        apiUrl = `${BackendDomain}/ecom/product/add`;
+        break;
+      case "banner":
+        apiUrl = `${BackendDomain}/ecom/product/add`;
         break;
       case "mods":
-        apiUrl = "https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/add";
+        apiUrl = `${BackendDomain}/ecom/product/add`;
         break;
       case "newArrival":
-        apiUrl = "https://ecom-backend-pritam16rahas-projects.vercel.app/product/add";
+        apiUrl = `${BackendDomain}/ecom/product/add`;
         break;
       case "essentials":
-        apiUrl = "https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/add";
+        apiUrl = `${BackendDomain}/ecom/product/add`;
         break;
       case "normal":
-        apiUrl = "https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/add";
+        apiUrl = `${BackendDomain}/ecom/product/add`;
         break;
       case "city":
-        apiUrl = "https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/add";
+        apiUrl = `${BackendDomain}/ecom/product/add`;
         break;
       case "tourer":
-        apiUrl = "https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/add";
+        apiUrl = `${BackendDomain}/ecom/product/add`;
         break;
       case "streetFighter":
-        apiUrl = "https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/product/add";
+        apiUrl = `${BackendDomain}/ecom/product/add`;
         break;
     }
 
@@ -183,6 +186,7 @@ const AddProduct = () => {
           <Label>Product Category:</Label>
           <select onChange={handleCategoryChange} value={formData.category}>
             <option value="normal">Normal</option>
+            <option value="banner">Banner</option>
             <option value="accessories">accessories</option>
             <option value="mods">Mods</option>
             <option value="newArrival">New Arrival</option>

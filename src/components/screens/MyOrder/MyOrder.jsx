@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useMyAuth } from "../../../store/Auth";
 import { Container } from "../../../styles/styles";
 import styled from "styled-components";
+import { BackendDomain } from "../../../common/SummaryApi";
 
 const MyOrder = () => {
   const { currentUser, authToken } = useMyAuth();
@@ -11,7 +12,7 @@ const MyOrder = () => {
   try {
     const fetchedOrder = async () => {
       try {
-        const response = await fetch("https://ecom-backend-pritam16rahas-projects.vercel.app/ecom/getallorder", {
+        const response = await fetch(`${BackendDomain}/ecom/getallorder`, {
           method: "GET",
           headers: {
             Authorization: authToken,
