@@ -18,18 +18,20 @@ const Hero = () => {
     slidesToScroll: 1,
   };
 
-  let BannerImage = [];
+  const [bannerImg, setBannerimg] = useState([]);
+  const [bannerName, setBannerName] = useState([]);
+  const [desc, setDesc] = useState([]);
 
-  const [bannerImg, setBannerimg] = useState("");
-  
   const fetchImage = async () => {
     try {
-      const dataIgot = await fetch(`${BackendDomain}/ecom/getAll`, {
+      const dataIgot = await fetch(`${BackendDomain}/ecom/product/banner`, {
         method: "GET",
       });
 
       const productData = await dataIgot.json();
-      setBannerimg(productData);
+      setBannerimg(productData.image);
+      setBannerName(productData.name);
+      setDesc(productData.description);
     } catch (err) {
       console.log("Error in banner section, image fetch function", err);
     }
@@ -37,28 +39,30 @@ const Hero = () => {
 
   useEffect(() => {
     fetchImage();
-  },[])
+  }, []);
 
-  const [image, setImages] = useState([]);
+  //   const [image, setImages] = useState([]);
 
-  const fetchImageFromData = async () => {
-    try{
-        bannerImg.map((item) => {
-            if(item.category === "banner"){
-                setImages((prev) => [...prev, item.image])
-            }
-        })
-    }catch(err){
-        console.log("Error from the fetch image data", err)
-    }
-  }
+  //   const fetchImageFromData = async () => {
+  //     try{
+  //         bannerImg.map((item) => {
+  //             if(item.category === "banner"){
+  //                 setImages((prev) => [...prev, item.image])
+  //             }
+  //         })
+  //     }catch(err){
+  //         console.log("Error from the fetch image data", err)
+  //     }
+  //   }
 
   console.log("Image data we received", bannerImg);
-//   console.log("Image is", image)
+  console.log("Image data we received", bannerName);
+  console.log("Description data we received", desc);
+  // console.log("Image is", image)
 
-  useEffect(() => {
-    fetchImageFromData();
-  }, [])
+  // useEffect(() => {
+  //   fetchImageFromData()
+  // }, [])
 
   return (
     <SectionHeroWrapper>
@@ -68,23 +72,35 @@ const Hero = () => {
           prevArrow={<CustomPrevArrow />}
           {...settings}
         >
-            {
-                image?.map((item, index)=> {
-                    return(
-                        <HeroSliderItemWrapper>
-                            <img src={item} key={index} className="object-fit-cover"/>
-                        </HeroSliderItemWrapper>
-                    )
-                })
-            }
-
-
-
-
-
-          {bannerData?.map((banner) => {
+          {bannerImg.map((item, index) => {
             return (
-              <HeroSliderItemWrapper key={banner.id}>
+              <HeroSliderItemWrapper key={index}>
+                <img src={item} className="object-fit-cover" />
+                <HeroSlideContent className="flex items-center w-full h-full">
+                  <Container className="container text-white">
+                    <p className="hero-text-top font-bold italic">
+                      <h1>{bannerName[index]}</h1>
+                      {/* {banner.topText}{
+                        bannerName.map((item) => {return(
+                          <h1>{item}</h1>
+                        )})
+                      } */}
+                    </p>
+                    <h2 className="hero-text-large font-extrabold">
+                      {/* {banner.titleText} */}
+                    </h2>
+                    <p className="hero-text-bottom font-semibold uppercase">
+                      {desc[index]}
+                    </p>
+                  </Container>
+                </HeroSlideContent>
+              </HeroSliderItemWrapper>
+            );
+          })}
+
+          {/* {bannerData?.map((banner, id) => {
+            return (
+              <HeroSliderItemWrapper key={id}>
                 {
                     image?.map((item, index) => {
                         
@@ -108,8 +124,11 @@ const Hero = () => {
                 </HeroSlideContent>
               </HeroSliderItemWrapper>
             );
-          })}
+          })} */}
         </Slider>
+        <HeroSliderText>
+          <h1>Pritam</h1>
+        </HeroSliderText>
       </HeroSlideWrapper>
     </SectionHeroWrapper>
   );
@@ -195,4 +214,9 @@ const HeroSlideContent = styled.div`
     height: 60px;
     min-width: 160px;
   }
+`;
+
+const HeroSliderText = styled.div`
+  position: absolute;
+  height: auto;
 `;
