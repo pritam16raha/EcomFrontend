@@ -128,7 +128,7 @@ const ProductDetailsScreen = () => {
             <ProductServices />
           </ProductDetailsWrapper>
         </DetailsContent>
-        <ProductDescriptionTab />
+        {/* <ProductDescriptionTab /> */}
       </Container>
     </DetailsScreenWrapper>
   );

@@ -41,9 +41,9 @@ const Hero = () => {
     fetchImage();
   }, []);
 
-  console.log("Image data we received", bannerImg);
-  console.log("Image data we received", bannerName);
-  console.log("Description data we received", desc);
+  // console.log("Image data we received", bannerImg);
+  // console.log("Image data we received", bannerName);
+  // console.log("Description data we received", desc);
 
 
   return (
