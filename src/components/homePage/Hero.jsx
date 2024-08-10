@@ -41,28 +41,10 @@ const Hero = () => {
     fetchImage();
   }, []);
 
-  //   const [image, setImages] = useState([]);
-
-  //   const fetchImageFromData = async () => {
-  //     try{
-  //         bannerImg.map((item) => {
-  //             if(item.category === "banner"){
-  //                 setImages((prev) => [...prev, item.image])
-  //             }
-  //         })
-  //     }catch(err){
-  //         console.log("Error from the fetch image data", err)
-  //     }
-  //   }
-
   console.log("Image data we received", bannerImg);
   console.log("Image data we received", bannerName);
   console.log("Description data we received", desc);
-  // console.log("Image is", image)
 
-  // useEffect(() => {
-  //   fetchImageFromData()
-  // }, [])
 
   return (
     <SectionHeroWrapper>
@@ -80,11 +62,6 @@ const Hero = () => {
                   <Container className="container text-white">
                     <p className="hero-text-top font-bold italic">
                       <h1>{bannerName[index]}</h1>
-                      {/* {banner.topText}{
-                        bannerName.map((item) => {return(
-                          <h1>{item}</h1>
-                        )})
-                      } */}
                     </p>
                     <h2 className="hero-text-large font-extrabold">
                       {/* {banner.titleText} */}
@@ -126,9 +103,6 @@ const Hero = () => {
             );
           })} */}
         </Slider>
-        <HeroSliderText>
-          <h1>Pritam</h1>
-        </HeroSliderText>
       </HeroSlideWrapper>
     </SectionHeroWrapper>
   );
