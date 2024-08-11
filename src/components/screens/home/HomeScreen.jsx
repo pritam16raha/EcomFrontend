@@ -7,6 +7,7 @@ import Catalog from "../../homePage/Catalog";
 import { accessories, limelightCatalog, mods } from "../../../data/data";
 import Brands from "../../homePage/Brands";
 import FeedBack from "../../homePage/FeedBack";
+import Accessories from "../../homePage/Accessories";
 
 const HomeScreen = () => {
   
@@ -16,7 +17,7 @@ const HomeScreen = () => {
       <Featured />
       <NewArrivals />
       <SavingZone />
-      <Catalog catalogTitle = {"Accessories for Bike"} products = {accessories}/>
+      <Accessories/>
       <Catalog catalogTitle = {"Mods for Bike"} products = {mods}/>
       <Brands />
       <Catalog catalogTitle = {"Ata change krte hobe"} products = {limelightCatalog}/>

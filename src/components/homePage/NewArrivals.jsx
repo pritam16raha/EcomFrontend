@@ -43,8 +43,8 @@ const NewArrivals = () => {
     fetchImages();
   }, []);
 
-  console.log("Images I got", image);
-  console.log("Name I got", name);
+  // console.log("Images I got", image);
+  // console.log("Name I got", name);
 
   return (
     <Section>

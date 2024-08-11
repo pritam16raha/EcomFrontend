@@ -7,7 +7,7 @@ export const HeaderMainWrapper = styled.header`
     background-color: #d3d3d3;
     display: flex;
     align-items: center;
-    position: absolute
+   
     /* margin: auto; */
 
     

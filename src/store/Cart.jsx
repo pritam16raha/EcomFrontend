@@ -17,8 +17,8 @@ export const CartProvider = ({ children }) => {
 
   const getCurrentProduct = async() => {
     try{
-      const singleProduct = await fetch(`${BackendDomain}/ecom/product/getOne/${params?.id}`,{
-        method: "get",
+      const singleProduct = await fetch(`${BackendDomain}/ecom/product/getOne/${params.id}`,{
+        method: "GET",
         headers: {
           Authorization: authToken,
         }

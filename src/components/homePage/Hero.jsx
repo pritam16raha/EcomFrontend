@@ -115,6 +115,12 @@ const SectionHeroWrapper = styled.section`
 `;
 
 const HeroSlideWrapper = styled.div`
+  max-width: 1320px;
+  padding: 0 16px;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  margin: auto;
+  
   .custom-prev-arrow {
     left: 30px !important;
     background-color: transparent;
@@ -130,6 +136,8 @@ const HeroSliderItemWrapper = styled.div`
   position: relative;
   height: 700px;
   overflow: hidden;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
 
   &::after {
     content: "";
