@@ -41,7 +41,7 @@ const Mods = () => {
     <Section>
        <Container>
         
-      <Title titleText={"Accessories for Bikes"} />
+      <Title titleText={"Performance kit for Bikes"} />
       <ProductListWrapper className="grid">
         {itemImage.map((item, index) => {
           return (
