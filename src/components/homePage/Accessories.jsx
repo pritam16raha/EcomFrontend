@@ -43,7 +43,7 @@ const Accessories = () => {
         
       <Title titleText={"Accessories for Bikes"} />
       <ProductListWrapper className="grid">
-        {itemImage.map((item, index) => {
+        {itemImage?.map((item, index) => {
           return (
             <ProductCardWrapper key={index} to={`/product`}>
               <div className="product-img">
