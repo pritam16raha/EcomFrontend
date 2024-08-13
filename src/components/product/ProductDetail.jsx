@@ -5,7 +5,7 @@ import styled from 'styled-components';
 
 const ProductDetail = ({ product }) => {
   return (
-    <ProductCardWrapper key={product.id} to={`/singleproduct/`}>
+    <ProductCardWrapper key={product.id} to={`/singleproduct/${product._id}`}>
         <div className='product-img'>
             <img className='object-fit-cover' src={product.image[0]}/>
             <button type='button'>
