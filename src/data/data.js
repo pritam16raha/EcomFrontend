@@ -637,7 +637,7 @@ const servicesData = [
   {
     id: "service_2",
     icon: staticImages.size_icon,
-    text: "Size & fit",
+    text: "Support Engine Size",
   },
   {
     id: "service_3",

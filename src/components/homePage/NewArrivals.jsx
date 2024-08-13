@@ -69,18 +69,6 @@ const NewArrivals = () => {
               );
             })}
 
-            {/* {newArrivalData?.map((newArrival) => {
-                        return(
-                            <ProductCardBoxWrapper key={newArrival.id} >
-                                <div className="product-img">
-                                    <img src={newArrival.imgSource} className="object-fit-cover"/>
-                                </div>
-                                <div className='product-info'>
-                                    <p className='font-bold text-xxl'>{newArrival.title}</p>
-                                </div>
-                            </ProductCardBoxWrapper>
-                        )
-                    })} */}
           </Slider>
         </ArrivalSliderWrapper>
       </Container>

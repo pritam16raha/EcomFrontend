@@ -1,5 +1,5 @@
 export const BackendDomain = "https://ecom-backend-pritam16rahas-projects.vercel.app"
-//   export const BackendDomain = "http://localhost:5500"
+//export const BackendDomain = "http://localhost:5500"
 
 const SummaryApi = {
     signUP : {

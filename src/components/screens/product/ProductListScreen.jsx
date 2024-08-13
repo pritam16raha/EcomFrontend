@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import styled from 'styled-components';
 import { Container, ContentStylings, Section } from '../../../styles/styles';
 import BreadCrumb from '../../Common/BreadCrumb';
@@ -8,6 +8,8 @@ import { products } from '../../../data/data';
 import Title from '../../Common/Title';
 import { defaultTheme } from '../../../styles/themes/default';
 import ProductFilter from '../../product/ProductFilter';
+import { BackendDomain } from '../../../common/SummaryApi';
+import { useMyAuth } from '../../../store/Auth';
 
 
 const ProductListScreen = () => {

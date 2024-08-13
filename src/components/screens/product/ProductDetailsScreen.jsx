@@ -148,7 +148,6 @@ const DetailsContent = styled.div`
 const ProductDetailsWrapper = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 24px;
-  margin-left: 6rem;
 
   .chat {
     height: 20px;

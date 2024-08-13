@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-const Accessories = () => {
+const Mods = () => {
   const [itemImage, setItemImage] = useState([]);
   const [itemName, setItemName] = useState([]);
   const [itemPrice, setItemPrice] = useState([]);
@@ -15,7 +15,7 @@ const Accessories = () => {
   const fetchData = async () => {
     try {
       const dataIGot = await fetch(
-        `${BackendDomain}/ecom/product/accessories`,
+        `${BackendDomain}/ecom/product/mod`,
         {
           method: "GET",
         }
@@ -45,7 +45,7 @@ const Accessories = () => {
       <ProductListWrapper className="grid">
         {itemImage.map((item, index) => {
           return (
-            <ProductCardWrapper key={index} to={`/product`}>
+            <ProductCardWrapper key={index} to="/product">
               <div className="product-img">
                 <img className="object-fit-cover" src={item} />
                 <button type="button">
@@ -62,27 +62,6 @@ const Accessories = () => {
             </ProductCardWrapper>
           );
         })}
-
-        {/* {
-                <ProductCardWrapper key={product.id} to="/product/details">
-                <div className="product-img">
-                <img className="object-fit-cover" src={product.imgSource} />
-                <button type="button">
-                <i className="icon"></i>
-                </button>
-                </div>
-                <div className="product-info">
-                <p className="font-bold">{product.title}</p>
-                <div className="flex items-center justify-between text-sm font-medium">
-                <span className="text-gray">{product.brand}</span>
-                <span className="text-outerspace font-bold">
-                {product.price} rs
-                </span>
-                </div>
-                </div>
-                </ProductCardWrapper>
-                }
-                */}
       </ProductListWrapper>
       </Container> 
     </Section>
@@ -90,7 +69,7 @@ const Accessories = () => {
   );
 };
 
-export default Accessories;
+export default Mods;
 
 const ProductListWrapper = styled.div`
   column-gap: 30px;
