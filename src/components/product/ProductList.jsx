@@ -35,7 +35,7 @@ const ProductList = () => {
   return (
     <ProductListWrapper className='grid'>
         {products?.map((product, index) => {
-            return <ProductDetail key={index} product={product} id={product._id}/>
+            return <ProductDetail key={index} product={product} id={product?._id}/>
         })}
     </ProductListWrapper>
   )
