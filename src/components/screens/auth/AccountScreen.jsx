@@ -30,6 +30,7 @@ const AccountScreen = () => {
     username: "",
     email: "",
     role: "",
+    phone: "",
     address: "",
     password: "",
   });
@@ -41,6 +42,7 @@ const AccountScreen = () => {
         username: currentUser.username,
         email: currentUser.email,
         role: currentUser.role,
+        phone: currentUser.phone,
         address: currentUser.address,
       })
     }
@@ -58,7 +60,7 @@ const AccountScreen = () => {
       <Container>
         <BreadCrumb items={breadcrumbItems} />
         <UserDashboardWrapper>
-          <UserMenu />
+          <UserMenu username={currentUser.name}/>
           <UserContent>
             <Title titleText={"My Account"} />
             <h4 className="title-sm">Contact Details</h4>
@@ -75,7 +77,7 @@ const AccountScreen = () => {
                     <Input
                       type="text"
                       className="form-elem-control text-outerspace font-semibold"
-                      value="Richard Doe"
+                      value={currentUser.name}
                       readOnly
                     />
                     <button type="button" className="form-control-change-btn">
@@ -94,7 +96,7 @@ const AccountScreen = () => {
                     <Input
                       type="email"
                       className="form-elem-control text-outerspace font-semibold"
-                      value="richard@gmail.com"
+                      value={currentUser.email}
                       readOnly
                     />
                     <button type="button" className="form-control-change-btn">
@@ -113,7 +115,7 @@ const AccountScreen = () => {
                     <Input
                       type="text"
                       className="form-elem-control text-outerspace font-semibold"
-                      value="+9686 6864 3434"
+                      value={currentUser.phone}
                       readOnly
                     />
                     <button type="button" className="form-control-change-btn">
@@ -148,10 +150,10 @@ const AccountScreen = () => {
               <div className="address-list grid">
                 <div className="address-item grid">
                   <p className="text-outerspace text-lg font-semibold address-title">
-                    Richard Doe
+                    {currentUser.name}
                   </p>
                   <p className="text-gray text-base font-medium address-description">
-                    1/4 Watson Street Flat, East Coastal Road, Ohio City
+                    {currentUser.address}
                   </p>
                   <ul className="address-tags flex flex-wrap">
                     <li className="text-gray text-base font-medium inline-flex items-center justify-center">
@@ -180,10 +182,10 @@ const AccountScreen = () => {
 
                 <div className="address-item grid">
                   <p className="text-outerspace text-lg font-semibold address-title">
-                    Richard Doe
+                    {currentUser.name}
                   </p>
                   <p className="text-gray text-base font-medium address-description">
-                    1/4 Watson Street Flat, East Coastal Road, Ohio City
+                    {currentUser.address}
                   </p>
                   <ul className="address-tags flex flex-wrap">
                     <li className="text-gray text-base font-medium inline-flex items-center justify-center">

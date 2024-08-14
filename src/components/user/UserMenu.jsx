@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { defaultTheme } from "../../styles/themes/default";
 import Title from "../Common/Title";
+import { useMyAuth } from "../../store/Auth";
 
 const NavMenuWrapper = styled.nav`
   margin-top: 32px;
@@ -37,18 +38,19 @@ const NavMenuWrapper = styled.nav`
   }
 `;
 
-const UserMenu = () => {
+const UserMenu = ({ username }) => {
+
   const location = useLocation();
   return (
     <div>
-      <Title titleText={"Hello Richard"} />
+      <Title titleText={username} />
       <p className="text-base font-light italic">Welcome to your account.</p>
 
       <NavMenuWrapper>
         <ul className="nav-menu-list grid">
           <li className="nav-menu-item">
             <Link
-              to="/order"
+              to="/orderdetail"
               className={`nav-menu-link flex items-center ${
                 location.pathname === "/order" ||
                 location.pathname === "/order_detail"
