@@ -9,7 +9,7 @@ const DropMenu = () => {
     <DropDown className="dropDownProfile">
       <MenuList>
       <Link
-              to="/userinfo"
+              to="/account"
               className={`icon-link ${
                 location.pathname === "/account" ||
                 location.pathname === "account/add"

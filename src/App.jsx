@@ -25,6 +25,11 @@ import UpdateUser from "./Admin/UpdateUser";
 import UpdateProduct from "./Admin/UpdateProduct";
 import { CartProvider } from "./store/Cart";
 import MyOrder from "./components/screens/MyOrder/MyOrder";
+import AccountScreen from "./components/screens/auth/AccountScreen";
+import UserMenu from "./components/user/UserMenu";
+import OrderItem from "./components/user/OrderItem";
+import OrderDetailScreen from "./components/user/OrderDetailScreen";
+import OrderItemList from "./components/user/OrderItemList";
 
 
 function App() {
@@ -58,6 +63,9 @@ function App() {
                 <Route path="signup" element={<SignUpScreen />} />
                 <Route path="login" element={<LoginScreen />} />
                 <Route path="signout" element={<LogOutScreen />} />
+                <Route path="account" element={<AccountScreen />} />
+                <Route path="orderitem" element={<OrderItem />} />
+                <Route path="orderdetail" element={<OrderDetailScreen />} />
               </Route>
 
               {/* Admin Route */}

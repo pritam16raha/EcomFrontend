@@ -19,7 +19,7 @@ import { useMyAuth } from "../../../store/Auth";
 import { useCart } from "../../../store/Cart";
 import { toast } from "react-toastify";
 import Cart from "../cart/Cart";
-import { BackendDomain } from "../../../common/SummaryApi";
+import { BackendDomain } from "../../../commonData/SummaryApi";
 
 const ProductDetailsScreen = () => {
   const [cart, setCart] = useCart();
@@ -107,7 +107,10 @@ const ProductDetailsScreen = () => {
               <BaseLinkGreen
                 onClick={() => {
                   setCart([...cart, curProduct]);
-                  localStorage.setItem('My Cart Now', JSON.stringify([...cart, curProduct]))
+                  localStorage.setItem(
+                    "My Cart Now",
+                    JSON.stringify([...cart, curProduct])
+                  );
                   toast.success("Item Added To Cart");
                 }}
                 // to="/cart"
@@ -117,9 +120,7 @@ const ProductDetailsScreen = () => {
                 <span className="prod-add-btn-icon">
                   <img className="cart" />
                 </span>
-                <span className="prod-add-btn-text">
-                Add to cart
-                </span>
+                <span className="prod-add-btn-text">Add to cart</span>
               </BaseLinkGreen>
               <span className="prod-price text-xl font-bold text-outerspace">
                 {curProduct?.price}

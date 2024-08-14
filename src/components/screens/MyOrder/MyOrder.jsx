@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useMyAuth } from "../../../store/Auth";
 import { Container } from "../../../styles/styles";
 import styled from "styled-components";
-import { BackendDomain } from "../../../common/SummaryApi";
+import { BackendDomain } from "../../../commonData/SummaryApi";
 
 const MyOrder = () => {
   const { currentUser, authToken } = useMyAuth();
@@ -61,7 +61,7 @@ const MyOrder = () => {
 
                     {/* Order Items */}
                     {orderDetails?.items?.map((item, id) => {
-                      return <TableCell2>{item?.name}</TableCell2>;
+                      return <TableCell2 key={id}>{item?.name}</TableCell2>;
                     })}
 
                     {/* Order Amount */}

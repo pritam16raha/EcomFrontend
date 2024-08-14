@@ -10,7 +10,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { BaseButtonBlack } from "../../../styles/button";
 import { defaultTheme } from "../../../styles/themes/default";
 import { useState } from "react";
-import SummaryApi from "../../../common/SummaryApi";
+import SummaryApi from "../../../commonData/SummaryApi";
 import { toast } from "react-toastify";
 import { useMyAuth } from "../../../store/Auth";
 
@@ -35,16 +35,16 @@ const SignInScreen = () => {
     });
   };
 
-const {storeTokenInLocal} = useMyAuth()
+  const { storeTokenInLocal } = useMyAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const{ email, password } = loginData
+    const { email, password } = loginData;
 
     const respondedData = await fetch(SummaryApi.signIn.url, {
       method: SummaryApi.signIn.method,
-      
+
       headers: {
         "Content-Type": "application/json",
       },
@@ -55,7 +55,7 @@ const {storeTokenInLocal} = useMyAuth()
 
     if (respondedData.ok) {
       // setLoginData({ email: "" , password: "" });
-      alert("Login Successful")
+      alert("Login Successful");
       toast.success(loginDataApi.message);
 
       storeTokenInLocal(loginDataApi.access_Token);
@@ -66,14 +66,19 @@ const {storeTokenInLocal} = useMyAuth()
       navigate("/userinfo");
     }
 
-    if(respondedData.error || respondedData.status === 500 || respondedData.status === 409 || respondedData.status === 504 || respondedData.status === 505){
-        toast.error(loginDataApi.message)
+    if (
+      respondedData.error ||
+      respondedData.status === 500 ||
+      respondedData.status === 409 ||
+      respondedData.status === 504 ||
+      respondedData.status === 505
+    ) {
+      toast.error(loginDataApi.message);
     }
 
-    toast(loginDataApi.message)
+    toast(loginDataApi.message);
     console.log("Response Received from backend: ", loginDataApi);
   };
-
 
   return (
     <SignInScreenWrapper>

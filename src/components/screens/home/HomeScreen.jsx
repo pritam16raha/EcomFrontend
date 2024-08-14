@@ -11,50 +11,49 @@ import Accessories from "../../homePage/Accessories";
 import Mods from "../../homePage/Mods";
 import { useMyAuth } from "../../../store/Auth";
 import { useEffect, useState } from "react";
-import { BackendDomain } from "../../../common/SummaryApi";
+import { BackendDomain } from "../../../commonData/SummaryApi";
 
 const HomeScreen = () => {
-
   const { authToken } = useMyAuth();
 
-  const [ products, setProducts ] = useState([])
+  const [products, setProducts] = useState([]);
 
-  const getAllProduct = async(req, res, next) => {
-    try{
+  const getAllProduct = async (req, res, next) => {
+    try {
       const allProduct = await fetch(`${BackendDomain}/ecom/product/getAll`, {
         method: "GET",
         headers: {
           Authorization: authToken,
-        }
-      })
+        },
+      });
       const productIGot = await allProduct.json();
       setProducts(productIGot);
-    }catch(err){
-      console.log("Error from catch block", err)
+    } catch (err) {
+      console.log("Error from catch block", err);
     }
-  }
+  };
 
-  useEffect(()=> {
-    getAllProduct()
-  },[])
+  useEffect(() => {
+    getAllProduct();
+  }, []);
 
-  console.log("Products I got", products)
-  
+  console.log("Products I got", products);
+
   return (
     <HomeScreenWrapper>
       <Hero />
       <Featured />
       <NewArrivals />
       <SavingZone />
-      <Accessories to={'/product'} id={products.id}/>
-      <Mods/>
+      <Accessories to={"/product"} id={products.id} />
+      <Mods />
       {/* <Catalog catalogTitle = {"Mods for Bike"} products = {mods}/> */}
       <Brands />
       {/* <Catalog catalogTitle = {"Ata change krte hobe"} products = {limelightCatalog}/> */}
       {/* <FeedBack /> */}
     </HomeScreenWrapper>
-  )
-}
+  );
+};
 
 export default HomeScreen;
 

@@ -16,7 +16,7 @@ import { Button } from "@mui/material";
 import { BaseButtonGreen } from "../../../styles/button";
 import DropIn from "braintree-web-drop-in-react";
 import { toast } from "react-toastify";
-import { BackendDomain } from "../../../common/SummaryApi";
+import { BackendDomain } from "../../../commonData/SummaryApi";
 
 //const KEY = "pk_test_51OmBgjSCPxF1ZilcksoW7uqBBzSwsDNZxEtkadAGZPrvygPBXVQYYl9MdcBJ6JoPOqEnCmkj76oXOEOZIQPPTiXI00ZKVnOWwD"
 
@@ -139,7 +139,7 @@ const Cart = (product) => {
         window.location.href = response.session_url;
         localStorage.setItem(cart);
         // setCart("")
-        navigate(`${BackendDomain}/order`)
+        navigate(`${BackendDomain}/order`);
       } else {
         console.error("Payment failed or was not successful");
       }
@@ -148,7 +148,6 @@ const Cart = (product) => {
         // setCart("")
         toast.success(response.message);
       }
-
     } catch (err) {
       console.log("Error from cart page -> handle payment catch block", err);
     }

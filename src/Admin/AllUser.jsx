@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import SummaryApi, { BackendDomain } from "../common/SummaryApi";
+import SummaryApi, { BackendDomain } from "../commonData/SummaryApi";
 import { useMyAuth } from "../store/Auth";
 import { Container, Section } from "../styles/styles";
 import styled from "styled-components";
@@ -12,17 +12,14 @@ const AllUser = () => {
 
   const deleteUser = async (id) => {
     try {
-      const dropUser = await fetch(
-        `${BackendDomain}/ecom/deleteuser/${id}`,
-        {
-          method: SummaryApi.deleteUser.method,
-          headers: {
-            Authorization: authToken,
-          },
-        }
-      );
+      const dropUser = await fetch(`${BackendDomain}/ecom/deleteuser/${id}`, {
+        method: SummaryApi.deleteUser.method,
+        headers: {
+          Authorization: authToken,
+        },
+      });
 
-      if(dropUser.ok){
+      if (dropUser.ok) {
         getAllUserData();
       }
 
@@ -51,8 +48,6 @@ const AllUser = () => {
         throw new Error("HTTP error! status: ${adminResponse.status}");
       }
 
-
-
       const userData = await adminResponse.json();
       setUsers(userData);
       console.log("All user Data is :", userData);
@@ -64,8 +59,6 @@ const AllUser = () => {
   useEffect(() => {
     getAllUserData();
   }, []);
-
-
 
   return (
     <>
@@ -92,7 +85,11 @@ const AllUser = () => {
                     <TableCell>{currentUser.role}</TableCell>
                     <TableCell>
                       {/* <button className="button" onClick={() => updateUsers(currentUser._id)}>Edit</button> */}
-                      <button className="button"><Link to={`/admin/updateuser/${currentUser._id}`}>Edit</Link></button>
+                      <button className="button">
+                        <Link to={`/admin/updateuser/${currentUser._id}`}>
+                          Edit
+                        </Link>
+                      </button>
                       <button
                         onClick={() => deleteUser(currentUser._id)}
                         className="button"

@@ -7,7 +7,8 @@ import { newArrivalData } from "../../data/data";
 import CustomNextArrow from "../Common/CustomNextArrow";
 import CustomPrevArrow from "../Common/CustomPrevArrow";
 import { commonCardStyle } from "../../styles/card";
-import { BackendDomain } from "../../common/SummaryApi";
+import { BackendDomain } from "../../commonData/SummaryApi";
+import { Link } from "react-router-dom";
 
 const NewArrivals = () => {
   const settings = {
@@ -58,7 +59,7 @@ const NewArrivals = () => {
           >
             {image.map((img, index) => {
               return (
-                <ProductCardBoxWrapper key={index}>
+                <ProductCardBoxWrapper key={index} to="/product">
                   <div className="product-img">
                     <img src={img} className="object-fit-cover" />
                   </div>
@@ -68,7 +69,6 @@ const NewArrivals = () => {
                 </ProductCardBoxWrapper>
               );
             })}
-
           </Slider>
         </ArrivalSliderWrapper>
       </Container>
@@ -78,7 +78,7 @@ const NewArrivals = () => {
 
 export default NewArrivals;
 
-const ProductCardBoxWrapper = styled.div`
+const ProductCardBoxWrapper = styled(Link)`
   ${commonCardStyle}
   .product-img {
     height: 262px;

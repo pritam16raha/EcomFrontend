@@ -1,85 +1,118 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
-import { useMyAuth } from '../store/Auth';
-import { useParams } from 'react-router-dom';
-import { BackendDomain } from '../common/SummaryApi';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import { useMyAuth } from "../store/Auth";
+import { useParams } from "react-router-dom";
+import { BackendDomain } from "../commonData/SummaryApi";
 
 const UpdateProduct = () => {
+  const { authToken } = useMyAuth();
 
-    const { authToken } = useMyAuth();
+  const params = useParams();
 
-    const params = useParams();
+  const [formData, setFormData] = useState({
+    name: "",
+    price: "",
+    category: "",
+    description: "",
+    image: "",
+  });
 
-    const [ formData, setFormData ] = useState({
-        name: "",
-        price: "",
-        category: "",
-        description: "",
-        image: ""
-    });
-
-    const getCurrentProduct = async() => {
-      try{
-        const singleProduct = await fetch(`${BackendDomain}/ecom/product/getOne/${params.id}`,{
+  const getCurrentProduct = async () => {
+    try {
+      const singleProduct = await fetch(
+        `${BackendDomain}/ecom/product/getOne/${params.id}`,
+        {
           method: "get",
           headers: {
             Authorization: authToken,
-          }
-        })
+          },
+        }
+      );
 
-        const singleProductIget = await singleProduct.json();
-        console.log("Product i got", singleProductIget);
-        setFormData(singleProductIget)
-
-      }catch(err){
-        console.log("Error from update product",err);
-      }
+      const singleProductIget = await singleProduct.json();
+      console.log("Product i got", singleProductIget);
+      setFormData(singleProductIget);
+    } catch (err) {
+      console.log("Error from update product", err);
     }
+  };
 
-    useEffect(() => {
-      getCurrentProduct();
-    }, [])
+  useEffect(() => {
+    getCurrentProduct();
+  }, []);
 
-    const handleChange = (e) => {
-      let name = e.target.name;
-      let value = e.target.value;
+  const handleChange = (e) => {
+    let name = e.target.name;
+    let value = e.target.value;
 
-      setFormData({
-        ...formData,
-        [name] : value
-      })
-    }
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
 
-    const handleSubmit = async(e) => {
-      e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-      try{
-        const updateProductData = await fetch(`${BackendDomain}/ecom/product/edit/${params.id}`, {
+    try {
+      const updateProductData = await fetch(
+        `${BackendDomain}/ecom/product/edit/${params.id}`,
+        {
           method: "put",
           headers: {
             Authorization: authToken,
-            'Content-Type':'application/json',
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify(formData)
-        })
-        if(updateProductData.status === 200 || updateProductData.ok){
-          alert("Product update done")
+          body: JSON.stringify(formData),
         }
-      }catch(err){
-        console.log("Error form update product catch block", err)
+      );
+      if (updateProductData.status === 200 || updateProductData.ok) {
+        alert("Product update done");
       }
+    } catch (err) {
+      console.log("Error form update product catch block", err);
     }
+  };
 
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
         <Title>Add Product</Title>
-        <Input name='name' type="text" placeholder="Name" value={formData.name} onChange={handleChange}/>
-        <Input name='price' type="number" placeholder="Price" value={formData.price} onChange={handleChange}/>
-        <Input name='category' type="text" placeholder="Category" value={formData.category} onChange={handleChange}/>
-        <TextArea name='description' placeholder="Description" rows="4" value={formData.category} onChange={handleChange}/>
-        <Input name='image' type="text" value={formData.image} onChange={handleChange} />
-        <img src={formData.image[0]}/>
+        <Input
+          name="name"
+          type="text"
+          placeholder="Name"
+          value={formData.name}
+          onChange={handleChange}
+        />
+        <Input
+          name="price"
+          type="number"
+          placeholder="Price"
+          value={formData.price}
+          onChange={handleChange}
+        />
+        <Input
+          name="category"
+          type="text"
+          placeholder="Category"
+          value={formData.category}
+          onChange={handleChange}
+        />
+        <TextArea
+          name="description"
+          placeholder="Description"
+          rows="4"
+          value={formData.category}
+          onChange={handleChange}
+        />
+        <Input
+          name="image"
+          type="text"
+          value={formData.image}
+          onChange={handleChange}
+        />
+        <img src={formData.image[0]} />
         {/* <img src={formData.image?.map((image, index) => { return( <img src={image} key={index}/> ) })}/> */}
         <Button type="submit">Submit</Button>
       </Form>
@@ -109,7 +142,7 @@ const Form = styled.form`
   /* box-shadow:2px 2px 2px 10px rgba(0, 0, 0, 0.1); */
   background-color: #ffffff;
 
-  img{
+  img {
     width: 10rem;
   }
 `;
@@ -141,7 +174,7 @@ const Button = styled.button`
   padding: 10px 15px;
   border: none;
   border-radius: 5px;
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: white;
   font-size: 16px;
   cursor: pointer;

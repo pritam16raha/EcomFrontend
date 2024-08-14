@@ -9,7 +9,7 @@ import { defaultTheme } from "../../styles/themes/default";
 import CustomNextArrow from "../Common/CustomNextArrow";
 import CustomPrevArrow from "../Common/CustomPrevArrow";
 import { useEffect, useState } from "react";
-import { BackendDomain } from "../../common/SummaryApi";
+import { BackendDomain } from "../../commonData/SummaryApi";
 
 const Hero = () => {
   const settings = {
@@ -44,7 +44,6 @@ const Hero = () => {
   // console.log("Image data we received", bannerImg);
   // console.log("Image data we received", bannerName);
   // console.log("Description data we received", desc);
-
 
   return (
     <SectionHeroWrapper>
@@ -120,7 +119,7 @@ const HeroSlideWrapper = styled.div`
   padding-bottom: 0;
   margin-bottom: 0;
   margin: auto;
-  
+
   .custom-prev-arrow {
     left: 30px !important;
     background-color: transparent;

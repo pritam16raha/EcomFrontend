@@ -13,7 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { BaseButtonBlack } from "../../../styles/button";
 import { defaultTheme } from "../../../styles/themes/default";
 import { useEffect, useState } from "react";
-import SummaryApi from "../../../common/SummaryApi";
+import SummaryApi from "../../../commonData/SummaryApi";
 import { toast } from "react-toastify";
 import { useMyAuth } from "../../../store/Auth";
 
@@ -43,45 +43,46 @@ const SignUpScreen = () => {
 
   const [showPassword, setShowPassword] = useState(false);
 
-  const storeTokenInLocal = useMyAuth()
+  const storeTokenInLocal = useMyAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (userData.password === userData.confirmPassword) {
+      console.log("summary api pritam", SummaryApi.signUP.url);
 
-      console.log("summary api pritam", SummaryApi.signUP.url)
-
-      const {name, email, username, password} = userData     
+      const { name, email, username, password } = userData;
 
       const respondedData = await fetch(SummaryApi.signUP.url, {
         method: SummaryApi.signUP.method,
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({name, email, username, password}),
+        body: JSON.stringify({ name, email, username, password }),
       });
-
 
       const formData = await respondedData.json();
 
-      if(respondedData.status === 200 || respondedData.ok){
-
-        storeTokenInLocal(formData.access_Token)
+      if (respondedData.status === 200 || respondedData.ok) {
+        storeTokenInLocal(formData.access_Token);
 
         toast.success(formData.message);
-        navigate("/signin")
+        navigate("/signin");
       }
 
-      if(formData.error || formData.status === 500 || formData.status === 409){
-        toast.error(formData.message)
+      if (
+        formData.error ||
+        formData.status === 500 ||
+        formData.status === 409
+      ) {
+        toast.error(formData.message);
       }
 
-      toast(formData.message)
+      toast(formData.message);
 
       console.log("user data you filled: ", formData);
-    }else{
-      console.log("confirm password is not same")
+    } else {
+      console.log("confirm password is not same");
     }
   };
 
