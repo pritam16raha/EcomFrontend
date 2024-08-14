@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useMyAuth } from "../store/Auth";
 import { useParams } from "react-router-dom";
-import SummaryApi, { BackendDomain } from "../common/SummaryApi";
+import SummaryApi, { BackendDomain } from "../commonData/SummaryApi";
 import uploadImage from "../components/helpers/uploadImage";
 
 const AddProduct = () => {

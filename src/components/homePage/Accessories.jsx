@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Section } from "../../styles/styles";
 import Title from "../Common/Title";
 import { useState } from "react";
-import { BackendDomain } from "../../common/SummaryApi";
+import { BackendDomain } from "../../commonData/SummaryApi";
 import { useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -39,31 +39,32 @@ const Accessories = () => {
 
   return (
     <Section>
-       <Container>
-        
-      <Title titleText={"Accessories for Bikes"} />
-      <ProductListWrapper className="grid">
-        {itemImage?.map((item, index) => {
-          return (
-            <ProductCardWrapper key={index} to={`/product`}>
-              <div className="product-img">
-                <img className="object-fit-cover" src={item} />
-                <button type="button">
-                  <i className="icon"></i>
-                </button>
-              </div>
-              <div className="product-info">
-                <p className="font-bold">{}</p>
-                <div className="flex items-center justify-between text-sm font-medium">
-                  <span className="text-gray">{itemName[index]}</span>
-                  <span className="text-outerspace font-bold">{itemPrice[index]} rs</span>
+      <Container>
+        <Title titleText={"Accessories for Bikes"} />
+        <ProductListWrapper className="grid">
+          {itemImage?.map((item, index) => {
+            return (
+              <ProductCardWrapper key={index} to={`/product`}>
+                <div className="product-img">
+                  <img className="object-fit-cover" src={item} />
+                  <button type="button">
+                    <i className="icon"></i>
+                  </button>
                 </div>
-              </div>
-            </ProductCardWrapper>
-          );
-        })}
+                <div className="product-info">
+                  <p className="font-bold">{}</p>
+                  <div className="flex items-center justify-between text-sm font-medium">
+                    <span className="text-gray">{itemName[index]}</span>
+                    <span className="text-outerspace font-bold">
+                      {itemPrice[index]} rs
+                    </span>
+                  </div>
+                </div>
+              </ProductCardWrapper>
+            );
+          })}
 
-        {/* {
+          {/* {
                 <ProductCardWrapper key={product.id} to="/product/details">
                 <div className="product-img">
                 <img className="object-fit-cover" src={product.imgSource} />
@@ -83,10 +84,9 @@ const Accessories = () => {
                 </ProductCardWrapper>
                 }
                 */}
-      </ProductListWrapper>
-      </Container> 
+        </ProductListWrapper>
+      </Container>
     </Section>
-    
   );
 };
 

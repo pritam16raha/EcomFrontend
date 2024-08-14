@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react'
-import { useMyAuth } from '../store/Auth';
-import SummaryApi, { BackendDomain } from '../common/SummaryApi';
+import React, { useEffect, useState } from "react";
+import { useMyAuth } from "../store/Auth";
+import SummaryApi, { BackendDomain } from "../commonData/SummaryApi";
 import styled from "styled-components";
-import { useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
+import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const UpdateUser = () => {
-
   const { authToken } = useMyAuth();
 
   const params = useParams();
@@ -18,32 +17,32 @@ const UpdateUser = () => {
     username: "",
     email: "",
     role: "",
-    password: ""
+    password: "",
   });
 
   const getCurrentUser = async () => {
-    try{
-      const fetchedUser = await fetch(`${BackendDomain}/ecom/getuserinfo/${params.id}`, {
-        method: SummaryApi.getAllUser.method,
-        headers: {
-          Authorization: authToken,
+    try {
+      const fetchedUser = await fetch(
+        `${BackendDomain}/ecom/getuserinfo/${params.id}`,
+        {
+          method: SummaryApi.getAllUser.method,
+          headers: {
+            Authorization: authToken,
+          },
         }
-      })
+      );
 
       const responseData = await fetchedUser.json();
-      console.log("User I get",responseData);
-      setFormData(responseData)
-
-    }catch(err){
+      console.log("User I get", responseData);
+      setFormData(responseData);
+    } catch (err) {
       console.log("Error from update user get current user", err);
     }
-  }
+  };
 
   useEffect(() => {
     getCurrentUser();
-  }, [])
-
-
+  }, []);
 
   const handleChange = (e) => {
     let name = e.target.name;
@@ -51,78 +50,78 @@ const UpdateUser = () => {
 
     setFormData({
       ...formData,
-      [name] : value
-    })
-  }
+      [name]: value,
+    });
+  };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    try{
-      const respondedData = await fetch(`${BackendDomain}/ecom/updateuser/${params.id}`, {
-        method: "put",
-        headers: {
-          Authorization: authToken,
-          'Content-Type':'application/json',
-        },
-        body: JSON.stringify(formData)
-      })
+    try {
+      const respondedData = await fetch(
+        `${BackendDomain}/ecom/updateuser/${params.id}`,
+        {
+          method: "put",
+          headers: {
+            Authorization: authToken,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
 
-      if( respondedData.status === 200 || respondedData.ok ){
-        alert("Update Complete")
+      if (respondedData.status === 200 || respondedData.ok) {
+        alert("Update Complete");
       }
-      
-    }catch(err){
-      console.log("Error From User update page", err)
+    } catch (err) {
+      console.log("Error From User update page", err);
     }
-  }
-
-
+  };
 
   return (
-      <Container>
-        <Form onSubmit={handleSubmit}>
-          <Input
-            type="text"
-            name="name"
-            placeholder="Name"
-            value={formData.name}
-            onChange={handleChange}
-          />
-  
-          <Input
-            type="text"
-            name="username"
-            placeholder="Role"
-            value={formData.username}
-            onChange={handleChange}
-          />
-  
-          <Input
-            type="email"
-            name="email"
-            placeholder="Email"
-            value={formData.email}
-            onChange={handleChange}
-          />
-          <Input
-            type="text"
-            name="role"
-            placeholder="Role"
-            value={formData.role}
-            onChange={handleChange}
-          />
-          <Input
-            type="password"
-            name="password"
-            placeholder="Password"
-            value={formData.password}
-            onChange={handleChange}
-          />
-  
-          <Button type="submit">Submit</Button>
-        </Form>
-        {/* {submittedData && (
+    <Container>
+      <Form onSubmit={handleSubmit}>
+        <Input
+          type="text"
+          name="name"
+          placeholder="Name"
+          value={formData.name}
+          onChange={handleChange}
+        />
+
+        <Input
+          type="text"
+          name="username"
+          placeholder="Role"
+          value={formData.username}
+          onChange={handleChange}
+        />
+
+        <Input
+          type="email"
+          name="email"
+          placeholder="Email"
+          value={formData.email}
+          onChange={handleChange}
+        />
+        <Input
+          type="text"
+          name="role"
+          placeholder="Role"
+          value={formData.role}
+          onChange={handleChange}
+        />
+        <Input
+          type="password"
+          name="password"
+          placeholder="Password"
+          value={formData.password}
+          onChange={handleChange}
+        />
+
+        <Button type="submit">Submit</Button>
+      </Form>
+      {/* {submittedData && (
           // <UserInfo>
           //   <h2>User Info</h2>
           //   <p>Name: {submittedData.name}</p>
@@ -130,9 +129,9 @@ const UpdateUser = () => {
           //   <p>Role: {submittedData.role}</p>
           // </UserInfo>
         )} */}
-      </Container>
-    );
-}
+    </Container>
+  );
+};
 
 export default UpdateUser;
 
