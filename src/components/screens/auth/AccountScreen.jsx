@@ -6,7 +6,7 @@ import UserMenu from "../../user/UserMenu";
 
 import { FormElement, Input } from "../../../styles/form";
 
-import { Link , useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { defaultTheme } from "../../../styles/themes/default";
 import Title from "../../Common/Title";
 import { BaseLinkGreen } from "../../../styles/button";
@@ -22,21 +22,18 @@ const breadcrumbItems = [
 ];
 
 const AccountScreen = () => {
-
   const { currentUser } = useMyAuth();
 
-  const [ userData, setUserData ] = useState({
+  const [userData, setUserData] = useState({
     name: "",
-    username: "",
     email: "",
-    role: "",
     phone: "",
     address: "",
     password: "",
   });
 
   useEffect(() => {
-    if(currentUser){
+    if (currentUser) {
       setUserData({
         name: currentUser.name,
         username: currentUser.username,
@@ -44,23 +41,32 @@ const AccountScreen = () => {
         role: currentUser.role,
         phone: currentUser.phone,
         address: currentUser.address,
-      })
+      });
     }
-  }, [currentUser])
+  }, [currentUser]);
 
-  console.log("Current user is", userData)
+  console.log("Current user is", userData);
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    let name = e.target.name;
+    let value = e.target.value;
+    setUserData({ ...userData, [name]: value });
   };
 
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  }
+
+  useEffect(() => {
+    setUserData(currentUser)
+  }, [])
 
   return (
     <AccountScreenWrapper className="page-py-spacing">
       <Container>
         <BreadCrumb items={breadcrumbItems} />
         <UserDashboardWrapper>
-          <UserMenu username={currentUser.name}/>
+          <UserMenu username={userData.name} />
           <UserContent>
             <Title titleText={"My Account"} />
             <h4 className="title-sm">Contact Details</h4>
@@ -77,8 +83,9 @@ const AccountScreen = () => {
                     <Input
                       type="text"
                       className="form-elem-control text-outerspace font-semibold"
-                      value={currentUser.name}
-                      readOnly
+                      value={userData.name}
+                      name="name"
+                      onChange={handleChange}
                     />
                     <button type="button" className="form-control-change-btn">
                       Change
@@ -96,8 +103,9 @@ const AccountScreen = () => {
                     <Input
                       type="email"
                       className="form-elem-control text-outerspace font-semibold"
-                      value={currentUser.email}
-                      readOnly
+                      value={userData.email}
+                      name="email"
+                      onChange={handleChange}
                     />
                     <button type="button" className="form-control-change-btn">
                       Change
@@ -115,8 +123,9 @@ const AccountScreen = () => {
                     <Input
                       type="text"
                       className="form-elem-control text-outerspace font-semibold"
-                      value={currentUser.phone}
-                      readOnly
+                      value={userData.phone}
+                      name="phone"
+                      onChange={handleChange}
                     />
                     <button type="button" className="form-control-change-btn">
                       Change
@@ -134,8 +143,9 @@ const AccountScreen = () => {
                     <Input
                       type="password"
                       className="form-elem-control text-outerspace font-semibold"
-                      value="Pass Key"
-                      readOnly
+                      value="Pass Key"  //ata kintu mone kore change krte hobe
+                      name="password"
+                      onChange={handleChange}
                     />
                     <button type="button" className="form-control-change-btn">
                       Change
@@ -150,10 +160,10 @@ const AccountScreen = () => {
               <div className="address-list grid">
                 <div className="address-item grid">
                   <p className="text-outerspace text-lg font-semibold address-title">
-                    {currentUser.name}
+                    {userData.name}
                   </p>
                   <p className="text-gray text-base font-medium address-description">
-                    {currentUser.address}
+                    {userData.address}
                   </p>
                   <ul className="address-tags flex flex-wrap">
                     <li className="text-gray text-base font-medium inline-flex items-center justify-center">
@@ -227,7 +237,6 @@ const AccountScreenWrapper = styled.main`
     margin-top: 20px;
     grid-template-columns: repeat(2, 1fr);
     gap: 25px;
-
   }
 
   .address-item {
