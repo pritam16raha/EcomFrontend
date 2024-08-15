@@ -5,10 +5,158 @@ import { UserContent, UserDashboardWrapper } from "../../styles/user";
 import UserMenu from "../../components/user/UserMenu";
 import { Link } from "react-router-dom";
 import Title from "../Common/Title";
-import { orderData } from "../../data/data";
 import { currencyFormat } from "../../utils/helper";
 import { defaultTheme } from "../../styles/themes/default";
 import BreadCrumb from "../Common/BreadCrumb";
+import { useMyAuth } from "../../store/Auth";
+import { useEffect, useState } from "react";
+import { BackendDomain } from "../../commonData/SummaryApi";
+
+const OrderDetailScreen = () => {
+
+  const { currentUser , authToken } = useMyAuth();
+
+  const [ orderData, setOrderData ] = useState([]);
+
+  const getAllOrder = async ( req, res, next ) => {
+    try{
+      const userId = { id: currentUser._id }
+      const orderAginstUser = await fetch(`${BackendDomain}/ecom/getorderbyuser`, {
+        method: "POST",
+        headers: {
+          Authorization: authToken,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(userId),
+      });
+      const orders = await orderAginstUser.json();
+      setOrderData(orders.orders);
+    }catch(err){
+      console.log("Error from my order -> catch block", err)
+    }
+  };
+
+  useEffect(() => {
+    getAllOrder();
+  }, [])
+
+  console.log("Order is", orderData);
+  return (
+    <OrderDetailScreenWrapper className="page-py-spacing">
+      <Container>
+        <BreadCrumb items={breadcrumbItems} />
+        <UserDashboardWrapper>
+          <UserMenu username={currentUser.name}/>
+          <UserContent>
+            <div className="flex items-center justify-start btn-and-title-wrapper">
+              <Link
+                to="/order"
+                className="btn-go-back inline-flex items-center justify-center text-xxl"
+              >
+                <i className="bi bi-chevron-left"></i>
+              </Link>
+              <Title titleText={"Order Details"} />
+            </div>
+
+            <div className="order-d-wrapper">
+              <div className="order-d-top flex justify-between items-start">
+                <div className="order-d-top-l">
+                  <h4 className="text-3xl order-d-no">
+                    Order no: #47770098867
+                  </h4>
+                  <p className="text-lg font-medium text-gray">
+                    Placed On 2 June 2023 2:40 PM
+                  </p>
+                </div>
+                <div className="order-d-top-r text-xxl text-gray font-semibold">
+                  Total: <span className="text-outerspace">$143.00</span>
+                </div>
+              </div>
+
+              <OrderDetailStatusWrapper className="order-d-status">
+                <div className="order-status bg-silver">
+                  <div className="order-status-dot status-done bg-silver">
+                    <span className="order-status-text font-semibold text-center no-wrap text-silver">
+                      Order Placed
+                    </span>
+                  </div>
+                  <div className="order-status-dot status-current bg-silver">
+                    <span className="order-status-text font-semibold text-center no-wrap text-silver">
+                      In Progress
+                    </span>
+                  </div>
+                  <div className="order-status-dot bg-silver">
+                    <span className="order-status-text font-semibold text-center no-wrap text-silver">
+                      Shipped
+                    </span>
+                  </div>
+                  <div className="order-status-dot bg-silver">
+                    <span className="order-status-text font-semibold text-center no-wrap text-silver">
+                      Delivered
+                    </span>
+                  </div>
+                </div>
+              </OrderDetailStatusWrapper>
+              <OrderDetailMessageWrapper className="order-message flex items-center justify-start">
+                <p className="font-semibold text-gray">
+                  8 June 2023 3:40 PM &nbsp;
+                  <span className="text-outerspace">
+                    Your order has been successfully verified.
+                  </span>
+                </p>
+              </OrderDetailMessageWrapper>
+
+              <OrderDetailListWrapper className="order-d-list">
+                {orderData?.items?.map((item) => {
+                  return (
+                    <div className="order-d-item grid" key={item.id}>
+                      <div className="order-d-item-img">
+                        <img
+                          src={item.imgSource}
+                          alt=""
+                          className="object-fit-cover"
+                        />
+                      </div>
+                      <div className="order-d-item-info">
+                        <p className="text-xl font-bold">{item.name}</p>
+                        <p className="text-md font-bold">
+                          Color: &nbsp;
+                          <span className="font-medium text-gray">
+                            {item.color}
+                          </span>
+                        </p>
+                      </div>
+                      <div className="order-d-item-calc">
+                        <p className="font-bold text-lg">
+                          Qty: &nbsp;
+                          <span className="text-gray">{item.quantity}</span>
+                        </p>
+                        <p className="font-bold text-lg">
+                          Price: &nbsp;
+                          <span className="text-gray">
+                            {currencyFormat(item.price)}
+                          </span>
+                        </p>
+                      </div>
+                      <button
+                        type="button"
+                        className="text-xl text-outerspace order-d-item-btn"
+                      >
+                        <i className="bi bi-x-lg"></i>
+                      </button>
+                    </div>
+                  );
+                })}
+              </OrderDetailListWrapper>
+            </div>
+          </UserContent>
+        </UserDashboardWrapper>
+      </Container>
+    </OrderDetailScreenWrapper>
+  );
+};
+
+export default OrderDetailScreen;
 
 const OrderDetailScreenWrapper = styled.main`
   .btn-and-title-wrapper {
@@ -181,121 +329,3 @@ const breadcrumbItems = [
   { label: "Order", link: "/order" },
   { label: "Order Details", link: "/order_detail" },
 ];
-
-const OrderDetailScreen = () => {
-  return (
-    <OrderDetailScreenWrapper className="page-py-spacing">
-      <Container>
-        <BreadCrumb items={breadcrumbItems} />
-        <UserDashboardWrapper>
-          <UserMenu />
-          <UserContent>
-            <div className="flex items-center justify-start btn-and-title-wrapper">
-              <Link
-                to="/order"
-                className="btn-go-back inline-flex items-center justify-center text-xxl"
-              >
-                <i className="bi bi-chevron-left"></i>
-              </Link>
-              <Title titleText={"Order Details"} />
-            </div>
-
-            <div className="order-d-wrapper">
-              <div className="order-d-top flex justify-between items-start">
-                <div className="order-d-top-l">
-                  <h4 className="text-3xl order-d-no">
-                    Order no: #47770098867
-                  </h4>
-                  <p className="text-lg font-medium text-gray">
-                    Placed On 2 June 2023 2:40 PM
-                  </p>
-                </div>
-                <div className="order-d-top-r text-xxl text-gray font-semibold">
-                  Total: <span className="text-outerspace">$143.00</span>
-                </div>
-              </div>
-
-              <OrderDetailStatusWrapper className="order-d-status">
-                <div className="order-status bg-silver">
-                  <div className="order-status-dot status-done bg-silver">
-                    <span className="order-status-text font-semibold text-center no-wrap text-silver">
-                      Order Placed
-                    </span>
-                  </div>
-                  <div className="order-status-dot status-current bg-silver">
-                    <span className="order-status-text font-semibold text-center no-wrap text-silver">
-                      In Progress
-                    </span>
-                  </div>
-                  <div className="order-status-dot bg-silver">
-                    <span className="order-status-text font-semibold text-center no-wrap text-silver">
-                      Shipped
-                    </span>
-                  </div>
-                  <div className="order-status-dot bg-silver">
-                    <span className="order-status-text font-semibold text-center no-wrap text-silver">
-                      Delivered
-                    </span>
-                  </div>
-                </div>
-              </OrderDetailStatusWrapper>
-              <OrderDetailMessageWrapper className="order-message flex items-center justify-start">
-                <p className="font-semibold text-gray">
-                  8 June 2023 3:40 PM &nbsp;
-                  <span className="text-outerspace">
-                    Your order has been successfully verified.
-                  </span>
-                </p>
-              </OrderDetailMessageWrapper>
-
-              <OrderDetailListWrapper className="order-d-list">
-                {orderData[0].items?.map((item) => {
-                  return (
-                    <div className="order-d-item grid" key={item.id}>
-                      <div className="order-d-item-img">
-                        <img
-                          src={item.imgSource}
-                          alt=""
-                          className="object-fit-cover"
-                        />
-                      </div>
-                      <div className="order-d-item-info">
-                        <p className="text-xl font-bold">{item.name}</p>
-                        <p className="text-md font-bold">
-                          Color: &nbsp;
-                          <span className="font-medium text-gray">
-                            {item.color}
-                          </span>
-                        </p>
-                      </div>
-                      <div className="order-d-item-calc">
-                        <p className="font-bold text-lg">
-                          Qty: &nbsp;
-                          <span className="text-gray">{item.quantity}</span>
-                        </p>
-                        <p className="font-bold text-lg">
-                          Price: &nbsp;
-                          <span className="text-gray">
-                            {currencyFormat(item.price)}
-                          </span>
-                        </p>
-                      </div>
-                      <button
-                        type="button"
-                        className="text-xl text-outerspace order-d-item-btn"
-                      >
-                        <i className="bi bi-x-lg"></i>
-                      </button>
-                    </div>
-                  );
-                })}
-              </OrderDetailListWrapper>
-            </div>
-          </UserContent>
-        </UserDashboardWrapper>
-      </Container>
-    </OrderDetailScreenWrapper>
-  );
-};
-
-export default OrderDetailScreen;
