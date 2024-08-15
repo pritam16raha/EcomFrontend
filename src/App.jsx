@@ -28,9 +28,8 @@ import MyOrder from "./components/screens/MyOrder/MyOrder";
 import AccountScreen from "./components/screens/auth/AccountScreen";
 import UserMenu from "./components/user/UserMenu";
 import OrderItem from "./components/user/OrderItem";
-import OrderDetailScreen from "./components/user/OrderDetailScreen";
+import OrderDetailScreen from "./components/screens/MyOrder/OrderDetailScreen";
 import OrderItemList from "./components/user/OrderItemList";
-
 
 function App() {
   return (
@@ -52,7 +51,7 @@ function App() {
                 />
 
                 <Route path="/cart" element={<Cart />} />
-                <Route path='/order' element={<MyOrder/>} />
+                <Route path="/order" element={<MyOrder />} />
                 <Route path="/emptycart" element={<EmptyCart />} />
                 <Route path="/userinfo" element={<UserInfoPage />} />
               </Route>
