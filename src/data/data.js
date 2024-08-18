@@ -6,27 +6,32 @@ const navMenuData = [
   {
     id: "nav-menu-1",
     menuLink: "/",
-    menuText: "Shop",
+    menuText: "Street Fighter",
   },
   {
     id: "nav-menu-2",
     menuLink: "/",
-    menuText: "City",
+    menuText: "Mods",
   },
   {
     id: "nav-menu-3",
     menuLink: "/",
-    menuText: "Street-fighter",
+    menuText: "Accessories",
   },
   {
     id: "nav-menu-4",
     menuLink: "/",
-    menuText: "Commuter",
+    menuText: "City",
   },
   {
     id: "nav-menu-5",
     menuLink: "/",
     menuText: "Tourer",
+  },
+  {
+    id: "nav-menu-5",
+    menuLink: "/",
+    menuText: "Essentials",
   },
 ];
 
