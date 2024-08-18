@@ -22,6 +22,7 @@
     "braintree-web-drop-in-react": "^1.2.1",
     "dotenv": "^16.4.5",
     "esm": "^3.2.25",
+    "framer-motion": "^11.3.28",
     "lucide-react": "^0.379.0",
     "or": "^0.2.0",
     "react": "^18.1.0",

@@ -10,12 +10,51 @@ import { defaultTheme } from "../../../styles/themes/default";
 import ProductFilter from "../../product/ProductFilter";
 import { BackendDomain } from "../../../commonData/SummaryApi";
 import { useMyAuth } from "../../../store/Auth";
+import Accessories from "../../product/Accessories";
+import StreetFighter from "../../product/StreetFighter";
+import NewArrival from "../../product/NewArrival";
+import Tourer from "../../product/Tourer";
+import Essentials from "../../product/Essentials";
+import City from "../../product/City";
 
 const ProductListScreen = () => {
   const breadCrumbItems = [
     { label: "Home", link: "/" },
     { label: "Products", link: "" },
   ];
+
+  const [currentCategory, setCurrentCategory] = useState("All");
+
+  const [ accessories, setAccessories ] = useState("");
+  const [ streetFighter, setStreetFighter ] = useState("");
+  const [ newArrival, setNewArrival ] = useState("");
+  const [ city, setCity ] = useState("");
+  const [ tourer, setTourer ] = useState("");
+  const [ essentials, setEssentials ] = useState("");
+
+  const fetchProduct = async () => {
+    try{
+      const dataIgot = await fetch(`${BackendDomain}/ecom/product/productbycategory`, {
+        method: "GET"
+      })
+      const productData = await dataIgot.json();
+      setAccessories(productData.accessories);
+      setStreetFighter(productData.streetFighter);
+      setNewArrival(productData.newArrival);
+      setCity(productData.city);
+      setTourer(productData.tourer);
+      setEssentials(productData.essentials);
+
+    }catch(err){
+      console.log("Error from productListScreen fetch product function", err);
+    }
+  }
+
+  // console.log("accessories", accessories);
+
+  useEffect(()=>{
+    fetchProduct()
+  },[])
 
   return (
     <main>
@@ -42,7 +81,70 @@ const ProductListScreen = () => {
                 </li>
               </ul>
             </div>
-            <ProductList products={products.slice(0, 12)} />
+
+            <div className="templateButton">
+              <button onClick={() => setCurrentCategory("all")}>
+                All
+              </button>
+              <button onClick={() => setCurrentCategory("accessories")}>
+                Accessories
+              </button>
+              <button onClick={() => setCurrentCategory("streetFighter")}>
+                Street Fighter
+              </button>
+              <button onClick={() => setCurrentCategory("newArrival")}>
+                New Arrived
+              </button>
+              <button onClick={() => setCurrentCategory("city")}>
+                City
+              </button>
+              <button onClick={() => setCurrentCategory("tourer")}>
+                Tourer
+              </button>
+              <button onClick={() => setCurrentCategory("essentials")}>
+                Essentials
+              </button>
+            </div>
+
+            <div>
+              {
+                currentCategory === "all" && (
+                  <ProductList/>
+                )
+              }
+              {
+                currentCategory === "accessories" && (
+                  <Accessories product={accessories}/>
+                )
+              }
+              {
+                currentCategory === "streetFighter" && (
+                  <StreetFighter product={streetFighter}/>
+                )
+              }
+              {
+                currentCategory === "newArrival" && (
+                  <NewArrival product={newArrival}/>
+                )
+              }
+              {
+                currentCategory === "city" && (
+                  <City product={city}/>
+                )
+              }
+              {
+                currentCategory === "tourer" && (
+                  <Tourer product={tourer}/>
+                )
+              }
+              {
+                currentCategory === "essentials" && (
+                  <Essentials product={essentials}/>
+                )
+              }
+            </div>
+
+
           </ProductsContentRight>
         </ProductsContent>
       </Container>
@@ -113,6 +215,23 @@ const ProductsContentRight = styled.div`
   padding: 16px 40px;
   .products-right-top {
     margin-bottom: 40px;
+  }
+
+  .templateButton{
+    margin: auto;
+    button{
+      min-height: 50px;
+      min-width: 100px;
+      margin: 10px;
+      border-radius: 10px;
+
+      &:hover{
+        cursor: pointer;
+        transform: scale(0.9);
+        background-color: #a1cecc;
+        transition: all 0.5s ease;
+      }
+    }
   }
 
   .products-right-nav {
