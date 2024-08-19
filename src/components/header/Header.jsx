@@ -43,7 +43,7 @@ const Header = () => {
             </SiteBrandWrapper>
           </div>
 
-          <NavigationAndSearchWrapper className="flex items-center">
+          {/* <NavigationAndSearchWrapper className="flex items-center">
             <NavigationMenuWrapper>
               <ul className="nav-menu-list flex items-center">
                 {navMenuData?.map((menu) => {
@@ -74,7 +74,7 @@ const Header = () => {
                 />
               </InputGroupWrapper>
             </form>
-          </NavigationAndSearchWrapper>
+          </NavigationAndSearchWrapper> */}
 
           <IconLinksWrapper className="flex items-center">
             {/* <Link
