@@ -10,10 +10,11 @@ import DropMenu from "../dropDownMenu/DropMenu";
 import { useState } from "react";
 import { useCart } from "../../store/Cart";
 import { Avatar, Badge, Space } from "antd";
+import Dropdown from "../dropDownMenu/DropDown";
 //import { useDispatch } from "react-redux";
 
 const Header = () => {
-  const {cart, setCart} = useCart();
+  const { cart, setCart } = useCart();
 
   const location = useLocation();
   console.log(location.pathname);
@@ -99,18 +100,13 @@ const Header = () => {
             </Link>
 
             <div className="flex items-center">
-              <button onClick={() => setDropMenu((prev) => !prev)}>
-                <img src={staticImages.user} alt="" />
-              </button>
+              <div className="dropmenu">
+                <Dropdown />
+              </div>
             </div>
           </IconLinksWrapper>
         </div>
       </Container>
-      
-      <div className="dropmenu">
-      {openDropMenu && <DropMenu />}
-      </div>
-
     </HeaderMainWrapper>
   );
 };

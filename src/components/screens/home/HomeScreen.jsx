@@ -12,11 +12,14 @@ import Mods from "../../homePage/Mods";
 import { useMyAuth } from "../../../store/Auth";
 import { useEffect, useState } from "react";
 import { BackendDomain } from "../../../commonData/SummaryApi";
+import Popup from "./Popup";
 
 const HomeScreen = () => {
   const { authToken } = useMyAuth();
 
   const [products, setProducts] = useState([]);
+
+  const [showPopup, setShowPopup] = useState(false);
 
   const getAllProduct = async (req, res, next) => {
     try {
@@ -35,13 +38,26 @@ const HomeScreen = () => {
 
   useEffect(() => {
     getAllProduct();
+    setShowPopup(true);
   }, []);
 
   console.log("Products I got", products);
 
+  const handleClosePopup = () => {
+    setShowPopup(false);
+  };
+
   return (
     <HomeScreenWrapper>
       <Hero />
+      <div>
+        {showPopup && (
+          <Popup
+            message="This is your customized message!"
+            onClose={handleClosePopup}
+          />
+        )}
+      </div>
       <Featured />
       <NewArrivals />
       <SavingZone />

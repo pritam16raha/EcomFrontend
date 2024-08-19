@@ -4,8 +4,9 @@ import { Container } from "../../styles/styles";
 import styled from "styled-components";
 import { adminPages } from "../../data/data";
 import { Link } from "react-router-dom";
-import DropMenu from "../dropDownMenu/DropMenu";
+
 import { staticImages } from "../../utils/myImageData";
+import Dropdown from "../dropDownMenu/DropDown";
 
 const AdminHeader = () => {
   const [openDropMenu, setDropMenu] = useState(false);
@@ -37,15 +38,12 @@ const AdminHeader = () => {
               className="switch"
               onClick={() => setDropMenu((prev) => !prev)}
             >
-              <img src={staticImages.user} alt="" />
+              <Dropdown/>
             </button>
           </ul>
         </NavigationMenuWrapper>
       </Container>
 
-      <Dropmenu>
-      {openDropMenu && <DropMenu />}
-      </Dropmenu>
     </HeaderMainWrapper>
   );
 };

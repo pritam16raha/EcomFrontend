@@ -4,7 +4,7 @@ import Breadcrumb from "../../components/common/Breadcrumb";
 import { UserContent, UserDashboardWrapper } from "../../styles/user";
 import UserMenu from "../../components/user/UserMenu";
 import Title from "../../components/common/Title";
-import { breakpoints, defaultTheme } from "../../styles/themes/default";
+import {defaultTheme } from "../../styles/themes/default";
 import { orderData } from "../../data/data";
 import OrderItemList from "../../components/user/OrderItemList";
 
@@ -19,14 +19,6 @@ const OrderListScreenWrapper = styled.div`
 
     &.order-tabs-head-active {
       border-bottom-color: ${defaultTheme.color_outerspace};
-    }
-
-    @media (max-width: ${breakpoints.lg}) {
-      min-width: 120px;
-    }
-
-    @media (max-width: ${breakpoints.xs}) {
-      min-width: 80px;
     }
   }
 `;

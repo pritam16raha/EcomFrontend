@@ -9,7 +9,6 @@ export const HeaderMainWrapper = styled.header`
     align-items: center;
    
     /* margin: auto; */
-
     
 
     .header-wrap{
@@ -57,11 +56,9 @@ export const SiteBrandWrapper = styled(Link)`
             width: 260px;
         }
     }
-
     
 `;
 
 export const DropDown = styled.div`
     position: absolute;
-    margin-right: 10rem;
 `

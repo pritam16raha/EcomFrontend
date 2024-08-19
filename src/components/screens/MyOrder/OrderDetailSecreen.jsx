@@ -32,19 +32,11 @@ const OrderDetailScreenWrapper = styled.main`
     border-radius: 8px;
     border: 1px solid rgba(0, 0, 0, 0.05);
 
-    @media (max-width: ${breakpoints.sm}) {
-      flex-direction: column;
-      row-gap: 12px;
-    }
   }
 `;
 
 const OrderDetailStatusWrapper = styled.div`
   margin: 0 36px;
-  @media (max-width: ${breakpoints.sm}) {
-    margin: 0 10px;
-    overflow-x: scroll;
-  }
 
   .order-status {
     height: 4px;
