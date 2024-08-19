@@ -203,7 +203,7 @@ const savingZoneData = [
   {
     id: "saving-z-1",
     imgSource: staticImages.bigzone1,
-    title: "Hawaiian Shirts",
+    title: "All Summer Riding Kits",
     description: "Dress up in summer vibe",
     discount: 50,
     isLimited: false,
@@ -211,7 +211,7 @@ const savingZoneData = [
   {
     id: "saving-z-2",
     imgSource: staticImages.bigzone2,
-    title: "Printed T-Shirt",
+    title: "Choose Your Customized Accessories",
     description: "New Designs Every Week",
     discount: 40,
     isLimited: true,
@@ -219,15 +219,15 @@ const savingZoneData = [
   {
     id: "saving-z-3",
     imgSource: staticImages.bigzone3,
-    title: "Cargo Joggers",
-    description: "Move with style & comfort",
+    title: "Essential Maintenance Kit",
+    description: "Move with style",
     discount: 50,
     isLimited: false,
   },
   {
     id: "saving-z-4",
     imgSource: staticImages.bigzone4,
-    title: "Urban Shirts",
+    title: "Essential Long Tour Kit",
     description: "Live In Confort",
     discount: 20,
     isLimited: false,
@@ -235,7 +235,7 @@ const savingZoneData = [
   {
     id: "saving-z-5",
     imgSource: staticImages.bigzone5,
-    title: "Oversized T-Shirts",
+    title: "Modify Your Bike",
     description: "Street Style Icon",
     discount: 60,
     isLimited: false,

@@ -25,18 +25,21 @@ const ProductListScreen = () => {
 
   const [currentCategory, setCurrentCategory] = useState("All");
 
-  const [ accessories, setAccessories ] = useState("");
-  const [ streetFighter, setStreetFighter ] = useState("");
-  const [ newArrival, setNewArrival ] = useState("");
-  const [ city, setCity ] = useState("");
-  const [ tourer, setTourer ] = useState("");
-  const [ essentials, setEssentials ] = useState("");
+  const [accessories, setAccessories] = useState("");
+  const [streetFighter, setStreetFighter] = useState("");
+  const [newArrival, setNewArrival] = useState("");
+  const [city, setCity] = useState("");
+  const [tourer, setTourer] = useState("");
+  const [essentials, setEssentials] = useState("");
 
   const fetchProduct = async () => {
-    try{
-      const dataIgot = await fetch(`${BackendDomain}/ecom/product/productbycategory`, {
-        method: "GET"
-      })
+    try {
+      const dataIgot = await fetch(
+        `${BackendDomain}/ecom/product/productbycategory`,
+        {
+          method: "GET",
+        }
+      );
       const productData = await dataIgot.json();
       setAccessories(productData.accessories);
       setStreetFighter(productData.streetFighter);
@@ -44,107 +47,63 @@ const ProductListScreen = () => {
       setCity(productData.city);
       setTourer(productData.tourer);
       setEssentials(productData.essentials);
-
-    }catch(err){
+    } catch (err) {
       console.log("Error from productListScreen fetch product function", err);
     }
-  }
+  };
 
   // console.log("accessories", accessories);
 
-  useEffect(()=>{
-    fetchProduct()
-  },[])
+  useEffect(() => {
+    fetchProduct();
+  }, []);
 
   return (
     <main>
       <Container>
         <BreadCrumb items={breadCrumbItems} />
-        <ProductsContent className="grid items-start">
-          <ProductsContentLeft>
-            <ProductFilter />
-          </ProductsContentLeft>
-
+        <ProductsContent className="items-start">
           <ProductsContentRight>
             <div className="products-right-top flex items-center justify-between">
-              <h4 className="text-xxl">Engine&apos;s Mod</h4>
-              <ul className="products-right-nav flex items-center justify-end flex-wrap">
-                <li>
-                  <Link to="/" className="active text-lg font-semibold">
-                    New
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/" className="text-lg font-semibold">
-                    Recommended
-                  </Link>
-                </li>
-              </ul>
-            </div>
+              <h2 className="text-xxl">Categories</h2>
 
-            <div className="templateButton">
-              <button onClick={() => setCurrentCategory("all")}>
-                All
-              </button>
-              <button onClick={() => setCurrentCategory("accessories")}>
-                Accessories
-              </button>
-              <button onClick={() => setCurrentCategory("streetFighter")}>
-                Street Fighter
-              </button>
-              <button onClick={() => setCurrentCategory("newArrival")}>
-                New Arrived
-              </button>
-              <button onClick={() => setCurrentCategory("city")}>
-                City
-              </button>
-              <button onClick={() => setCurrentCategory("tourer")}>
-                Tourer
-              </button>
-              <button onClick={() => setCurrentCategory("essentials")}>
-                Essentials
-              </button>
+              <div className="templateButton">
+                <button onClick={() => setCurrentCategory("all")}>All</button>
+                <button onClick={() => setCurrentCategory("accessories")}>
+                  Accessories
+                </button>
+                <button onClick={() => setCurrentCategory("streetFighter")}>
+                  Street Fighter
+                </button>
+                <button onClick={() => setCurrentCategory("newArrival")}>
+                  New Arrived
+                </button>
+                <button onClick={() => setCurrentCategory("city")}>City</button>
+                <button onClick={() => setCurrentCategory("tourer")}>
+                  Tourer
+                </button>
+                <button onClick={() => setCurrentCategory("essentials")}>
+                  Essentials
+                </button>
+              </div>
             </div>
-
             <div>
-              {
-                currentCategory === "all" && (
-                  <ProductList/>
-                )
-              }
-              {
-                currentCategory === "accessories" && (
-                  <Accessories product={accessories}/>
-                )
-              }
-              {
-                currentCategory === "streetFighter" && (
-                  <StreetFighter product={streetFighter}/>
-                )
-              }
-              {
-                currentCategory === "newArrival" && (
-                  <NewArrival product={newArrival}/>
-                )
-              }
-              {
-                currentCategory === "city" && (
-                  <City product={city}/>
-                )
-              }
-              {
-                currentCategory === "tourer" && (
-                  <Tourer product={tourer}/>
-                )
-              }
-              {
-                currentCategory === "essentials" && (
-                  <Essentials product={essentials}/>
-                )
-              }
+              {currentCategory === "all" && <ProductList />}
+              {currentCategory === "accessories" && (
+                <Accessories product={accessories} />
+              )}
+              {currentCategory === "streetFighter" && (
+                <StreetFighter product={streetFighter} />
+              )}
+              {currentCategory === "newArrival" && (
+                <NewArrival product={newArrival} />
+              )}
+              {currentCategory === "city" && <City product={city} />}
+              {currentCategory === "tourer" && <Tourer product={tourer} />}
+              {currentCategory === "essentials" && (
+                <Essentials product={essentials} />
+              )}
             </div>
-
-
           </ProductsContentRight>
         </ProductsContent>
       </Container>
@@ -217,15 +176,15 @@ const ProductsContentRight = styled.div`
     margin-bottom: 40px;
   }
 
-  .templateButton{
+  .templateButton {
     margin: auto;
-    button{
+    button {
       min-height: 50px;
       min-width: 100px;
       margin: 10px;
       border-radius: 10px;
 
-      &:hover{
+      &:hover {
         cursor: pointer;
         transform: scale(0.9);
         background-color: #a1cecc;
