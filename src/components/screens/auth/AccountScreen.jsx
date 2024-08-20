@@ -6,12 +6,13 @@ import UserMenu from "../../user/UserMenu";
 
 import { FormElement, Input } from "../../../styles/form";
 
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 import { defaultTheme } from "../../../styles/themes/default";
 import Title from "../../Common/Title";
 import { BaseLinkGreen } from "../../../styles/button";
 import { useMyAuth } from "../../../store/Auth";
 import { useEffect, useState } from "react";
+import { BackendDomain } from "../../../commonData/SummaryApi";
 
 const breadcrumbItems = [
   {
@@ -22,7 +23,7 @@ const breadcrumbItems = [
 ];
 
 const AccountScreen = () => {
-  const { currentUser } = useMyAuth();
+  const { currentUser , authToken } = useMyAuth();
 
   const [userData, setUserData] = useState({
     name: "",
@@ -32,22 +33,33 @@ const AccountScreen = () => {
     password: "",
   });
 
-  useEffect(() => {
-    if (currentUser) {
-      setUserData({
-        name: currentUser.name,
-        username: currentUser.username,
-        email: currentUser.email,
-        role: currentUser.role,
-        phone: currentUser.phone,
-        address: currentUser.address,
-      });
+  const getCurrentUser = async () => {
+    try {
+      const fetchedUser = await fetch(
+        `${BackendDomain}/ecom/getuserinfo/${currentUser?._id}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: authToken,
+          },
+        }
+      );
+
+      const responseData = await fetchedUser.json();
+      // console.log("User I get", responseData);
+      setUserData(responseData);
+    } catch (err) {
+      console.log("Error from update user get current user", err);
     }
-  }, [currentUser]);
+  };
+  
+  useEffect(() => {
+    getCurrentUser();
+  }, [currentUser])
 
-  console.log("Current user is", userData);
 
-  const handleChange = (e) => {
+
+  const handleChange = async (e) => {
     let name = e.target.name;
     let value = e.target.value;
     setUserData({ ...userData, [name]: value });
@@ -55,11 +67,31 @@ const AccountScreen = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    try {
+      const respondedData = await fetch(
+        `${BackendDomain}/ecom/updateuser/${currentUser?._id}`,
+        {
+          method: "PUT",
+          headers: {
+            Authorization: authToken,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(userData),
+        }
+      );
+
+      if (respondedData.status === 200 || respondedData.ok) {
+        alert("Update Complete");
+      }
+    } catch (err) {
+      console.log("Error From User update page", err);
+    }
+
   }
 
-  useEffect(() => {
-    setUserData(currentUser)
-  }, [])
+
+  // console.log("Current user is", userData);
 
   return (
     <AccountScreenWrapper className="page-py-spacing">
@@ -68,6 +100,7 @@ const AccountScreen = () => {
         <UserDashboardWrapper>
           <UserMenu username={userData.name} />
           <UserContent>
+          <form onSubmit={handleSubmit}>
             <Title titleText={"My Account"} />
             <h4 className="title-sm">Contact Details</h4>
             <form>
@@ -143,7 +176,7 @@ const AccountScreen = () => {
                     <Input
                       type="password"
                       className="form-elem-control text-outerspace font-semibold"
-                      value="Pass Key"  //ata kintu mone kore change krte hobe
+                      value={userData.password}
                       name="password"
                       onChange={handleChange}
                     />
@@ -156,7 +189,6 @@ const AccountScreen = () => {
             </form>
             <div>
               <h4 className="title-sm">My Contact Addresss</h4>
-              <BaseLinkGreen to="/account/add">Add Address</BaseLinkGreen>
               <div className="address-list grid">
                 <div className="address-item grid">
                   <p className="text-outerspace text-lg font-semibold address-title">
@@ -223,6 +255,8 @@ const AccountScreen = () => {
                 </div>
               </div>
             </div>
+            <Button type="submit">Update Deatils</Button>
+            </form>
           </UserContent>
         </UserDashboardWrapper>
       </Container>
@@ -265,5 +299,21 @@ const AccountScreenWrapper = styled.main`
       background: ${defaultTheme.color_platinum};
       margin: 0 10px;
     }
+  }
+`;
+
+const Button = styled.button`
+  padding: 10px;
+  margin: 10px 0;
+  width: 100%;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+  cursor: pointer;
+
+  &:hover {
+    background: #0056b3;
   }
 `;

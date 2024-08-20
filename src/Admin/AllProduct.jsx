@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Container } from "../styles/styles";
 import { useMyAuth } from "../store/Auth";
-import SummaryApi, { BackendDomain } from "../commonData/SummaryApi";
+import { BackendDomain } from "../commonData/SummaryApi";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 const AllProduct = () => {
@@ -10,14 +10,18 @@ const AllProduct = () => {
 
   const params = useParams();
 
-  const [products, setProducts] = useState();
+  const [products, setProducts] = useState([]);
+
+  const [page, setPage] = useState(1);
+
+  const [ loader, setLoader ] = useState(true)
 
   const navigate = useNavigate();
 
   const getAllProduct = async (req, res, next) => {
     try {
-      const productResponse = await fetch(SummaryApi.allProduct.url, {
-        method: SummaryApi.allProduct.method,
+      const productResponse = await fetch(`${BackendDomain}/ecom/product/getAll?limit=6&page=${page}`, {
+        method: "GET",
         headers: {
           Authorization: authToken,
         },
@@ -27,16 +31,43 @@ const AllProduct = () => {
         throw new Error("HTTP error! status: ${productResponse.status}");
       }
       const productData = await productResponse.json();
-      setProducts(productData);
-      console.log("All product data is", productData);
+      setProducts((prev) => [ ...prev, ...productData ]);
+      // console.log("All product data is", productData);
+      setLoader(false);
     } catch (err) {
       console.log("Error from get all user catch block", err);
     }
   };
 
+  const handleInfiniteScroll = async () => {
+    // console.log("Scroll Height " + document.documentElement.scrollHeight);
+    // console.log("Inner window height " + window.innerHeight);
+    // console.log("Scroll from top " + document.documentElement.scrollTop);
+    try {
+      if (
+        window.innerHeight + document.documentElement.scrollTop + 1 >
+        document.documentElement.scrollHeight
+      ) {
+        setLoader(true);
+        setPage((prev) => prev + 1);
+      }
+    } catch (err) {
+      console.log(
+        "Error from catch block of handle infinte scroll section",
+        err
+      );
+    }
+  };
+
   useEffect(() => {
     getAllProduct();
-  }, []);
+  }, [page]);
+
+    //this is to track the page scroll for infinite scroll
+    useEffect(() => {
+      window.addEventListener("scroll", handleInfiniteScroll);
+      return () => window.removeEventListener("scroll", handleInfiniteScroll);
+    }, []);
 
   const handleDelete = async (id) => {
     try {

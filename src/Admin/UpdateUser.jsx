@@ -25,7 +25,7 @@ const UpdateUser = () => {
       const fetchedUser = await fetch(
         `${BackendDomain}/ecom/getuserinfo/${params.id}`,
         {
-          method: SummaryApi.getAllUser.method,
+          method: "GET",
           headers: {
             Authorization: authToken,
           },
