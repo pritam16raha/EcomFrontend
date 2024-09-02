@@ -22,6 +22,7 @@ const SignUpScreen = () => {
     name: "",
     email: "",
     username: "",
+    phone: "",
     password: "",
     confirmPassword: "",
   });
@@ -51,22 +52,22 @@ const SignUpScreen = () => {
     if (userData.password === userData.confirmPassword) {
       console.log("summary api pritam", SummaryApi.signUP.url);
 
-      const { name, email, username, password } = userData;
+      const { name, email, username, phone, password } = userData;
 
       const respondedData = await fetch(SummaryApi.signUP.url, {
         method: SummaryApi.signUP.method,
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ name, email, username, password }),
+        body: JSON.stringify({ name, email, username,phone, password }),
       });
 
       const formData = await respondedData.json();
 
       if (respondedData.status === 200 || respondedData.ok) {
-        storeTokenInLocal(formData.access_Token);
+        // storeTokenInLocal(formData.access_Token);
 
-        toast.success(formData.message);
+        alert("Registration Done!");
         navigate("/signin");
       }
 
@@ -163,6 +164,19 @@ const SignUpScreen = () => {
                     placeholder="*create your unique username"
                     name="username"
                     value={userData.username}
+                    onChange={handleOnChange}
+                    className="form-elem-control"
+                    required
+                  />
+
+                  <label htmlFor="" className="forme-elem-label">
+                    Phone Number:
+                  </label>
+                  <Input
+                    type="number"
+                    placeholder="*put your contect number"
+                    name="phone"
+                    value={userData.phone}
                     onChange={handleOnChange}
                     className="form-elem-control"
                     required
