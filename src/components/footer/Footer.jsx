@@ -3,7 +3,7 @@ import { Container } from "../../styles/styles";
 import { footerData, socialLinksData } from "../../data/data";
 import { Link } from "react-router-dom";
 import { staticImages } from "../../utils/myImageData";
-import { defaultTheme } from "../../styles/themes/default";
+import { breakpoints, defaultTheme } from "../../styles/themes/default";
 
 
 const Footer = () => {
@@ -93,72 +93,116 @@ const Footer = () => {
 export default Footer;
 
 const FooterWrapper = styled.footer`
-    padding-top: 60px;
-    padding-bottom: 32px;
+  padding-top: 60px;
+  padding-bottom: 32px;
 
-    .footer-top{
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-    }
+  @media (max-width: ${breakpoints.lg}) {
+    padding-top: 30px;
+    padding-bottom: 30px;
+  }
 
-    .footer-item{
-      &-title{
-        margin-bottom: 8px;
-      }
-    }
+  .footer-top {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
 
-    .ftr-links{
-      .ftr-link-item{
-        margin-bottom: 8px;
-
-        a{
-          color: ${defaultTheme.color_whitesmoke};
-
-          &:hover{
-            color: ${defaultTheme.color_yellow};
-          }
-        }
-      }
-    }
-
-    .footer-middle{
-      padding: 20px 0 32px 0;
+    @media (max-width: ${breakpoints.md}) {
       grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
     }
 
-    .ftr-social-links{
-      column-gap: 18px;
-      img{
-        width: 28px;
-      }
-
-      .ftr-social-link{
-        width: 25px;
-        height: 25px;
-        border-radius: 4px;
-      }
+    @media (max-width: ${breakpoints.xs}) {
+      grid-template-columns: 100%;
+      text-align: center;
     }
+  }
 
-    .ftr-app-links{
-      .app-links-title{
-        margin-bottom: 12px;
-      }
+  .footer-item {
+    &-title {
+      margin-bottom: 8px;
+    }
+  }
 
-      .app-links-group{
-        column-gap: 6px;
-      }
+  .ftr-links {
+    .ftr-link-item {
+      margin-bottom: 8px;
 
-      a{
-        img{
-          width: 120px;
+      a {
+        color: ${defaultTheme.color_whitesmoke};
+
+        &:hover {
+          color: ${defaultTheme.color_yellow};
         }
       }
     }
+  }
 
-    .footer-bottom{
-      padding-top: 36px;
-      border-top: 1px solid rgba(190, 188, 189, 0.4);
+  .footer-middle {
+    padding: 20px 0 32px 0;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+
+    @media (max-width: ${breakpoints.lg}) {
+      padding: 20px 0;
     }
 
+    @media (max-width: ${breakpoints.xs}) {
+      grid-template-columns: 100%;
+      text-align: center;
+    }
+  }
+
+  .ftr-social-links {
+    @media (max-width: ${breakpoints.xs}) {
+      justify-content: center;
+    }
+
+    column-gap: 18px;
+    img {
+      width: 28px;
+    }
+
+    .ftr-social-link {
+      width: 25px;
+      height: 25px;
+      border-radius: 4px;
+    }
+  }
+
+  .ftr-app-links {
+    .app-links-title {
+      margin-bottom: 12px;
+    }
+
+    .app-links-group {
+      column-gap: 6px;
+
+      @media (max-width: ${breakpoints.sm}) {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      @media (max-width: ${breakpoints.xs}) {
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+
+    a {
+      img {
+        width: 120px;
+
+        @media (max-width: ${breakpoints.md}) {
+          width: 100px;
+        }
+      }
+    }
+  }
+
+  .footer-bottom {
+    padding-top: 36px;
+    border-top: 1px solid rgba(190, 188, 189, 0.4);
+
+    @media (max-width: ${breakpoints.lg}) {
+      padding-top: 20px;
+    }
+  }
 `;

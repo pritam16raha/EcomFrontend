@@ -463,8 +463,8 @@ const footerData = [
     title: "Company",
     links: [
       { text: "About Us", url: "/contact" },
-      { text: "Achats Blog", url: "/blog" },
-      { text: "Achatsian", url: "/achatsian" },
+      { text: "pritam's Blog", url: "/blog" },
+      { text: "pritam", url: "pritamraha.in" },
       { text: "Collaboration", url: "/collaboration" },
       { text: "Media", url: "/media" },
     ],

@@ -3,7 +3,7 @@ import { Container, Section } from '../../styles/styles';
 import { featuredData } from '../../data/data';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { defaultTheme } from '../../styles/themes/default';
+import { breakpoints, defaultTheme } from '../../styles/themes/default';
 
 const Featured = () => {
   return (
@@ -32,57 +32,73 @@ const Featured = () => {
 export default Featured;
 
 const FeaturedContent = styled.div`
-    grid-template-columns: repeat(2, 1fr);
-    gap: 30px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+
+  @media (max-width: ${breakpoints.lg}) {
+    grid-template-columns: 100%;
+  }
 `;
 
 const FeaturedCardWrapper = styled.div`
-    height: 380px;
-    border-radius: 12px;
-    overflow: hidden;
+  height: 380px;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.4);
+
+  .fit-text-top {
+    margin-top: 24px;
+    color: ${defaultTheme.color_sea_green_v1};
+  }
+
+  .fit-text-large {
+    font-size: 38px;
+    line-height: 1.2;
+  }
+
+  .fit-text-bottom {
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
+
+  .fit-card-content {
+    padding: 60px 28px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    max-width: 400px;
+
+    @media (max-width: ${breakpoints.sm}) {
+      padding: 16px;
+    }
+  }
+
+  .fit-card-img {
+    object-position: 10px 10px;
+    scale: 2;
+
+    @media (max-width: ${breakpoints.xl}) {
+      object-position: 73px 90px;
+    }
+
+    @media (max-width: ${breakpoints.sm}) {
+      object-position: 0px 90px;
+    }
+  }
+
+  .fit-link {
     position: relative;
-    box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.4);
-
-    .fit-text-top{
-        margin-top: 24px;
-        color: ${defaultTheme.color_sea_green_v1};
+    &::after {
+      position: absolute;
+      content: "";
+      left: 0;
+      top: 100%;
+      height: 1px;
+      width: 100%;
+      background-color: ${defaultTheme.color_white};
     }
-
-    .fit-text-large{
-        font-size: 38px;
-        line-height: 1.2;
-    }
-
-    .fit-text-bottom{
-        margin-top: 10px;
-        margin-bottom: 30px;
-    }
-
-    .fit-card-content {
-        padding: 60px 28px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        max-width: 400px;
-    }
-
-    .fit-card-img{
-        object-position: 10px 10px;
-        scale: 2;
-    }
-
-    .fit-link{
-        position: relative;
-        &::after {
-        position: absolute;
-        content: "";
-        left: 0;
-        top: 100%;
-        height: 1px;
-        width: 100%;
-        background-color: ${defaultTheme.color_white};
-    }
-    }
+  }
 `;
 
 

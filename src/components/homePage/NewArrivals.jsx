@@ -9,6 +9,7 @@ import CustomPrevArrow from "../Common/CustomPrevArrow";
 import { commonCardStyle } from "../../styles/card";
 import { BackendDomain } from "../../commonData/SummaryApi";
 import { Link } from "react-router-dom";
+import { breakpoints } from "../../styles/themes/default";
 
 const NewArrivals = () => {
   const settings = {
@@ -84,16 +85,37 @@ const ProductCardBoxWrapper = styled(Link)`
     height: 262px;
     width: 262px;
   }
+
+  @media (max-width: ${breakpoints.sm}) {
+    padding-left: 6px;
+    padding-right: 6px;
+  }
 `;
 
 const ArrivalSliderWrapper = styled.div`
   .custom-prev-arrow {
     top: 43%;
     left: -10px;
+
+    @media (max-width: ${breakpoints.xxl}) {
+      left: 24px;
+    }
+
+    @media (max-width: ${breakpoints.xs}) {
+      left: 4px;
+    }
   }
 
   .custom-next-arrow {
     top: 43%;
     right: -10px;
+
+    @media (max-width: ${breakpoints.xxl}) {
+      right: 24px;
+    }
+
+    @media (max-width: ${breakpoints.xs}) {
+      right: 4px;
+    }
   }
 `;

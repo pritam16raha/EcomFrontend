@@ -24,7 +24,17 @@ const defaultTheme = {
     // font family
     font_family_inter: "'Inter', sans-serif",
   };
+
+    // media query
+  const breakpoints = {
+    xs: "480px",
+    sm: "576px",
+    md: "768px",
+    lg: "992px",
+    xl: "1200px",
+    xxl: "1400px",
+  };
   
   
-  export { defaultTheme };
+  export { defaultTheme, breakpoints };
   

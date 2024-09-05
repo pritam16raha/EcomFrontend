@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { bannerData } from "../../data/data";
 import { Container } from "../../styles/styles";
 import { BaseLinkWhite } from "../../styles/button";
-import { defaultTheme } from "../../styles/themes/default";
+import { breakpoints, defaultTheme } from "../../styles/themes/default";
 import CustomNextArrow from "../Common/CustomNextArrow";
 import CustomPrevArrow from "../Common/CustomPrevArrow";
 import { useEffect, useState } from "react";
@@ -16,6 +16,21 @@ const Hero = () => {
     infinite: true,
     slidesToShow: 1,
     slidesToScroll: 1,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          arrows: true,
+        },
+      },
+      {
+        breakpoint: 768,
+        settings: {
+          arrows: false,
+          dots: true,
+        },
+      },
+    ],
   };
 
   const [bannerImg, setBannerimg] = useState([]);
@@ -123,11 +138,19 @@ const HeroSlideWrapper = styled.div`
   .custom-prev-arrow {
     left: 30px !important;
     background-color: transparent;
+
+    @media (max-width: ${breakpoints.md}) {
+      left: 16px !important;
+    }
   }
 
   .custom-next-arrow {
     right: 30px !important;
     background-color: transparent;
+
+    @media (max-width: ${breakpoints.md}) {
+      right: 16px !important;
+    }
   }
 `;
 
@@ -167,15 +190,35 @@ const HeroSlideContent = styled.div`
     height: 42px;
     min-width: 120px;
     margin-top: 20px;
+
+    @media (max-width: ${breakpoints.md}) {
+      margin-top: 12px;
+    }
   }
 
   .container {
     max-width: 840px;
     margin-left: 0;
+
+    @media (max-width: ${breakpoints.xxl}) {
+      margin-left: 80px;
+    }
+    @media (max-width: ${breakpoints.md}) {
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+    @media (max-width: ${breakpoints.sm}) {
+      margin: 0;
+      text-align: center;
+    }
   }
 
   .hero-text-top {
     font-size: 32px;
+
+    @media (max-width: ${breakpoints.lg}) {
+      font-size: 26px;
+    }
   }
 
   .hero-text-large {
@@ -183,11 +226,28 @@ const HeroSlideContent = styled.div`
     letter-spacing: 1px;
     line-height: 1.5;
     margin-bottom: 20px;
+
+    @media (max-width: ${breakpoints.lg}) {
+      font-size: 60px;
+    }
+    @media (max-width: ${breakpoints.lg}) {
+      font-size: 48px;
+    }
+    @media (max-width: ${breakpoints.lg}) {
+      font-size: 36px;
+    }
+    @media (max-width: ${breakpoints.lg}) {
+      font-size: 32px;
+    }
   }
 
   .hero-text-bottom {
     font-size: 26px;
     margin-bottom: 24px;
+
+    @media (max-width: ${breakpoints.lg}) {
+      font-size: 20px;
+    }
   }
 
   .hero-btn {

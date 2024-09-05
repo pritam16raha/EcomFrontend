@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import { savingZoneData } from '../../data/data';
 import { ArrowDropDownCircleOutlined} from '@mui/icons-material';
 import { BaseLinkOutlineWhite } from '../../styles/button';
+import { breakpoints } from '../../styles/themes/default';
 
 const SavingZone = () => {
   return (
@@ -47,63 +48,103 @@ const ProductGridWrapper = styled.div`
 `;
 
 const ProductCardOverlayWrapper = styled.div`
-        position: relative;
-        height: 390px;
-        border-radius: 12px;
-        overflow: hidden;
+  position: relative;
+  height: 390px;
+  border-radius: 12px;
+  overflow: hidden;
 
-        &:nth-child(1){
-            grid-column: 1/3;
-        }
-
-        &:nth-child(2){
-            grid-column: 3/5;
-        }
-
-        &:nth-child(3){
-            grid-column: 5/7;
-        }
-
-        &:nth-child(4){
-            grid-column: 1/4;
-        }
-
-        &:nth-child(5){
-            grid-column: 4/7;
-        }
-
-    &::after{
-        content: "";
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.2);
+  @media (max-width: ${breakpoints.sm}) {
+    height: 360px;
   }
 
-  .product-info{
-        position: absolute;
-        top: 0;
-        right: 0;
-        z-index: 1;
-        padding: 32px 24px;
-        width: 230px;
+  &:nth-child(1) {
+    grid-column: 1/3;
 
-    .info-badge{
-        min-width: 100px;
-        height: 34px;
+    @media (max-width: ${breakpoints.lg}) {
+      grid-column: 1/4;
     }
-    .info-title{
-        font-size: 28px;
-        margin: 14px 0;
+    @media (max-width: ${breakpoints.md}) {
+      grid-column: 1/7;
     }
-    .discount-text{
-        margin-top: 4px;
+  }
+
+  &:nth-child(2) {
+    grid-column: 3/5;
+
+    @media (max-width: ${breakpoints.lg}) {
+      grid-column: 4/7;
     }
-    .info-arrow{
-        margin: 16px 0 16px auto;
-        width: 110px;
+    @media (max-width: ${breakpoints.md}) {
+      grid-column: 1/7;
     }
+  }
+
+  &:nth-child(3) {
+    grid-column: 5/7;
+
+    @media (max-width: ${breakpoints.lg}) {
+      grid-column: 1/4;
     }
+    @media (max-width: ${breakpoints.md}) {
+      grid-column: 1/7;
+    }
+  }
+
+  &:nth-child(4) {
+    grid-column: 1/4;
+
+    @media (max-width: ${breakpoints.lg}) {
+      grid-column: 4/7;
+    }
+    @media (max-width: ${breakpoints.md}) {
+      grid-column: 1/7;
+    }
+  }
+
+  &:nth-child(5) {
+    grid-column: 4/7;
+
+    @media (max-width: ${breakpoints.lg}) {
+      grid-column: 1/7;
+    }
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.2);
+  }
+
+  .product-info {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 1;
+    padding: 32px 24px;
+    width: 230px;
+
+    .info-badge {
+      min-width: 100px;
+      height: 34px;
+    }
+    .info-title {
+      font-size: 28px;
+      margin: 14px 0;
+    }
+    .discount-text {
+      margin-top: 4px;
+    }
+    .info-arrow {
+      margin: 16px 0 16px auto;
+      width: 110px;
+    }
+
+    @media (max-width: ${breakpoints.xl}) {
+      padding: 16px;
+    }
+  }
 `;

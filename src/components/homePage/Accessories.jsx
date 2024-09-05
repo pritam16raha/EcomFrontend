@@ -6,6 +6,7 @@ import { BackendDomain } from "../../commonData/SummaryApi";
 import { useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { breakpoints } from "../../styles/themes/default";
 
 const Accessories = () => {
   const [itemImage, setItemImage] = useState([]);
@@ -96,6 +97,11 @@ const ProductListWrapper = styled.div`
   column-gap: 30px;
   row-gap: 30px;
   grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+
+  @media (max-width: ${breakpoints.sm}) {
+    gap: 12px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
 `;
 
 const ProductCardWrapper = styled(Link)`
@@ -106,5 +112,9 @@ const ProductCardWrapper = styled(Link)`
 
   img {
     border-radius: 15px;
+
+    @media (max-width: ${breakpoints.sm}) {
+      height: 320px;
+    }
   }
 `;

@@ -6,6 +6,7 @@ import { BackendDomain } from "../../commonData/SummaryApi";
 import { useEffect } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { breakpoints } from "../../styles/themes/default";
 
 const Mods = () => {
   const [itemImage, setItemImage] = useState([]);
@@ -78,9 +79,18 @@ const ProductCardWrapper = styled(Link)`
   .product-img {
     height: 390px;
     position: relative;
+
+    @media (max-width: ${breakpoints.sm}) {
+      padding-left: 0;
+      padding-right: 0;
+    }
   }
 
   img {
     border-radius: 15px;
+
+    @media (max-width: ${breakpoints.sm}) {
+      height: 320px;
+    }
   }
 `;
