@@ -8,7 +8,7 @@ import { cartItems } from "../../../data/data";
 import CartSummary from "../../cart/CartSummary";
 import { useCart } from "../../../store/Cart";
 import { useMyAuth } from "../../../store/Auth";
-import { defaultTheme } from "../../../styles/themes/default";
+import { breakpoints, defaultTheme } from "../../../styles/themes/default";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -211,7 +211,7 @@ const Cart = (product) => {
                   </td>
                   <td>
                     <span className="text-lg font-bold text-outerspace">
-                      ${cartItem.price}
+                      ₹{cartItem.price}
                     </span>
                   </td>
                   <td>
@@ -243,7 +243,7 @@ const Cart = (product) => {
                   </td>
                   <td>
                     <span className="text-lg font-bold text-outerspace">
-                      ${cartItem.price * cartItem.quantity}
+                      ₹{cartItem.price * cartItem.quantity}
                     </span>
                   </td>
                   <td>
@@ -275,7 +275,7 @@ const Cart = (product) => {
               <li className="summary-item flex justify-between">
                 <span className="font-medium text-outerspace">Grand Total</span>
                 <span className="summary-item-value font-bold text-outerspace">
-                  {calculatePrice()}
+                  ₹{calculatePrice()}
                 </span>
               </li>
             </ul>
@@ -324,8 +324,30 @@ const CartContent = styled.div`
   grid-template-columns: 2fr 1fr;
   gap: 40px;
 
+  @media (max-width: ${breakpoints.xl}) {
+    grid-template-columns: 100%;
+  }
+
+  @media (max-width: ${breakpoints.sm}) {
+    margin-top: 24px;
+  }
+
+  .cart-list {
+    @media (max-width: ${breakpoints.lg}) {
+      overflow-x: scroll;
+    }
+  }
+
   .cart-content-right {
     gap: 24px;
+
+    @media (max-width: ${breakpoints.xl}) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (max-width: ${breakpoints.md}) {
+      grid-template-columns: 100%;
+    }
   }
 `;
 

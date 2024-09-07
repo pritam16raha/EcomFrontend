@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { defaultTheme } from "./themes/default";
+import { breakpoints, defaultTheme } from "./themes/default";
 
 export const UserDashboardWrapper = styled.div`
   margin-top: 40px;
@@ -7,9 +7,15 @@ export const UserDashboardWrapper = styled.div`
   grid-template-columns: 240px auto;
   gap: 50px;
 
+  @media (max-width: ${breakpoints.lg}) {
+    gap: 24px;
+    grid-template-columns: 200px auto;
+  }
 
-
-
+  @media (max-width: ${breakpoints.md}) {
+    gap: 24px;
+    grid-template-columns: 100%;
+  }
 `;
 export const UserContent = styled.div`
   .title {
@@ -29,9 +35,13 @@ export const UserContent = styled.div`
     column-gap: 32px;
     max-width: 895px;
 
+    @media (max-width: ${breakpoints.lg}) {
+      column-gap: 12px;
+    }
 
-
-
+    @media (max-width: ${breakpoints.sm}) {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 
   .form-elem-control {
@@ -54,7 +64,9 @@ export const UserContent = styled.div`
   .form-elem-wide {
     grid-column: 1/3;
 
-
+    @media (max-width: ${breakpoints.sm}) {
+      grid-column: 1/2;
+    }
   }
 
   .form-check-elem {
@@ -103,7 +115,7 @@ export const UserContent = styled.div`
     }
   }
 
-  .form-btns{
+  .form-btns {
     gap: 12px;
     margin-top: 32px;
   }

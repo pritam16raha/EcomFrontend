@@ -7,7 +7,7 @@ import UserMenu from "../../user/UserMenu";
 import { FormElement, Input } from "../../../styles/form";
 
 import { Link, useLocation, useParams } from "react-router-dom";
-import { defaultTheme } from "../../../styles/themes/default";
+import { breakpoints, defaultTheme } from "../../../styles/themes/default";
 import Title from "../../Common/Title";
 import { BaseLinkGreen } from "../../../styles/button";
 import { useMyAuth } from "../../../store/Auth";
@@ -271,6 +271,10 @@ const AccountScreenWrapper = styled.main`
     margin-top: 20px;
     grid-template-columns: repeat(2, 1fr);
     gap: 25px;
+
+    @media (max-width: ${breakpoints.lg}) {
+      grid-template-columns: repeat(1, 1fr);
+    }
   }
 
   .address-item {

@@ -20,6 +20,7 @@ import { useCart } from "../../../store/Cart";
 import { toast } from "react-toastify";
 import Cart from "../cart/Cart";
 import { BackendDomain } from "../../../commonData/SummaryApi";
+import { breakpoints } from "../../../styles/themes/default";
 
 const ProductDetailsScreen = () => {
   const [cart, setCart] = useCart();
@@ -144,11 +145,28 @@ const DetailsScreenWrapper = styled.main`
 const DetailsContent = styled.div`
   grid-template-columns: repeat(2, 1fr);
   gap: 40px;
+
+  @media (max-width: ${breakpoints.xl}) {
+    gap: 24px;
+    grid-template-columns: 3fr 2fr;
+  }
+
+  @media (max-width: ${breakpoints.lg}) {
+    grid-template-columns: 100%;
+  }
 `;
 
 const ProductDetailsWrapper = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 24px;
+
+  @media (max-width: ${breakpoints.sm}) {
+    padding: 16px;
+  }
+
+  @media (max-width: ${breakpoints.xs}) {
+    padding: 12px;
+  }
 
   .chat {
     height: 20px;
@@ -178,6 +196,10 @@ const ProductDetailsWrapper = styled.div`
     margin-top: 36px;
     column-gap: 16px;
     row-gap: 10px;
+
+    @media (max-width: ${breakpoints.sm}) {
+      margin-top: 24px;
+    }
   }
 `;
 
