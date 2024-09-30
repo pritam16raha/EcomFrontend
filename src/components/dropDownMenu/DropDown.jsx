@@ -10,7 +10,6 @@ const DropdownWrapper = styled.div`
 
 const DropdownButton = styled.button`
   color: white;
-
   font-size: 16px;
   border: none;
   border-radius: 5px;
@@ -22,8 +21,10 @@ const DropdownButton = styled.button`
 `;
 
 const DropdownContent = styled.div`
-  display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+  display: ${({ isOpen }) => (isOpen ? "block" : "none")};
   position: absolute;
+  top: 100%; /* Ensures it opens below the parent */
+  right: 0; /* Aligns the dropdown at the right edge of the parent */
   background-color: white;
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);

@@ -94,15 +94,15 @@ const SignInScreen = () => {
                 <h3>Sign In</h3>
               </FormTitle>
 
-              <AuthOptions />
+              {/* <AuthOptions /> */}
 
-              <div className="form-separator flex items-center justify-center">
+              {/* <div className="form-separator flex items-center justify-center">
                 <span className="separator-line"></span>
                 <span className="separator-text inline-flex items-center justify-center text-white">
                   OR
                 </span>
                 <span className="separator-line"></span>
-              </div>
+              </div> */}
 
               <form onSubmit={handleSubmit}>
                 <FormElement>

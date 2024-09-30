@@ -118,15 +118,15 @@ const SignUpScreen = () => {
                 <p>Sing Up for free to explore our products</p>
               </FormTitle>
 
-              <AuthOptions />
+              {/* <AuthOptions /> */}
 
-              <div className="form-separator flex items-center justify-center">
+              {/* <div className="form-separator flex items-center justify-center">
                 <span className="separator-line"></span>
                 <span className="separator-text inline-flex items-center justify-center text-black">
                   OR
                 </span>
                 <span className="separator-line"></span>
-              </div>
+              </div> */}
 
               <form onSubmit={handleSubmit}>
                 <FormElement>
