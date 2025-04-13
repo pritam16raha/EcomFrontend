@@ -14,7 +14,7 @@ import Dropdown from "../dropDownMenu/DropDown";
 //import { useDispatch } from "react-redux";
 
 const Header = () => {
-  const { cart, setCart } = useCart();
+  const [cart, setCart] = useCart();
 
   const location = useLocation();
   console.log(location.pathname);
@@ -88,13 +88,30 @@ const Header = () => {
               }`}
             ></Link> */}
 
-            <Link
+            {/* <Link
               to="/cart"
               className={`icon-link ${
                 location.pathname === "/cart" ? "active" : ""
               } inline-flex items-center justify-center`}
             >
               <Badge count={cart?.length} showZero>
+                <Avatar shape="square" size="large" />
+              </Badge>
+            </Link> */}
+
+            <Link
+              to="/cart"
+              className={`icon-link ${
+                location.pathname === "/cart" ? "active" : ""
+              } inline-flex items-center justify-center`}
+            >
+              <Badge
+                count={(cart || []).reduce(
+                  (acc, item) => acc + (item.quantity || 1),
+                  0
+                )}
+                showZero
+              >
                 <Avatar shape="square" size="large" />
               </Badge>
             </Link>

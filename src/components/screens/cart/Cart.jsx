@@ -1,22 +1,19 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { Container } from "../../../styles/styles";
-import BreadCrumb from "../../Common/BreadCrumb";
-import { Link, useNavigate } from "react-router-dom";
-import CartTable from "../../cart/CartTable";
-import { cartItems } from "../../../data/data";
-import CartSummary from "../../cart/CartSummary";
-import { useCart } from "../../../store/Cart";
-import { useMyAuth } from "../../../store/Auth";
-import { breakpoints, defaultTheme } from "../../../styles/themes/default";
 import AddIcon from "@mui/icons-material/Add";
-import RemoveIcon from "@mui/icons-material/Remove";
 import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveIcon from "@mui/icons-material/Remove";
 import { Button } from "@mui/material";
-import { BaseButtonGreen } from "../../../styles/button";
 import DropIn from "braintree-web-drop-in-react";
+import React, { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import styled from "styled-components";
 import { BackendDomain } from "../../../commonData/SummaryApi";
+import { useMyAuth } from "../../../store/Auth";
+import { useCart } from "../../../store/Cart";
+import { BaseButtonGreen } from "../../../styles/button";
+import { Container } from "../../../styles/styles";
+import { breakpoints, defaultTheme } from "../../../styles/themes/default";
+import BreadCrumb from "../../Common/BreadCrumb";
 
 //const KEY = "pk_test_51OmBgjSCPxF1ZilcksoW7uqBBzSwsDNZxEtkadAGZPrvygPBXVQYYl9MdcBJ6JoPOqEnCmkj76oXOEOZIQPPTiXI00ZKVnOWwD"
 
@@ -314,108 +311,183 @@ export default Cart;
 const CartPageWrapper = styled.main`
   padding: 48px 0;
 
-  .breadcrumb-nav {
-    margin-bottom: 20px;
+  h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #222;
+    margin-bottom: 12px;
+  }
+
+  .cart-head {
+    margin-bottom: 32px;
+
+    p {
+      font-size: 16px;
+      color: #555;
+      line-height: 1.5;
+
+      a {
+        color: ${defaultTheme.color_sea_green};
+        font-weight: 500;
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
   }
 `;
 
+
 const CartContent = styled.div`
-  margin-top: 40px;
+  margin-bottom: 40px;
   grid-template-columns: 2fr 1fr;
+  display: grid;
   gap: 40px;
 
   @media (max-width: ${breakpoints.xl}) {
-    grid-template-columns: 100%;
+    grid-template-columns: 1fr;
   }
 
-  @media (max-width: ${breakpoints.sm}) {
-    margin-top: 24px;
-  }
-
-  .cart-list {
-    @media (max-width: ${breakpoints.lg}) {
-      overflow-x: scroll;
-    }
-  }
-
-  .cart-content-right {
-    gap: 24px;
-
-    @media (max-width: ${breakpoints.xl}) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-
-    @media (max-width: ${breakpoints.md}) {
-      grid-template-columns: 100%;
-    }
+  .cart-content-left {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
   }
 `;
+
 
 const CartTableRowWrapper = styled.tr`
-  .cart-tbl {
-    &-prod {
-      grid-template-columns: 80px auto;
-      column-gap: 12px;
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 16px 0;
+
+  .cart-tbl-prod {
+    display: grid;
+    grid-template-columns: 80px auto;
+    gap: 16px;
+    align-items: center;
+
+    .cart-prod-img {
+      width: 80px;
+      height: 80px;
+      border-radius: 10px;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+      }
     }
 
-    &-qty {
-      .qty-inc-btn,
-      .qty-dec-btn {
-        width: 24px;
-        height: 24px;
-        border: 1px solid ${defaultTheme.color_platinum};
-        border-radius: 2px;
+    .cart-prod-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
 
-        &:hover {
-          border-color: ${defaultTheme.color_sea_green};
-          background-color: ${defaultTheme.color_sea_green};
-          color: ${defaultTheme.color_white};
+      h4 {
+        font-size: 16px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      p {
+        font-size: 14px;
+        color: #666;
+        margin: 2px 0;
+
+        span {
+          font-weight: 500;
+          margin-right: 4px;
         }
       }
-
-      .qty-value {
-        width: 40px;
-        height: 24px;
-      }
     }
   }
 
-  .cart-prod-info {
-    p {
-      margin-right: 8px;
-      span {
-        margin-right: 4px;
+  .cart-tbl-qty {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    .qty-inc-btn,
+    .qty-dec-btn {
+      width: 30px;
+      height: 30px;
+      background: transparent;
+      border: 1px solid ${defaultTheme.color_platinum};
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 6px;
+      font-size: 16px;
+      transition: all 0.2s ease;
+
+      &:hover {
+        background-color: ${defaultTheme.color_sea_green};
+        color: white;
       }
+    }
+
+    .qty-value {
+      width: 50px;
+      text-align: center;
+      font-weight: 600;
+      border: none;
+      background: transparent;
+      font-size: 16px;
     }
   }
 
-  .cart-prod-img {
-    width: 80px;
-    height: 80px;
-    overflow: hidden;
-    border-radius: 8px;
+  .cart-tbl-actions {
+    display: flex;
+    justify-content: center;
+    button {
+      background-color: #ffe5e5;
+      color: #d32f2f;
+      border-radius: 8px;
+      padding: 6px;
+      transition: all 0.3s ease;
+
+      &:hover {
+        background-color: #f44336;
+        color: #fff;
+      }
+    }
   }
 `;
+
 
 const CartSummaryWrapper = styled.div`
-  background-color: ${defaultTheme.color_flash_white};
-  padding: 16px;
-
-  .checkout-btn {
-    min-width: 100%;
-  }
+  background-color: #fff;
+  padding: 24px;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
 
   .summary-list {
-    padding: 20px;
+    margin-bottom: 20px;
 
     .summary-item {
-      margin: 6px 0;
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      font-size: 16px;
 
       &:last-child {
-        margin-top: 20px;
         border-top: 1px dashed ${defaultTheme.color_sea_green};
-        padding-top: 10px;
+        padding-top: 16px;
+        font-size: 18px;
       }
     }
   }
+
+  .checkout-btn {
+    margin-top: 16px;
+    width: 100%;
+  }
 `;
+

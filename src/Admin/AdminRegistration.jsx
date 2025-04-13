@@ -1,15 +1,9 @@
 import React, { useState } from "react";
-import { BaseButtonBlack } from "../styles/button";
-import { FormElement, Input } from "../styles/form";
 import styled from "styled-components";
 import { staticImages } from "../utils/myImageData";
 import { Container } from "../styles/styles";
 
 const AdminRegistration = () => {
-  const handleSubmit = (e) => {};
-
-  const handleOnChange = () => {};
-
   const [userData, setData] = useState({
     name: "",
     email: "",
@@ -24,116 +18,155 @@ const AdminRegistration = () => {
     setShowPassword(!showPassword);
   };
 
+  const handleOnChange = (e) => {
+    setData({ ...userData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // handle submit
+  };
+
   return (
     <Container>
-      <form onSubmit={handleSubmit} className="m-10">
-        <FormElement>
-          <label htmlFor="" className="forme-elem-label">
-            Name:
-          </label>
-          <Input
-            type="text"
-            placeholder="your name with spaces"
-            name="name"
-            value={userData.name}
-            className="form-elem-control"
-            onChange={handleOnChange}
-            required
-          />
+      <FormWrapper onSubmit={handleSubmit}>
+        <FormTitle>Register New User</FormTitle>
 
-          <label htmlFor="" className="forme-elem-label">
-            Email:
-          </label>
-          <Input
-            type="email"
-            placeholder="enter a valid email"
-            name="email"
-            value={userData.email}
-            onChange={handleOnChange}
-            className="form-elem-control"
-            required
-          />
+        <StyledLabel>Name</StyledLabel>
+        <StyledInput
+          type="text"
+          name="name"
+          placeholder="Your full name"
+          value={userData.name}
+          onChange={handleOnChange}
+          required
+        />
 
-          <label htmlFor="" className="forme-elem-label">
-            User Name:
-          </label>
-          <Input
-            type="text"
-            placeholder="*create your unique username"
-            name="username"
-            value={userData.username}
-            onChange={handleOnChange}
-            className="form-elem-control"
-            required
-          />
+        <StyledLabel>Email</StyledLabel>
+        <StyledInput
+          type="email"
+          name="email"
+          placeholder="example@mail.com"
+          value={userData.email}
+          onChange={handleOnChange}
+          required
+        />
 
-          <label className="forme-elem-label">Password:</label>
-          <Input
-            type={showPassword ? "text" : "password"}
-            name="password"
-            value={userData.password}
-            onChange={handleOnChange}
-            placeholder="create a strong password"
-            className="form-elem-control"
-            required
-          />
+        <StyledLabel>Username</StyledLabel>
+        <StyledInput
+          type="text"
+          name="username"
+          placeholder="Unique username"
+          value={userData.username}
+          onChange={handleOnChange}
+          required
+        />
 
-          <label className="forme-elem-label">Confirm Password:</label>
-          <Input
-            type={showPassword ? "text" : "password"}
-            name="confirmPassword"
-            value={userData.confirmPassword}
-            onChange={handleOnChange}
-            placeholder="repeat password"
-            className="form-elem-control"
-            required
-          />
+        <StyledLabel>Password</StyledLabel>
+        <StyledInput
+          type={showPassword ? "text" : "password"}
+          name="password"
+          placeholder="Create a password"
+          value={userData.password}
+          onChange={handleOnChange}
+          required
+        />
 
-          <label className="forme-elem-label">Confirm Password:</label>
-          <Input
-            type={showPassword ? "text" : "password"}
-            name="confirmPassword"
-            value={userData.confirmPassword}
-            onChange={handleOnChange}
-            placeholder="repeat password"
-            className="form-elem-control"
-            required
-          />
+        <StyledLabel>Confirm Password</StyledLabel>
+        <StyledInput
+          type={showPassword ? "text" : "password"}
+          name="confirmPassword"
+          placeholder="Repeat password"
+          value={userData.confirmPassword}
+          onChange={handleOnChange}
+          required
+        />
 
-          <PasswordToggleButton
-            type="button"
-            className="pwd-value-toggle flex items-center"
-            onClick={togglePassword}
-          >
-            {showPassword ? (
-              <>
-                <span className="pwd-toggle-text text-sm">Hide</span>
-                <img src={staticImages.eyeOn} />
-              </>
-            ) : (
-              <>
-                <span className="pwd-toggle-text text-sm">Show</span>
-                <img src={staticImages.eyeOff} />
-              </>
-            )}
-          </PasswordToggleButton>
-        </FormElement>
+        <ToggleButton type="button" onClick={togglePassword}>
+          {showPassword ? (
+            <>
+              <span>Hide</span>
+              <img src={staticImages.eyeOn} alt="Hide" />
+            </>
+          ) : (
+            <>
+              <span>Show</span>
+              <img src={staticImages.eyeOff} alt="Show" />
+            </>
+          )}
+        </ToggleButton>
 
-        <BaseButtonBlack type="submit" className="form-submit-btn">
-          Sign Up
-        </BaseButtonBlack>
-      </form>
+        <SubmitButton type="submit">Sign Up</SubmitButton>
+      </FormWrapper>
     </Container>
   );
 };
 
 export default AdminRegistration;
 
-const PasswordToggleButton = styled.button`
-  //position: absolute;
-  bottom: 100%;
-  right: 0;
-  .pwd-toggle-text {
-    padding-left: 5px;
+const FormWrapper = styled.form`
+  max-width: 500px;
+  margin: 40px auto;
+  padding: 40px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+`;
+
+const FormTitle = styled.h2`
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 16px;
+`;
+
+const StyledLabel = styled.label`
+  font-size: 14px;
+  font-weight: 600;
+  color: #2d3436;
+`;
+
+const StyledInput = styled.input`
+  padding: 12px 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 14px;
+  outline: none;
+  &:focus {
+    border-color: #00b894;
+    box-shadow: 0 0 0 2px rgba(0, 184, 148, 0.2);
+  }
+`;
+
+const ToggleButton = styled.button`
+  align-self: flex-end;
+  background: transparent;
+  border: none;
+  color: #00b894;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  img {
+    height: 18px;
+  }
+`;
+
+const SubmitButton = styled.button`
+  padding: 12px 0;
+  background-color: #2d3436;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  &:hover {
+    background-color: #1c1f21;
   }
 `;

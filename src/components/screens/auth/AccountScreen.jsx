@@ -15,15 +15,12 @@ import { useEffect, useState } from "react";
 import { BackendDomain } from "../../../commonData/SummaryApi";
 
 const breadcrumbItems = [
-  {
-    label: "Home",
-    link: "/",
-  },
+  { label: "Home", link: "/" },
   { label: "Account", link: "/account" },
 ];
 
 const AccountScreen = () => {
-  const { currentUser , authToken } = useMyAuth();
+  const { currentUser, authToken } = useMyAuth();
 
   const [userData, setUserData] = useState({
     name: "",
@@ -39,35 +36,27 @@ const AccountScreen = () => {
         `${BackendDomain}/ecom/getuserinfo/${currentUser?._id}`,
         {
           method: "GET",
-          headers: {
-            Authorization: authToken,
-          },
+          headers: { Authorization: authToken },
         }
       );
-
       const responseData = await fetchedUser.json();
-      // console.log("User I get", responseData);
       setUserData(responseData);
     } catch (err) {
       console.log("Error from update user get current user", err);
     }
   };
-  
+
   useEffect(() => {
     getCurrentUser();
-  }, [currentUser])
+  }, [currentUser]);
 
-
-
-  const handleChange = async (e) => {
-    let name = e.target.name;
-    let value = e.target.value;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const respondedData = await fetch(
         `${BackendDomain}/ecom/updateuser/${currentUser?._id}`,
@@ -81,17 +70,13 @@ const AccountScreen = () => {
         }
       );
 
-      if (respondedData.status === 200 || respondedData.ok) {
+      if (respondedData.ok) {
         alert("Update Complete");
       }
     } catch (err) {
       console.log("Error From User update page", err);
     }
-
-  }
-
-
-  // console.log("Current user is", userData);
+  };
 
   return (
     <AccountScreenWrapper className="page-py-spacing">
@@ -100,162 +85,68 @@ const AccountScreen = () => {
         <UserDashboardWrapper>
           <UserMenu username={userData.name} />
           <UserContent>
-          <form onSubmit={handleSubmit}>
-            <Title titleText={"My Account"} />
-            <h4 className="title-sm">Contact Details</h4>
-            <form>
+            <form onSubmit={handleSubmit} className="styled-form">
+              <Title titleText="My Account" />
+              <h4 className="title-sm">Contact Details</h4>
               <div className="form-wrapper">
-                <FormElement className="form-elem">
-                  <label
-                    htmlFor=""
-                    className="form-label font-semibold text-base"
-                  >
-                    Your Name
-                  </label>
-                  <div className="form-input-wrapper flex items-center">
-                    <Input
-                      type="text"
-                      className="form-elem-control text-outerspace font-semibold"
-                      value={userData.name}
-                      name="name"
-                      onChange={handleChange}
-                    />
-                    <button type="button" className="form-control-change-btn">
-                      Change
-                    </button>
-                  </div>
-                </FormElement>
-                <FormElement className="form-elem">
-                  <label
-                    htmlFor=""
-                    className="form-label font-semibold text-base"
-                  >
-                    Email Address
-                  </label>
-                  <div className="form-input-wrapper flex items-center">
-                    <Input
-                      type="email"
-                      className="form-elem-control text-outerspace font-semibold"
-                      value={userData.email}
-                      name="email"
-                      onChange={handleChange}
-                    />
-                    <button type="button" className="form-control-change-btn">
-                      Change
-                    </button>
-                  </div>
-                </FormElement>
-                <FormElement className="form-elem">
-                  <label
-                    htmlFor=""
-                    className="form-label font-semibold text-base"
-                  >
-                    Phone Number
-                  </label>
-                  <div className="form-input-wrapper flex items-center">
-                    <Input
-                      type="text"
-                      className="form-elem-control text-outerspace font-semibold"
-                      value={userData.phone}
-                      name="phone"
-                      onChange={handleChange}
-                    />
-                    <button type="button" className="form-control-change-btn">
-                      Change
-                    </button>
-                  </div>
-                </FormElement>
-                <FormElement className="form-elem">
-                  <label
-                    htmlFor=""
-                    className="form-label font-semibold text-base"
-                  >
-                    Password
-                  </label>
-                  <div className="form-input-wrapper flex items-center">
-                    <Input
-                      type="password"
-                      className="form-elem-control text-outerspace font-semibold"
-                      value={userData.password}
-                      name="password"
-                      onChange={handleChange}
-                    />
-                    <button type="button" className="form-control-change-btn">
-                      Change
-                    </button>
-                  </div>
-                </FormElement>
+                {["name", "email", "phone", "password"].map((field) => (
+                  <FormElement key={field} className="form-elem">
+                    <label
+                      htmlFor={field}
+                      className="form-label font-semibold text-base"
+                    >
+                      {field.charAt(0).toUpperCase() + field.slice(1)}
+                    </label>
+                    <div className="form-input-wrapper flex items-center">
+                      <Input
+                        type={field === "password" ? "password" : "text"}
+                        className="form-elem-control text-outerspace font-semibold"
+                        name={field}
+                        value={userData[field]}
+                        onChange={handleChange}
+                      />
+                      <button type="button" className="form-control-change-btn">
+                        Change
+                      </button>
+                    </div>
+                  </FormElement>
+                ))}
               </div>
-            </form>
-            <div>
-              <h4 className="title-sm">My Contact Addresss</h4>
-              <div className="address-list grid">
-                <div className="address-item grid">
-                  <p className="text-outerspace text-lg font-semibold address-title">
-                    {userData.name}
-                  </p>
-                  <p className="text-gray text-base font-medium address-description">
-                    {userData.address}
-                  </p>
-                  <ul className="address-tags flex flex-wrap">
-                    <li className="text-gray text-base font-medium inline-flex items-center justify-center">
-                      Home
-                    </li>
-                    <li className="text-gray text-base font-medium inline-flex items-center justify-center">
-                      Default billing address
-                    </li>
-                  </ul>
-                  <div className="address-btns flex">
-                    <Link
-                      to="/"
-                      className="text-base text-outerspace font-semibold"
-                    >
-                      Remove
-                    </Link>
-                    <div className="btn-separator"></div>
-                    <Link
-                      to="/"
-                      className="text-base text-outerspace font-semibold"
-                    >
-                      Edit
-                    </Link>
-                  </div>
-                </div>
 
-                <div className="address-item grid">
-                  <p className="text-outerspace text-lg font-semibold address-title">
-                    {currentUser.name}
-                  </p>
-                  <p className="text-gray text-base font-medium address-description">
-                    {currentUser.address}
-                  </p>
-                  <ul className="address-tags flex flex-wrap">
-                    <li className="text-gray text-base font-medium inline-flex items-center justify-center">
-                      Home
-                    </li>
-                    <li className="text-gray text-base font-medium inline-flex items-center justify-center">
-                      Default billing address
-                    </li>
-                  </ul>
-                  <div className="address-btns flex">
-                    <Link
-                      to="/"
-                      className="text-base text-outerspace font-semibold"
-                    >
-                      Remove
-                    </Link>
-                    <div className="btn-separator"></div>
-                    <Link
-                      to="/"
-                      className="text-base text-outerspace font-semibold"
-                    >
-                      Edit
-                    </Link>
+              <h4 className="title-sm mt-6">My Contact Address</h4>
+              <div className="address-list grid">
+                {[userData, currentUser].map((user, index) => (
+                  <div className="address-item grid" key={index}>
+                    <p className="text-outerspace text-lg font-semibold address-title">
+                      {user.name}
+                    </p>
+                    <p className="text-gray text-base font-medium address-description">
+                      {user.address}
+                    </p>
+                    <ul className="address-tags flex flex-wrap">
+                      <li>Home</li>
+                      <li>Default billing address</li>
+                    </ul>
+                    <div className="address-btns flex">
+                      <Link
+                        to="/"
+                        className="text-base text-outerspace font-semibold"
+                      >
+                        Remove
+                      </Link>
+                      <div className="btn-separator"></div>
+                      <Link
+                        to="/"
+                        className="text-base text-outerspace font-semibold"
+                      >
+                        Edit
+                      </Link>
+                    </div>
                   </div>
-                </div>
+                ))}
               </div>
-            </div>
-            <Button type="submit">Update Deatils</Button>
+
+              <Button type="submit">Update Details</Button>
             </form>
           </UserContent>
         </UserDashboardWrapper>
@@ -267,13 +158,21 @@ const AccountScreen = () => {
 export default AccountScreen;
 
 const AccountScreenWrapper = styled.main`
+  .styled-form {
+    background: #fff;
+    padding: 32px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eee;
+  }
+
   .address-list {
     margin-top: 20px;
     grid-template-columns: repeat(2, 1fr);
     gap: 25px;
 
     @media (max-width: ${breakpoints.lg}) {
-      grid-template-columns: repeat(1, 1fr);
+      grid-template-columns: 1fr;
     }
   }
 
@@ -282,6 +181,12 @@ const AccountScreenWrapper = styled.main`
     border: 1px solid rgba(0, 0, 0, 0.1);
     padding: 25px;
     row-gap: 8px;
+    background: ${defaultTheme.color_flash_white};
+    transition: 0.3s ease;
+
+    &:hover {
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+    }
   }
 
   .address-tags {
@@ -292,6 +197,7 @@ const AccountScreenWrapper = styled.main`
       border-radius: 8px;
       padding: 2px 12px;
       background-color: ${defaultTheme.color_whitesmoke};
+      font-size: 14px;
     }
   }
 
@@ -299,7 +205,7 @@ const AccountScreenWrapper = styled.main`
     margin-top: 12px;
     .btn-separator {
       width: 1px;
-      border-radius: 50px;
+      height: 20px;
       background: ${defaultTheme.color_platinum};
       margin: 0 10px;
     }
@@ -307,17 +213,19 @@ const AccountScreenWrapper = styled.main`
 `;
 
 const Button = styled.button`
-  padding: 10px;
-  margin: 10px 0;
+  padding: 12px 20px;
+  margin-top: 24px;
   width: 100%;
-  background: #007bff;
+  background: ${defaultTheme.color_sea_green};
   color: white;
   border: none;
-  border-radius: 3px;
+  border-radius: 8px;
   font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
+  transition: 0.3s ease;
 
   &:hover {
-    background: #0056b3;
+    background: ${defaultTheme.color_outerspace};
   }
 `;

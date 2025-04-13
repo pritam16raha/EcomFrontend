@@ -68,27 +68,54 @@ const ProductListScreen = () => {
               <h2 className="text-xxl">Categories</h2>
 
               <div className="templateButton">
-                <button onClick={() => setCurrentCategory("all")}>All</button>
-                <button onClick={() => setCurrentCategory("accessories")}>
+                <button
+                  className={currentCategory === "All" ? "active" : ""}
+                  onClick={() => setCurrentCategory("All")}
+                >
+                  All
+                </button>
+                <button
+                  className={currentCategory === "accessories" ? "active" : ""}
+                  onClick={() => setCurrentCategory("accessories")}
+                >
                   Accessories
                 </button>
-                <button onClick={() => setCurrentCategory("streetFighter")}>
+                <button
+                  className={
+                    currentCategory === "streetFighter" ? "active" : ""
+                  }
+                  onClick={() => setCurrentCategory("streetFighter")}
+                >
                   Street Fighter
                 </button>
-                <button onClick={() => setCurrentCategory("newArrival")}>
+                <button
+                  className={currentCategory === "newArrival" ? "active" : ""}
+                  onClick={() => setCurrentCategory("newArrival")}
+                >
                   New Arrived
                 </button>
-                <button onClick={() => setCurrentCategory("city")}>City</button>
-                <button onClick={() => setCurrentCategory("tourer")}>
+                <button
+                  className={currentCategory === "city" ? "active" : ""}
+                  onClick={() => setCurrentCategory("city")}
+                >
+                  City
+                </button>
+                <button
+                  className={currentCategory === "tourer" ? "active" : ""}
+                  onClick={() => setCurrentCategory("tourer")}
+                >
                   Tourer
                 </button>
-                <button onClick={() => setCurrentCategory("essentials")}>
+                <button
+                  className={currentCategory === "essentials" ? "active" : ""}
+                  onClick={() => setCurrentCategory("essentials")}
+                >
                   Essentials
                 </button>
               </div>
             </div>
             <div>
-              {currentCategory === "all" && <ProductList />}
+              {currentCategory === "All" && <ProductList />}
               {currentCategory === "accessories" && (
                 <Accessories product={accessories} />
               )}
@@ -108,7 +135,7 @@ const ProductListScreen = () => {
         </ProductsContent>
       </Container>
 
-      <Section>
+      {/* <Section>
         <Container>
           <DescriptionScreen>
             <Title
@@ -151,7 +178,7 @@ const ProductListScreen = () => {
             </ContentStylings>
           </DescriptionScreen>
         </Container>
-      </Section>
+      </Section> */}
     </main>
   );
 };
@@ -178,17 +205,29 @@ const ProductsContentRight = styled.div`
 
   .templateButton {
     margin: auto;
+
     button {
       min-height: 50px;
       min-width: 100px;
       margin: 10px;
       border-radius: 10px;
+      background-color: #f2f2f2;
+      color: #333;
+      border: none;
+      font-weight: 500;
+      transition: all 0.3s ease;
 
       &:hover {
         cursor: pointer;
-        transform: scale(0.9);
+        transform: scale(0.95);
         background-color: #a1cecc;
-        transition: all 0.5s ease;
+      }
+
+      &.active {
+        background-color: #a1cecc; // or any custom color: ;
+        color: white;
+        font-weight: 600;
+        transform: scale(1);
       }
     }
   }

@@ -3,14 +3,10 @@ import { useMyAuth } from "../store/Auth";
 import SummaryApi, { BackendDomain } from "../commonData/SummaryApi";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
-import { toast } from "react-toastify";
 
 const UpdateUser = () => {
   const { authToken } = useMyAuth();
-
   const params = useParams();
-
-  console.log("Params Single user is: ", params);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -22,7 +18,7 @@ const UpdateUser = () => {
 
   const getCurrentUser = async () => {
     try {
-      const fetchedUser = await fetch(
+      const response = await fetch(
         `${BackendDomain}/ecom/getuserinfo/${params.id}`,
         {
           method: "GET",
@@ -31,12 +27,10 @@ const UpdateUser = () => {
           },
         }
       );
-
-      const responseData = await fetchedUser.json();
-      console.log("User I get", responseData);
-      setFormData(responseData);
+      const data = await response.json();
+      setFormData(data);
     } catch (err) {
-      console.log("Error from update user get current user", err);
+      console.log("Error fetching user data", err);
     }
   };
 
@@ -45,23 +39,17 @@ const UpdateUser = () => {
   }, []);
 
   const handleChange = (e) => {
-    let name = e.target.name;
-    let value = e.target.value;
-
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
-      const respondedData = await fetch(
+      const response = await fetch(
         `${BackendDomain}/ecom/updateuser/${params.id}`,
         {
-          method: "put",
+          method: "PUT",
           headers: {
             Authorization: authToken,
             "Content-Type": "application/json",
@@ -69,116 +57,139 @@ const UpdateUser = () => {
           body: JSON.stringify(formData),
         }
       );
-
-      if (respondedData.status === 200 || respondedData.ok) {
-        alert("Update Complete");
-      }
+      if (response.ok) alert("Update successful!");
     } catch (err) {
-      console.log("Error From User update page", err);
+      console.log("Error updating user", err);
     }
   };
 
   return (
-    <Container>
-      <Form onSubmit={handleSubmit}>
-        <Input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={formData.name}
-          onChange={handleChange}
-        />
+    <PageWrapper>
+      <FormCard onSubmit={handleSubmit}>
+        <h2>Update User</h2>
+        <FieldGroup>
+          <label>Name</label>
+          <StyledInput
+            type="text"
+            name="name"
+            value={formData.name}
+            onChange={handleChange}
+          />
+        </FieldGroup>
 
-        <Input
-          type="text"
-          name="username"
-          placeholder="Role"
-          value={formData.username}
-          onChange={handleChange}
-        />
+        <FieldGroup>
+          <label>Username</label>
+          <StyledInput
+            type="text"
+            name="username"
+            value={formData.username}
+            onChange={handleChange}
+          />
+        </FieldGroup>
 
-        <Input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
-          onChange={handleChange}
-        />
-        <Input
-          type="text"
-          name="role"
-          placeholder="Role"
-          value={formData.role}
-          onChange={handleChange}
-        />
-        <Input
-          type="password"
-          name="password"
-          placeholder="Password"
-          value={formData.password}
-          onChange={handleChange}
-        />
+        <FieldGroup>
+          <label>Email</label>
+          <StyledInput
+            type="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+          />
+        </FieldGroup>
 
-        <Button type="submit">Submit</Button>
-      </Form>
-      {/* {submittedData && (
-          // <UserInfo>
-          //   <h2>User Info</h2>
-          //   <p>Name: {submittedData.name}</p>
-          //   <p>Email: {submittedData.email}</p>
-          //   <p>Role: {submittedData.role}</p>
-          // </UserInfo>
-        )} */}
-    </Container>
+        <FieldGroup>
+          <label>Role</label>
+          <StyledInput
+            type="text"
+            name="role"
+            value={formData.role}
+            onChange={handleChange}
+          />
+        </FieldGroup>
+
+        <FieldGroup>
+          <label>Password</label>
+          <StyledInput
+            type="password"
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+          />
+        </FieldGroup>
+
+        <StyledButton type="submit">Update</StyledButton>
+      </FormCard>
+    </PageWrapper>
   );
 };
 
 export default UpdateUser;
 
-const Container = styled.div`
+// Styled Components
+const PageWrapper = styled.div`
+  min-height: 100vh;
+  background: #f8fafc;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  height: 100vh;
-  background-color: #f0f0f0;
+  align-items: center;
+  padding: 24px;
 `;
 
-const Form = styled.form`
-  display: flex;
-  flex-direction: column;
+const FormCard = styled.form`
   background: #fff;
-  padding: 20px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 32px 36px;
+  border-radius: 12px;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.08);
+  width: 100%;
+  max-width: 480px;
+
+  h2 {
+    font-size: 24px;
+    margin-bottom: 24px;
+    color: #2f2f2f;
+    text-align: center;
+  }
 `;
 
-const Input = styled.input`
-  margin: 10px 0;
-  padding: 10px;
+const FieldGroup = styled.div`
+  margin-bottom: 18px;
+  label {
+    display: block;
+    margin-bottom: 6px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+  }
+`;
+
+const StyledInput = styled.input`
+  width: 100%;
+  padding: 12px 14px;
+  font-size: 15px;
   border: 1px solid #ccc;
-  border-radius: 3px;
-  font-size: 16px;
+  border-radius: 8px;
+  transition: border 0.2s ease;
+
+  &:focus {
+    border-color: #007bff;
+    outline: none;
+  }
 `;
 
-const Button = styled.button`
-  padding: 10px;
+const StyledButton = styled.button`
+  margin-top: 10px;
+  width: 100%;
+  padding: 12px;
   background: #007bff;
   color: white;
   border: none;
-  border-radius: 3px;
+  border-radius: 8px;
   font-size: 16px;
+  font-weight: 600;
   cursor: pointer;
+  transition: background 0.2s ease;
 
   &:hover {
     background: #0056b3;
   }
-`;
-
-const UserInfo = styled.div`
-  margin-top: 20px;
-  padding: 20px;
-  background: #fff;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 `;

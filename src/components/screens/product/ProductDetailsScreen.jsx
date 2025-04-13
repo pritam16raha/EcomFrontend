@@ -78,13 +78,40 @@ const ProductDetailsScreen = () => {
     ></span>
   ));
 
+  const addToCart = () => {
+    const existingItem = cart.find((item) => item._id === curProduct._id);
+
+    let updatedCart;
+
+    if (existingItem) {
+      updatedCart = cart.map((item) =>
+        item._id === curProduct._id
+          ? { ...item, quantity: item.quantity + 1 }
+          : item
+      );
+    } else {
+      updatedCart = [...cart, { ...curProduct, quantity: 1 }];
+    }
+
+    setCart(updatedCart);
+    localStorage.setItem("My Cart Now", JSON.stringify(updatedCart));
+    toast.success("Item added to cart");
+  };
+
+
   return (
     <DetailsScreenWrapper>
       <Container>
         <BreadCrumb items={breadCrumbItems} />
         <DetailsContent>
           {/* <ProductPreview previewImages={product_one.previewImages}/> */}
-          {curProduct && <ProductPreview previewImages={curProduct?.image} />}
+          <PreviewWrapper>
+            {curProduct?.image?.length > 0 ? (
+              <ProductPreview previewImages={curProduct.image} />
+            ) : (
+              <EmptyPreview />
+            )}
+          </PreviewWrapper>
 
           <ProductDetailsWrapper>
             <h2 className="prod-title">{curProduct?.name}</h2>
@@ -106,15 +133,17 @@ const ProductDetailsScreen = () => {
 
             <div className="btn-and-price flex items-center flex-wrap">
               <BaseLinkGreen
-                onClick={() => {
-                  setCart([...cart, curProduct]);
-                  localStorage.setItem(
-                    "My Cart Now",
-                    JSON.stringify([...cart, curProduct])
-                  );
-                  toast.success("Item Added To Cart");
-                }}
+                // onClick={() => {
+                //   setCart([...cart, curProduct]);
+                //   localStorage.setItem(
+                //     "My Cart Now",
+                //     JSON.stringify([...cart, curProduct])
+                //   );
+                //   toast.success("Item Added To Cart");
+                // }}
                 // to="/cart"
+
+                onClick={addToCart}
                 as={BaseLinkGreen}
                 className="prod-add-btn"
               >
@@ -142,19 +171,30 @@ const DetailsScreenWrapper = styled.main`
   margin: 40px 0;
 `;
 
-const DetailsContent = styled.div`
-  grid-template-columns: repeat(2, 1fr);
-  gap: 40px;
+const PreviewWrapper = styled.div`
+  min-height: 400px;
+`;
 
-  @media (max-width: ${breakpoints.xl}) {
-    gap: 24px;
-    grid-template-columns: 3fr 2fr;
-  }
+const EmptyPreview = styled.div`
+  min-height: 400px;
+  background-color: #f9f9f9;
+  border-radius: 16px;
+`;
+
+
+const DetailsContent = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: flex-start;
+  gap: 48px;
+  margin-top: 32px;
 
   @media (max-width: ${breakpoints.lg}) {
-    grid-template-columns: 100%;
+    grid-template-columns: 1fr;
+    gap: 32px;
   }
 `;
+
 
 const ProductDetailsWrapper = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.1);

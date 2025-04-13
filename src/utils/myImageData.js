@@ -1,4 +1,4 @@
-import logo from "../assets/myImage/Logo/Pritam Garage (1).jpg";
+import logo from "../assets/myImage/Logo/brand_logo.png";
 import logo2 from "../assets/myImage/Logo/raha-enterprise-high-resolution-logo-black-transparent (2).png";
 import search from "../assets/myImage/extra/search.png";
 import menuIcon from "../assets/myImage/extra/hamburger.png";

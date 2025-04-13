@@ -63,7 +63,7 @@ const SignInScreen = () => {
       //localStorage.setItem("access token is: ", loginDataApi.access_Token);
 
       console.log("data i have filled : ", loginData);
-      navigate("/userinfo");
+      navigate("/account");
     }
 
     if (

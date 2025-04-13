@@ -14,10 +14,9 @@ import { BackendDomain } from "../../../commonData/SummaryApi";
 
 const OrderDetailScreen = () => {
   const { currentUser, authToken } = useMyAuth();
-
   const [orderData, setOrderData] = useState([]);
 
-  const getAllOrder = async (req, res, next) => {
+  const getAllOrder = async () => {
     try {
       const userId = { id: currentUser._id };
       const orderAginstUser = await fetch(
@@ -42,13 +41,8 @@ const OrderDetailScreen = () => {
     getAllOrder();
   }, []);
 
-  const changeDatabaseTime = ( timeIgot ) => {
- 
-
-    // Convert to a Date object
+  const changeDatabaseTime = (timeIgot) => {
     const dateObject = new Date(timeIgot);
-
-    // Convert to Indian Standard Time (IST) (GMT +5:30)
     const options = {
       timeZone: "Asia/Kolkata",
       year: "numeric",
@@ -59,127 +53,62 @@ const OrderDetailScreen = () => {
       second: "2-digit",
       hour12: true,
     };
-
-    const formattedDate = dateObject.toLocaleString("en-IN", options);
-    // console.log("date and time is", formattedDate);
-    return formattedDate; // Output will be something like "August 14, 2024, 11:54 PM"
+    return dateObject.toLocaleString("en-IN", options);
   };
 
-  console.log("Order is", orderData);
   return (
-    <OrderDetailScreenWrapper className="page-py-spacing">
+    <OrderDetailScreenWrapper>
       <Container>
         <BreadCrumb items={breadcrumbItems} />
         <UserDashboardWrapper>
           <UserMenu username={currentUser.name} />
           <UserContent>
-            <div className="flex items-center justify-start btn-and-title-wrapper">
-              <Link
-                to="/order"
-                className="btn-go-back inline-flex items-center justify-center text-xxl"
-              >
+            <div className="header-bar">
+              <Link to="/order" className="go-back">
                 <i className="bi bi-chevron-left"></i>
               </Link>
               <Title titleText={"Order Details"} />
             </div>
-            {orderData?.map((item, index) => {
-              return (
-                <div className="order-d-wrapper" key={index}>
-                  <div className="order-d-top flex justify-between items-start">
-                    <div className="order-d-top-l">
-                      <h4 className="text-3xl order-d-no">
-                        Order no: {item?._id}
-                      </h4>
-                      <p className="text-lg font-medium text-gray">
-                        Placed On {(changeDatabaseTime(item?.createdAt))}
-                      </p>
-                    </div>
-                    <div className="order-d-top-r text-xxl text-gray font-semibold">
-                      Total:{" "}
-                      <span className="text-outerspace">
-                        {item?.amount} INR
-                      </span>
-                    </div>
+            {orderData?.map((order, index) => (
+              <OrderCard key={index}>
+                <div className="order-header">
+                  <div>
+                    <h4>Order no: {order?._id}</h4>
+                    <p>Placed On {changeDatabaseTime(order?.createdAt)}</p>
                   </div>
-
-                  <OrderDetailStatusWrapper className="order-d-status">
-                    <div className="order-status bg-silver">
-                      <div className="order-status-dot status-done bg-silver">
-                        <span className="order-status-text font-semibold text-center no-wrap text-silver">
-                          Order Placed
-                        </span>
+                  <div className="order-total">Total: ₹{order?.amount}</div>
+                </div>
+                <OrderProgress>
+                  <span className="dot done">Order Placed</span>
+                  <span className="dot current">{order?.status}</span>
+                  <span className="dot">Shipped</span>
+                  <span className="dot">Delivered</span>
+                </OrderProgress>
+                <MessageBox>
+                  <p>
+                    8 June 2023 3:40 PM -{" "}
+                    <span>Your order has been successfully verified.</span>
+                  </p>
+                </MessageBox>
+                <OrderItems>
+                  {order?.items?.map((item) => (
+                    <div className="item" key={item.id}>
+                      <div className="img-wrap">
+                        <img src={item.imgSource} alt="" />
                       </div>
-                      <div className="order-status-dot status-current bg-silver">
-                        <span className="order-status-text font-semibold text-center no-wrap text-silver">
-                          {item?.status}
-                        </span>
+                      <div className="info">
+                        <h5>{item.name}</h5>
+                        <p>Color: {item.color}</p>
                       </div>
-                      <div className="order-status-dot bg-silver">
-                        <span className="order-status-text font-semibold text-center no-wrap text-silver">
-                          Shipped
-                        </span>
-                      </div>
-                      <div className="order-status-dot bg-silver">
-                        <span className="order-status-text font-semibold text-center no-wrap text-silver">
-                          Delivered
-                        </span>
+                      <div className="calc">
+                        <p>Qty: {item.quantity}</p>
+                        <p>Price: {currencyFormat(item.price)}</p>
                       </div>
                     </div>
-                  </OrderDetailStatusWrapper>
-                  <OrderDetailMessageWrapper className="order-message flex items-center justify-start">
-                    <p className="font-semibold text-gray">
-                      8 June 2023 3:40 PM &nbsp;
-                      <span className="text-outerspace">
-                        Your order has been successfully verified.
-                      </span>
-                    </p>
-                  </OrderDetailMessageWrapper>
-
-                  <OrderDetailListWrapper className="order-d-list">
-                    {orderData?.items?.map((item) => {
-                      return (
-                        <div className="order-d-item grid" key={item.id}>
-                          <div className="order-d-item-img">
-                            <img
-                              src={item.imgSource}
-                              alt=""
-                              className="object-fit-cover"
-                            />
-                          </div>
-                          <div className="order-d-item-info">
-                            <p className="text-xl font-bold">{item.name}</p>
-                            <p className="text-md font-bold">
-                              Color: &nbsp;
-                              <span className="font-medium text-gray">
-                                {item.color}
-                              </span>
-                            </p>
-                          </div>
-                          <div className="order-d-item-calc">
-                            <p className="font-bold text-lg">
-                              Qty: &nbsp;
-                              <span className="text-gray">{item.quantity}</span>
-                            </p>
-                            <p className="font-bold text-lg">
-                              Price: &nbsp;
-                              <span className="text-gray">
-                                {currencyFormat(item.price)}
-                              </span>
-                            </p>
-                          </div>
-                          <button
-                            type="button"
-                            className="text-xl text-outerspace order-d-item-btn"
-                          >
-                            <i className="bi bi-x-lg"></i>
-                          </button>
-                        </div>
-                      );
-                    })}
-                  </OrderDetailListWrapper>
-                </div>
-              );
-            })}
+                  ))}
+                </OrderItems>
+              </OrderCard>
+            ))}
           </UserContent>
         </UserDashboardWrapper>
       </Container>
@@ -190,166 +119,145 @@ const OrderDetailScreen = () => {
 export default OrderDetailScreen;
 
 const OrderDetailScreenWrapper = styled.main`
-  .btn-and-title-wrapper {
+  .header-bar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
     margin-bottom: 24px;
-    .title {
-      margin-bottom: 0;
-    }
-
-    .btn-go-back {
-      margin-right: 12px;
-      transition: ${defaultTheme.default_transition};
-
-      &:hover {
-        margin-right: 16px;
-      }
-    }
   }
 
-  .order-d-top {
-    background-color: ${defaultTheme.color_whitesmoke};
-    padding: 26px 32px;
-    border-radius: 8px;
-    border: 1px solid rgba(0, 0, 0, 0.05);
-  }
-`;
+  .go-back {
+    font-size: 22px;
+    color: ${defaultTheme.color_gray};
+    transition: 0.3s;
 
-const OrderDetailStatusWrapper = styled.div`
-  margin: 0 36px;
-
-  .order-status {
-    height: 4px;
-    margin: 50px 0;
-    max-width: 580px;
-    width: 340px;
-    margin-left: auto;
-    margin-right: auto;
-    position: relative;
-    margin-bottom: 70px;
-
-    &-dot {
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-
-      &:nth-child(1) {
-        left: 0;
-      }
-
-      &:nth-child(2) {
-        left: calc(33.3333% - 10px);
-      }
-
-      &:nth-child(3) {
-        left: calc(66.6666% - 10px);
-      }
-      &:nth-child(4) {
-        right: 0;
-      }
-
-      &.status-done {
-        background-color: ${defaultTheme.color_outerspace};
-        .order-status-text {
-          color: ${defaultTheme.color_outerspace};
-        }
-      }
-
-      &.status-current {
-        position: absolute;
-        &::after {
-          content: "";
-          position: absolute;
-          width: 12px;
-          height: 12px;
-          background-color: ${defaultTheme.color_outerspace};
-          left: 50%;
-          top: 50%;
-          transform: translate(-50%, -50%);
-          z-index: 30;
-          border-radius: 50%;
-        }
-
-        .order-status-text {
-          color: ${defaultTheme.color_outerspace};
-        }
-      }
-    }
-
-    &-text {
-      position: absolute;
-      top: calc(100% + 8px);
-      left: 50%;
-      transform: translateX(-50%);
+    &:hover {
+      color: ${defaultTheme.color_sea_green};
     }
   }
 `;
 
-const OrderDetailMessageWrapper = styled.div`
-  background-color: ${defaultTheme.color_whitesmoke};
-  max-width: 748px;
-  margin-right: auto;
-  margin-left: auto;
-  min-height: 68px;
-  padding: 16px 24px;
-  border-radius: 8px;
-  position: relative;
-  margin-top: 80px;
-
-  &::after {
-    content: "";
-    position: absolute;
-    top: -34px;
-    left: 20%;
-    border-bottom: 22px solid ${defaultTheme.color_whitesmoke};
-    border-top: 18px solid transparent;
-    border-left: 18px solid transparent;
-    border-right: 18px solid transparent;
-  }
-`;
-
-const OrderDetailListWrapper = styled.div`
+const OrderCard = styled.div`
+  margin-bottom: 40px;
   padding: 24px;
-  margin-top: 40px;
-  border: 1px solid rgba(0, 0, 0, 0.05);
+  border-radius: 12px;
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
 
-  .order-d-item {
-    grid-template-columns: 80px 1fr 1fr 32px;
+  .order-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 16px;
+
+    h4 {
+      font-size: 20px;
+      margin-bottom: 4px;
+    }
+    p {
+      color: ${defaultTheme.color_gray};
+      font-size: 14px;
+    }
+  }
+
+  .order-total {
+    font-size: 18px;
+    font-weight: bold;
+    color: ${defaultTheme.color_outerspace};
+  }
+`;
+
+const OrderProgress = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 24px 0;
+
+  .dot {
+    font-size: 13px;
+    padding: 6px 12px;
+    background: #e5e7eb;
+    border-radius: 16px;
+    color: #555;
+    font-weight: 500;
+  }
+
+  .done {
+    background: #34d399;
+    color: white;
+  }
+  .current {
+    background: #f59e0b;
+    color: white;
+  }
+`;
+
+const MessageBox = styled.div`
+  background-color: #fef3c7;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+
+  p {
+    font-size: 14px;
+    color: #92400e;
+
+    span {
+      font-weight: bold;
+      color: #78350f;
+    }
+  }
+`;
+
+const OrderItems = styled.div`
+  .item {
+    display: grid;
+    grid-template-columns: 80px 1fr 1fr;
     gap: 20px;
     padding: 12px 0;
-    border-bottom: 1px solid ${defaultTheme.color_whitesmoke};
-    position: relative;
-
-    &:first-child {
-      padding-top: 0;
-    }
+    border-bottom: 1px solid #e5e7eb;
 
     &:last-child {
-      padding-bottom: 0;
-      border-bottom: 0;
+      border-bottom: none;
     }
 
-    &-img {
+    .img-wrap {
       width: 80px;
       height: 80px;
       border-radius: 8px;
       overflow: hidden;
-      box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
-    }
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 
-    &-calc {
-      p {
-        display: inline-block;
-        margin-right: 50px;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
       }
     }
 
-    &-btn {
-      margin-bottom: auto;
-      &:hover {
-        color: ${defaultTheme.color_sea_green};
+    .info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      h5 {
+        font-size: 16px;
+        margin-bottom: 4px;
+      }
+
+      p {
+        color: ${defaultTheme.color_gray};
+        font-size: 14px;
+      }
+    }
+
+    .calc {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      p {
+        font-size: 14px;
+        font-weight: 500;
+        color: #374151;
       }
     }
   }

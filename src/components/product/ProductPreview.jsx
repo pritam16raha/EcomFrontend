@@ -45,18 +45,35 @@ const ProductPreview = ({ previewImages }) => {
   
   export default ProductPreview;
 
-  const ProductPreviewWrapper = styled.div`
-  grid-template-columns: 72px auto;
+const ProductPreviewWrapper = styled.div`
+  display: grid;
+  grid-template-columns: 72px 1fr;
   gap: 24px;
+  align-items: flex-start;
 
   .preview-items {
-   
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 420px;
+    overflow-y: auto;
+    padding-right: 4px;
   }
 
-  .preview-display{
-    max-width: 40rem;
-    max-height: 40rem;
-    margin: auto;
+  .preview-item-wrapper {
+    padding-top: 4px;
+    padding-bottom: 4px;
+    border-radius: 10px;
+    transition: border 0.3s ease;
+
+    &.active .preview-item {
+      outline: 2px solid ${defaultTheme.color_primary};
+    }
+
+    &:hover .preview-item {
+      transform: scale(1.05);
+      outline: 2px solid ${defaultTheme.color_gray};
+    }
   }
 
   .preview-item {
@@ -65,24 +82,52 @@ const ProductPreview = ({ previewImages }) => {
     overflow: hidden;
     border-radius: 8px;
     cursor: pointer;
-    transition: ${defaultTheme.default_transition};
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 8px;
+    }
   }
 
+  .preview-display {
+    max-width: 40rem;
+    max-height: 40rem;
+    margin: auto;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 10px 32px rgba(0, 0, 0, 0.08);
 
-    &:hover {
-      opacity: 0.9;
-      outline: 1px solid ${defaultTheme.color_gray};
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      border-radius: 16px;
+      transition: transform 0.3s ease;
     }
 
-    &-wrapper {
-      padding-top: 4px;
-      padding-bottom: 4px;
-
-
+    &:hover img {
+      transform: scale(1.02);
     }
-`
+  }
 
-// export const getProductDetails = async (productId: string) => {
-//     const product = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${productId}`)
-//     return await product.json()
-//   }
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+
+    .preview-items {
+      flex-direction: row;
+      justify-content: center;
+      overflow-x: auto;
+      max-height: unset;
+    }
+
+    .preview-display {
+      margin-top: 20px;
+      max-width: 100%;
+    }
+  }
+`;

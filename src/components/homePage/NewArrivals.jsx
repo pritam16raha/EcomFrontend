@@ -79,43 +79,130 @@ const NewArrivals = () => {
 
 export default NewArrivals;
 
+// const ProductCardBoxWrapper = styled(Link)`
+//   ${commonCardStyle}
+//   .product-img {
+//     height: 262px;
+//     width: 262px;
+//   }
+
+//   @media (max-width: ${breakpoints.sm}) {
+//     padding-left: 6px;
+//     padding-right: 6px;
+//   }
+// `;
+
 const ProductCardBoxWrapper = styled(Link)`
   ${commonCardStyle}
+  width: 280px;
+  margin: 0 12px;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.12);
+  }
+
   .product-img {
     height: 262px;
-    width: 262px;
+    width: 100%;
+    object-fit: cover;
+    border-bottom: 1px solid #eaeaea;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    &:hover img {
+      transform: scale(1.05);
+    }
+  }
+
+  .product-info {
+    padding: 1rem;
+    font-size: 1.125rem;
+    color: #333;
+
+    p {
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #111;
+      margin-top: 0.5rem;
+    }
   }
 
   @media (max-width: ${breakpoints.sm}) {
-    padding-left: 6px;
-    padding-right: 6px;
+    width: 240px;
+    margin: 0 8px;
+
+    .product-img {
+      height: 200px;
+    }
+
+    .product-info {
+      font-size: 1rem;
+    }
   }
 `;
 
+
 const ArrivalSliderWrapper = styled.div`
+  position: relative;
+
+  .custom-prev-arrow,
+  .custom-next-arrow {
+    position: absolute;
+    top: 40%;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
+  }
+
   .custom-prev-arrow {
-    top: 43%;
-    left: -10px;
+    left: -18px;
 
     @media (max-width: ${breakpoints.xxl}) {
-      left: 24px;
+      left: 10px;
     }
 
     @media (max-width: ${breakpoints.xs}) {
-      left: 4px;
+      left: 0;
     }
   }
 
   .custom-next-arrow {
-    top: 43%;
-    right: -10px;
+    right: -18px;
 
     @media (max-width: ${breakpoints.xxl}) {
-      right: 24px;
+      right: 10px;
     }
 
     @media (max-width: ${breakpoints.xs}) {
-      right: 4px;
+      right: 0;
     }
   }
 `;
+

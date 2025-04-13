@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react'
 import styled from 'styled-components';
-import logo from "../../../assets/myImage/Logo/Pritam Garage (1).jpg"
+import logo from "../../../assets/myImage/Logo/brand_logo.png";
 
 const LoginScreen = () => {
 
